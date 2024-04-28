@@ -203,9 +203,96 @@ Window {
                                 width:userstable_container.width
                                 height:userstable_container.height*0.1
                                 color:'transparent'
+
+                                Row{
+                                    ActionButton{
+                                        id: searchButton
+                                        width:searchUserContainer.width*0.1
+                                        height:searchUserContainer.height
+                                        color: 'transparent'
+                                        antialiasing: true
+                                        imagepath: "imgs/svg/search.svg"
+                                        onClickButton: enableFilter(searchText.text)
+                                    }
+
+                                    Rectangle{
+                                        width:searchUserContainer.width*0.8
+                                        height:searchUserContainer.height
+                                        color:'transparent'
+
+                                        TextField{
+                                            id: searchText
+                                            width: parent.width
+                                            height:parent.height*0.9
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            placeholderText: 'Enter username, email or phone number'
+                                            color:'black'
+
+                                            background: Rectangle{
+                                                color :'lightgray'
+                                                radius:5
+                                            }
+
+                                            onAccepted: enableFilter(text);
+                                        }
+                                    }
+
+                                    ActionButton{
+                                        id: reloadButton
+                                        width:searchUserContainer.width*0.1
+                                        height:searchUserContainer.height
+                                        color: 'transparent'
+                                        antialiasing: true
+                                        imagepath: "imgs/svg/reload.svg"
+                                        onClickButton: {
+                                            disableFilter();
+                                            searchText.text = "";
+                                        }
+                                    }
+                                }
                             }
 
+                            Rectangle{
+                                width:userstable_container.width
+                                height:userstable_container.height*0.9
+                                color:'transparent'
 
+                                Rectangle{
+                                    id: cellsContainer
+                                    width: parent.width*0.98
+                                    height:parent.height*0.98
+                                    anchors.centerIn: parent
+                                    color: 'white'
+
+                                    TableView {
+                                        clip: true
+                                        id: userstable_tableview
+                                        visible:true
+                                        anchors.fill: parent
+                                        model: usersTable // C++
+                                        columnSpacing: Math.min(parent.width,parent.height)*0.003
+                                        rowSpacing: Math.min(parent.width,parent.height)*0.003
+
+                                        delegate: Rectangle {
+                                            clip:true
+                                            implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/4
+                                            implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/8
+                                            border.width: 1
+
+                                            TextEdit {
+                                                id: textFromSearching
+                                                readOnly: true
+                                                font.pixelSize: Math.min(parent.width,parent.height)/4
+                                                color: 'black'
+                                                text: display
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                anchors.left: parent.left
+                                                anchors.leftMargin: parent.width/25
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
