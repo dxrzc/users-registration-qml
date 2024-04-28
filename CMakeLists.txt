@@ -31,6 +31,7 @@ qt_add_qml_module(appusers-registration-qml
     RESOURCES
         views/imgs/svg/check.svg
         views/imgs/svg/wrong.svg
+        views/imgs/svg/criticalError.svg
 
     SOURCES
         domain/entities/birthdate/birthdate.h

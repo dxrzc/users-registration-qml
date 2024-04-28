@@ -23,6 +23,23 @@ Window {
 
     }
 
+    Image{
+        id: background_image
+        anchors.fill: parent
+        source: "imgs/background.jpg" // TODO
+    }
+
+    MultiEffect{
+        id: background_blur
+        source: background_image
+        width: components_container.width
+        height: components_container.height
+        anchors.centerIn: parent
+        blurEnabled: false
+        blurMax: 32
+        blur: 1.0
+    }
+
     Rectangle{
         id: components_container
         color: "#80000000"
@@ -197,6 +214,77 @@ Window {
                     }
                 }
             }
+        }
+    }
+
+    Rectangle{
+        color: "#00000000"
+        id: error_view_container
+        visible:false
+        width:parent.width*0.25
+        height:parent.height*0.5
+        anchors.centerIn: parent
+
+        Column{
+            id: error_view_column
+            anchors.fill: parent
+
+            Rectangle{ // 65%
+                id: error_image_container
+                antialiasing: true
+                color: "#00000000"
+                width:error_view_container.width
+                height:error_view_container.height*0.65
+
+                Image{
+                    source: 'imgs/svg/criticalError.svg'
+                    height:parent.height
+                    fillMode:Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                }
+            }
+
+            Rectangle{ // 20%
+                id: error_text_container
+                color: "#00000000"
+                width:error_view_container.width
+                height:error_view_container.height*0.2
+
+                Text {
+                    anchors.centerIn: parent
+                    color:'white'
+                    font.pixelSize: Math.min(parent.width,parent.height)*0.3
+                    text: qsTr("Failed to connect to database")
+                }
+            }
+
+            Rectangle{ // 15%
+                id: error_retrybutton_container
+                color: "#00000000"
+                width:error_view_container.width
+                height:error_view_container.height*0.15
+
+                MyButton{
+                    id:retrybutton
+                    anchors.fill: parent
+                    buttonColor: 'gray'
+                    buttonHoveredColor: '#6c6c6c'
+                    textColor: 'white'
+                    buttonText: 'Retry'
+                    buttonTextSize: Math.min(parent.width,parent.height)*0.4
+                    onClickbutton: function(){
+                        console.log('RetryClicked');
+                    }
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        if(!QmlDto.databaseIsOpen()){
+            error_view_container.visible = true;
+            componets_column.visible = false;
+            background_blur.blurEnabled=true;
         }
     }
 }
