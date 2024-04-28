@@ -18,6 +18,10 @@ qt_add_qml_module(appusers-registration-qml
     VERSION 1.0
     QML_FILES
         views/Main.qml
+
+    SOURCES
+        domain/entities/birthdate/birthdate.h
+        domain/entities/birthdate/birthdate.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
