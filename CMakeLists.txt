@@ -5,7 +5,7 @@ project(users-registration-qml VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Sql)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -24,6 +24,9 @@ qt_add_qml_module(appusers-registration-qml
         domain/entities/birthdate/birthdate.cpp
         domain/datasource/Datasource.h
         domain/errors/errorhandler.h
+        
+        infraestructure/db/postgredatasource.h
+        infraestructure/db/postgredatasource.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -38,7 +41,9 @@ set_target_properties(appusers-registration-qml PROPERTIES
 )
 
 target_link_libraries(appusers-registration-qml
-    PRIVATE Qt6::Quick
+    PRIVATE 
+    Qt6::Quick
+    Qt6::Sql
 )
 
 include(GNUInstallDirs)
