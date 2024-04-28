@@ -205,11 +205,7 @@ Window {
                                 color:'transparent'
                             }
 
-                            Rectangle{
-                                width:userstable_container.width
-                                height:userstable_container.height*0.9
-                                color:'transparent'
-                            }
+
                         }
                     }
                 }

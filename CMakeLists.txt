@@ -23,6 +23,7 @@ qt_add_qml_module(appusers-registration-qml
         views/InputComponent.qml
         views/MyButton.qml
         views/SelectBirthdate.qml
+        views/ActionButton.qml
 
         # Javascript
         views/js/generate.js
@@ -32,6 +33,8 @@ qt_add_qml_module(appusers-registration-qml
         views/imgs/svg/check.svg
         views/imgs/svg/wrong.svg
         views/imgs/svg/criticalError.svg
+        views/imgs/svg/search.svg
+        views/imgs/svg/reload.svg
 
     SOURCES
         domain/entities/birthdate/birthdate.h
@@ -48,6 +51,7 @@ qt_add_qml_module(appusers-registration-qml
 
         interface/table/userTableModel.h
         interface/table/userTableModel.cpp
+
 
 )
 
