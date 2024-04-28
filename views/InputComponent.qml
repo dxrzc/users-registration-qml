@@ -17,6 +17,7 @@ Item{
     function clearField(){
         text_field.text = "";
         control.icon_path = "";
+        good_data = false;
     }
 
     Column{
