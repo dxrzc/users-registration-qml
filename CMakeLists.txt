@@ -28,6 +28,10 @@ qt_add_qml_module(appusers-registration-qml
         views/js/generate.js
         views/js/validate.js
 
+    RESOURCES
+        views/imgs/svg/check.svg
+        views/imgs/svg/wrong.svg
+
     SOURCES
         domain/entities/birthdate/birthdate.h
         domain/entities/birthdate/birthdate.cpp
