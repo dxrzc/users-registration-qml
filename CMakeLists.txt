@@ -35,6 +35,7 @@ qt_add_qml_module(appusers-registration-qml
         
         infraestructure/db/postgredatasource.h
         infraestructure/db/postgredatasource.cpp
+        QML_FILES views/MyButton.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
