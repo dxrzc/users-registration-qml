@@ -39,6 +39,8 @@ qt_add_qml_module(appusers-registration-qml
         domain/entities/user/user.cpp
         domain/datasource/Datasource.h
         domain/errors/errorhandler.h
+        domain/dtos/qmldto.h
+        domain/dtos/qmldto.cpp
         
         infraestructure/db/postgredatasource.h
         infraestructure/db/postgredatasource.cpp
