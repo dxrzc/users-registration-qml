@@ -49,7 +49,7 @@ Item{
             Row{
                 id: selections_row
                 anchors.fill: parent
-                spacing:parent.width*0.01 //1% = 2%
+                spacing:parent.width*0.01
 
                 ComboBox {
                     id: month_field

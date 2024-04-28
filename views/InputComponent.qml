@@ -80,12 +80,12 @@ Item{
 
                         if(InputValidator.validateData(text_field.text,control.phonenumberInput,control.usernameInput,control.emailInput,QmlDto)){
 
-                            control.icon_path = "imgs/check.svg";
+                            control.icon_path = "imgs/check/svg.svg";
                             control.good_data = true;
                         }
                         else{
                             control.good_data = false;
-                            control.icon_path = "imgs/wrong.svg";
+                            control.icon_path = "imgs/wrong/svg.svg";
                         }
                     }
                 }
