@@ -1,11 +1,31 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include<QQmlContext>
+#include "infraestructure/db/postgredatasource.h"
+#include "interface/table/userTableModel.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    ConnectionOptions options(
+        "localhost",
+        "DiegoRodriguez", // user
+        "anexo123", // pass
+        "Users", // db
+        5433);
+
+    ErrorHandler* errorhandler = new ErrorHandler();
+    engine.rootContext()->setContextProperty("errorhandler", errorhandler);
+
+    qmlDto* dto = new qmlDto(new PostgreDataSource(options,errorhandler));
+    engine.rootContext()->setContextProperty("QmlDto",dto);
+
+    UserTableModel tb(dto);
+    engine.rootContext()->setContextProperty("usersTable", &tb);
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
