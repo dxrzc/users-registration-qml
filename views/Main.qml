@@ -15,12 +15,35 @@ Window {
 
     function create_user()
     {
+        if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
+            const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
+            QmlDto.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
+        }
+    }
 
+    function resetTableView()
+    {
+        userstable_tableview.model = "";
+        userstable_tableview.model = usersTable;
+        userstable_tableview.positionViewAtRow(0,TableView.AlignTop);
     }
 
     function clear_fields()
     {
+        input_phonenumber.clearField();
+        input_email.clearField();
+        input_username.clearField();
+        selection_birthdate.clearFields();
+    }
 
+    function enableFilter(text){
+        QmlDto.enableFilter(text);
+        resetTableView();
+    }
+
+    function disableFilter(){
+        QmlDto.disableFilter();
+        resetTableView();
     }
 
     Image{
