@@ -13,6 +13,8 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
+    // TODO: View At last row when user is created
+
     function create_user()
     {
         if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
@@ -55,17 +57,15 @@ Window {
     MultiEffect{
         id: background_blur
         source: background_image
-        width: components_container.width
-        height: components_container.height
-        anchors.centerIn: parent
-        blurEnabled: false
-        blurMax: 32
+        anchors.fill: components_container
+        blurEnabled: true
+        blurMax: 10
         blur: 1.0
     }
 
     Rectangle{
         id: components_container
-        color: "#80000000"
+        color: "#50000000"
         width: parent.width*0.85
         height:parent.height*0.90
         anchors.centerIn: parent
@@ -73,7 +73,6 @@ Window {
 
         Column{
             id: componets_column
-            visible:true
             anchors.left: parent.left
             anchors.leftMargin:(parent.width/2)-(width/2)
             width:parent.width*0.95
