@@ -41,7 +41,7 @@ Item{
 
             Rectangle{
                 color: "#00000000"
-                width:parent.width*0.9
+                width:parent.width
                 height:parent.height
 
                 TextField{
@@ -57,7 +57,7 @@ Item{
                     validator: RegularExpressionValidator {
                         regularExpression:{
                             switch(true){
-                            case(control.usernameInput) : return /^[A-Za-z0-9_]{14}$/;
+                            case(control.usernameInput) : return /^[A-Za-z0-9_]{20}$/;
                             case (control.phonenumberInput): return /^[0-9]{9}$/;
                             case(control.emailInput):return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                             default: return /^.+$/;
