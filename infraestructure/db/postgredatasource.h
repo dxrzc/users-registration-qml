@@ -20,8 +20,9 @@ struct ConnectionOptions
         database(database), PORT(PORT) {}
 };
 
-class PostgreDataSource: public DataSource
+class PostgreDataSource: public QObject,public DataSource
 {
+    Q_OBJECT
 private:
     QSqlDatabase database;
     QString tableName;
@@ -35,7 +36,7 @@ private:
     bool checkIfPhoneNumberAlreadyExists(const QString& phoneNumber)const override;
     
 public:
-    PostgreDataSource(const ConnectionOptions&, ErrorHandler*);
+    PostgreDataSource(const ConnectionOptions&, ErrorHandler*, QObject* parent = nullptr);
     ~PostgreDataSource();
     // Inherited via DataSource
     void saveUser(const User&) override;

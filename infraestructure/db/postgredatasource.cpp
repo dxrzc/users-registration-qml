@@ -3,8 +3,8 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-PostgreDataSource::PostgreDataSource(const ConnectionOptions& options, ErrorHandler* errorHandler_)
-    : errorHandler(errorHandler_)
+PostgreDataSource::PostgreDataSource(const ConnectionOptions& options, ErrorHandler* errorHandler_, QObject* parent)
+    : errorHandler(errorHandler_), QObject(parent)
 {
     tableName = "myusers"; // MUST BE LOWERCASE
     database = QSqlDatabase::addDatabase("QPSQL");
