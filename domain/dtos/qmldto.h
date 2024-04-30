@@ -28,6 +28,7 @@ signals:
     void userCreated(const User&);
     void filterEnabled(const QString&);
     void filterDisabled();
+    void reloadTableData();
 };
 
 #endif // QMLDTO_H

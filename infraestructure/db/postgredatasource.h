@@ -29,6 +29,7 @@ private:
     ErrorHandler* errorHandler;
     User fromQueryToUser(const QSqlQuery& query) const;
     void createTable();
+    void tryToConnect();
     void userChecker(const User& user) const ;
     bool checkIfValueExists(const QString& userproperty,const QString& value) const ;
     bool checkIfUsernameAlreadyExists(const QString& username) const override;
@@ -38,15 +39,13 @@ private:
 public:
     PostgreDataSource(const ConnectionOptions&, ErrorHandler*, QObject* parent = nullptr);
     ~PostgreDataSource();
-    // Inherited via DataSource
     void saveUser(const User&) override;
-    User getUserByName(const QString&) const override;
-
-    // Inherited via DataSource
-    void getAllUsers(QList<User>&) const override;
-
-    // Inherited via DataSource
+    User getUserByName(const QString&) const override;    
+    void getAllUsers(QList<User>&) const override;    
     bool dbIsOpen() const override;
+
+public slots:
+    void retryConnection();
 };
 
 #endif // POSTGREDATASOURCE_H

@@ -6,6 +6,8 @@
 PostgreDataSource::PostgreDataSource(const ConnectionOptions& options, ErrorHandler* errorHandler_, QObject* parent)
     : errorHandler(errorHandler_), QObject(parent)
 {
+    QObject::connect(errorHandler,&ErrorHandler::retryDBConnection,this,&PostgreDataSource::retryConnection);
+
     tableName = "myusers"; // MUST BE LOWERCASE
     database = QSqlDatabase::addDatabase("QPSQL");
     database.setHostName(options.hostname);
@@ -13,13 +15,7 @@ PostgreDataSource::PostgreDataSource(const ConnectionOptions& options, ErrorHand
     database.setUserName(options.user);
     database.setDatabaseName(options.database);
     database.setPassword(options.password);
-    if (database.open())
-        qDebug() << "Connected!!";
-    else
-        emit errorHandler->errorFromDataBase("Failed to connect to postgres");
-
-    if (!database.tables().contains(tableName))
-        createTable();
+    tryToConnect();
 }
 
 PostgreDataSource::~PostgreDataSource()
@@ -43,6 +39,18 @@ void PostgreDataSource::createTable()
         qDebug() << "Table created!!";
     else
         emit errorHandler->errorFromDataBase("Failed to create table");
+}
+
+void PostgreDataSource::tryToConnect()
+{
+    if (!database.open())
+    {
+        emit errorHandler->errorFromDataBase("Failed to connect to postgres");
+        return;
+    }
+
+    if (!database.tables().contains(tableName))
+        createTable();
 }
 
 void PostgreDataSource::userChecker(const User& user) const
@@ -127,16 +135,25 @@ User PostgreDataSource::getUserByName(const QString& name) const
 
 void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
 {
-    QSqlQuery query(database);
-    const QString command = "SELECT * FROM %1";
-    if (!query.exec(command.arg(tableName)))
-        qDebug() << query.lastError().databaseText();
+    if(dbIsOpen())
+    {
+        QSqlQuery query(database);
+        const QString command = "SELECT * FROM %1";
+        if (!query.exec(command.arg(tableName)))
+            qDebug() << query.lastError().databaseText();
 
-    while (query.next())
-        usersVector.push_back(fromQueryToUser(query));
+        while (query.next())
+            usersVector.push_back(fromQueryToUser(query));
+    }
 }
 
 bool PostgreDataSource::dbIsOpen() const
 {
     return database.isOpen();
+}
+
+void PostgreDataSource::retryConnection()
+{
+    database.close();
+    tryToConnect();
 }

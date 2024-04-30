@@ -20,10 +20,10 @@ private:
 
 public:
     UserTableModel(qmlDto* , QObject* parent = nullptr);
+    void loadData();
     Q_INVOKABLE int rowCount(const QModelIndex& parent) const override;
     Q_INVOKABLE int columnCount(const QModelIndex& parent) const override;
-    Q_INVOKABLE QVariant data(const QModelIndex& index, int role) const override;
-
+    Q_INVOKABLE QVariant data(const QModelIndex& index, int role) const override;    
     ~UserTableModel();
 
 public slots:

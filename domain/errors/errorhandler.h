@@ -13,6 +13,7 @@ public:
 
 signals:
     void errorFromDataBase(const QString&);
+    void retryDBConnection();
     void userAlreadyExists();
     void emailAlreadyExists();
     void phoneNumberAlreadyExists();

@@ -3,10 +3,16 @@
 UserTableModel::UserTableModel(qmlDto* dto_, QObject* parent): QAbstractTableModel(parent),dto(dto_)
 {
     filterON = false;
-    dto->getAllUsers(usersList);
+    loadData();
     QObject::connect(dto,&qmlDto::userCreated,this,&UserTableModel::createUser);
     QObject::connect(dto,&qmlDto::filterEnabled,this,&UserTableModel::enableFilter);
     QObject::connect(dto,&qmlDto::filterDisabled,this,&UserTableModel::disableFilter);
+    QObject::connect(dto,&qmlDto::reloadTableData,this,&UserTableModel::loadData);
+}
+
+void UserTableModel::loadData()
+{
+    dto->getAllUsers(usersList);
 }
 
 Q_INVOKABLE int UserTableModel::rowCount(const QModelIndex& parent) const

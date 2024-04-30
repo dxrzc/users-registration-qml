@@ -25,8 +25,7 @@ Window {
 
     function resetTableView()
     {
-        userstable_tableview.model = "";
-        userstable_tableview.model = usersTable;
+        reloadTable();
         userstable_tableview.positionViewAtRow(0,TableView.AlignTop);
     }
 
@@ -46,6 +45,12 @@ Window {
     function disableFilter(){
         QmlDto.disableFilter();
         resetTableView();
+    }
+
+    function reloadTable()
+    {
+        userstable_tableview.model = "";
+        userstable_tableview.model = usersTable;
     }
 
     Image{
@@ -377,9 +382,56 @@ Window {
                     textColor: 'white'
                     buttonText: 'Retry'
                     buttonTextSize: Math.min(parent.width,parent.height)*0.4
+                    pointingHandCursor: true
                     onClickbutton: function(){
-                        console.log('RetryClicked');
+                        errorhandler.retryDBConnection();
+                        if(QmlDto.databaseIsOpen()){
+                            error_view_container.visible = false;
+                            componets_column.visible = true;
+                            QmlDto.reloadTableData();
+                            reloadTable();
+                        } else
+                        {
+                            reconnect_text_container.opacity = 100
+                            reconnect_text_container.visible = true;
+                            timer_show_reconnect_message.running = true;
+                        }
                     }
+                }
+            }
+
+            Timer{
+                id: timer_show_reconnect_message
+                interval: 500
+                running: false;
+                onTriggered: {
+                    reconnect_text_container.visible= false;
+                }
+            }
+
+            Rectangle{
+                id: reconnect_text_container
+                width: error_view_container.width
+                height: error_image_container.height*0.2
+                visible: false
+                color: "#00000000"
+
+                PropertyAnimation {
+                    id: reconnect_text_container_animation
+                    duration: 300
+                    target: reconnect_text_container;
+                    property: "opacity";
+                    to: 0
+                }
+
+                onVisibleChanged: reconnect_text_container_animation.running = true;
+
+                    Text {
+                    id: reconnect_text
+                    anchors.centerIn: parent
+                    color: 'white'
+                    text: qsTr("Unable to connect")
+                    font.pixelSize: Math.min(parent.width,parent.height)*0.3
                 }
             }
         }
@@ -389,7 +441,6 @@ Window {
         if(!QmlDto.databaseIsOpen()){
             error_view_container.visible = true;
             componets_column.visible = false;
-            background_blur.blurEnabled=true;
         }
     }
 }
