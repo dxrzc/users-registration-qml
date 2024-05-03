@@ -13,8 +13,6 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
-    // TODO: View At last row when user is created
-
     function create_user()
     {
         if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
@@ -304,7 +302,7 @@ Window {
                                             clip:true
                                             implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/4
                                             implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/8
-                                            border.width: 1
+                                            color: 'lightgray'
 
                                             TextEdit {
                                                 id: textFromSearching
@@ -315,7 +313,7 @@ Window {
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 anchors.left: parent.left
                                                 anchors.leftMargin: parent.width/25
-                                            }
+                                            }                                                                                        
                                         }
                                     }
                                 }
