@@ -19,6 +19,7 @@ private:
     bool filterON;
 
 public:
+    UserTableModel(): dto(nullptr), QAbstractTableModel(nullptr){}
     UserTableModel(qmlDto* , QObject* parent = nullptr);
     void loadData();
     Q_INVOKABLE int rowCount(const QModelIndex& parent) const override;
