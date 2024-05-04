@@ -31,22 +31,12 @@ void qmlDto::createUser(const QString &username, const QString &email, const QSt
     User user(username, email, phoneNumber, BirthDate::fromString(birthdate));
     datasource->saveUser(user);
 
-    emit userCreated(user);
+    emit createUserSignal(user);
 }
 
 bool qmlDto::databaseIsOpen()
 {
     return datasource->dbIsOpen();
-}
-
-void qmlDto::enableFilter(const QString& filter)
-{
-    emit filterEnabled(filter);
-}
-
-void qmlDto::disableFilter()
-{
-    emit filterDisabled();
 }
 
 qmlDto::~qmlDto()

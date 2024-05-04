@@ -19,15 +19,13 @@ public:
     Q_INVOKABLE bool emailAlreadyExists(const QString&);
     Q_INVOKABLE bool phoneNumberAlreadyExists(const QString&);
     Q_INVOKABLE void createUser(const QString& username, const QString& email, const QString& phoneNumber, const QString& birthdate);
-    Q_INVOKABLE bool databaseIsOpen();
-    Q_INVOKABLE void enableFilter(const QString&);
-    Q_INVOKABLE void disableFilter();
+    Q_INVOKABLE bool databaseIsOpen();        
     ~qmlDto();
 
 signals:
-    void userCreated(const User&);
-    void filterEnabled(const QString&);
-    void filterDisabled();
+    void createUserSignal(const User&);
+    void enableFilter(const QString&);
+    void disableFilter();
     void reloadTableData();
 };
 
