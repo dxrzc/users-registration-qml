@@ -53,18 +53,6 @@ void PostgreDataSource::tryToConnect()
         createTable();
 }
 
-void PostgreDataSource::userChecker(const User& user) const
-{
-    if (checkIfUsernameAlreadyExists(user.username()))
-        emit errorHandler->userAlreadyExists();
-
-    if (checkIfEmailAlreadyExists(user.email()))        
-        emit errorHandler->emailAlreadyExists();
-
-    if (checkIfPhoneNumberAlreadyExists(user.phoneNumber()))
-        emit errorHandler->phoneNumberAlreadyExists();
-}
-
 bool PostgreDataSource::checkIfValueExists(const QString& userproperty, const QString& value) const
 {
     if (userproperty != "email" && userproperty != "username" && userproperty != "phone")
@@ -102,8 +90,6 @@ bool PostgreDataSource::checkIfPhoneNumberAlreadyExists(const QString& phoneNumb
 void PostgreDataSource::saveUser(const User& user)
 {
     try {
-
-        userChecker(user);
         QSqlQuery query(database);
         const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES ('%2', '%3', '%4', '%5')";
         const bool userSaved = query.exec(command.arg(tableName, user.username(), user.birthdate().toQString(), user.email(), user.phoneNumber()));

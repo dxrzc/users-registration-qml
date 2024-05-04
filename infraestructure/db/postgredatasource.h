@@ -30,7 +30,6 @@ private:
     User fromQueryToUser(const QSqlQuery& query) const;
     void createTable();
     void tryToConnect();
-    void userChecker(const User& user) const ;
     bool checkIfValueExists(const QString& userproperty,const QString& value) const ;
     bool checkIfUsernameAlreadyExists(const QString& username) const override;
     bool checkIfEmailAlreadyExists(const QString& email) const override;
