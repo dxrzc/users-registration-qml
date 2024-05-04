@@ -58,15 +58,18 @@ bool PostgreDataSource::checkIfValueExists(const QString& userproperty, const QS
     if (userproperty != "email" && userproperty != "username" && userproperty != "phone")
     {
         QString message = "%1 is not a User property";
-        throw std::runtime_error(message.arg(userproperty).toStdString());
+        emit errorHandler->internalError(message.arg(userproperty));
+        return false;
     }
 
     QSqlQuery query(database);
     const QString command = "SELECT 1 FROM %1 WHERE %2 = '%3'";
+
     if (!query.exec(command.arg(tableName, userproperty, value)))
     {
         qDebug() << query.lastError().databaseText();
-        throw std::runtime_error("Failed to check user");
+        emit errorHandler->errorFromDataBase("Failed to check user");
+        return false;
     }
 
     return query.next();
@@ -89,22 +92,14 @@ bool PostgreDataSource::checkIfPhoneNumberAlreadyExists(const QString& phoneNumb
 
 void PostgreDataSource::saveUser(const User& user)
 {
-    try {
-        QSqlQuery query(database);
-        const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES ('%2', '%3', '%4', '%5')";
-        const bool userSaved = query.exec(command.arg(tableName, user.username(), user.birthdate().toQString(), user.email(), user.phoneNumber()));
-        if (!userSaved)
-        {
-            const QString errorMessage = query.lastError().databaseText();
-            throw std::runtime_error("Failed to save user: "+ errorMessage.toStdString());
-        }
-
-    } catch (const std::exception& e) {
-
-        emit errorHandler->errorFromDataBase(e.what());
-    }
+    QSqlQuery query(database);
+    const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES ('%2', '%3', '%4', '%5')";
+    const bool userSaved = query.exec(command.arg(tableName, user.username(), user.birthdate().toQString(), user.email(), user.phoneNumber()));
+    if (!userSaved)
+        emit errorHandler->errorFromDataBase("Failed to save user");
 }
 
+// todo: is this function being used ¿?
 User PostgreDataSource::getUserByName(const QString& name) const
 {
     QSqlQuery query(database);
@@ -126,11 +121,16 @@ void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
         QSqlQuery query(database);
         const QString command = "SELECT * FROM %1";
         if (!query.exec(command.arg(tableName)))
-            qDebug() << query.lastError().databaseText();
+        {
+            emit errorHandler->errorFromDataBase("Error tryng to get users");
+            return;
+        }
 
         while (query.next())
             usersVector.push_back(fromQueryToUser(query));
     }
+    else
+        emit errorHandler->errorFromDataBase("Database is not open");
 }
 
 bool PostgreDataSource::dbIsOpen() const

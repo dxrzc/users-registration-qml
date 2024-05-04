@@ -13,6 +13,26 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
+    function setErrorView(message)
+    {
+        error_view_container.message = message;
+        error_view_container.visible = true;
+        componets_column.visible = false;
+    }
+
+    Connections{
+        target: errorhandler
+        function onErrorFromDataBase(message)
+        {
+            setErrorView(message);
+        }
+
+        function onInternalError(message)
+        {
+            setErrorView(message);
+        }
+    }
+
     function scrollToLastRow()
     {
         let contentHeight = userstable_tableview.contentHeight;
@@ -265,7 +285,7 @@ Window {
                                             width: parent.width
                                             height:parent.height*0.9
                                             anchors.verticalCenter: parent.verticalCenter
-                                            placeholderText: 'Enter username, email or phone number'
+                                            placeholderText: 'Search by username'
                                             color:'black'
 
                                             background: Rectangle{
@@ -343,6 +363,7 @@ Window {
     Rectangle{
         color: "#00000000"
         id: error_view_container
+        property string message: "Failed to connect to database";
         visible:false
         width:parent.width*0.25
         height:parent.height*0.5
@@ -377,7 +398,7 @@ Window {
                     anchors.centerIn: parent
                     color:'white'
                     font.pixelSize: Math.min(parent.width,parent.height)*0.3
-                    text: qsTr("Failed to connect to database")
+                    text: error_view_container.message
                 }
             }
 
@@ -393,7 +414,7 @@ Window {
                     buttonColor: 'gray'
                     buttonHoveredColor: '#6c6c6c'
                     textColor: 'white'
-                    buttonText: 'Retry'
+                    buttonText: 'Retry connection'
                     buttonTextSize: Math.min(parent.width,parent.height)*0.4
                     pointingHandCursor: true
                     onClickbutton: function(){

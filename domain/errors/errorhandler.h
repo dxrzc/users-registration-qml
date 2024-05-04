@@ -14,7 +14,7 @@ public:
 signals:
     void errorFromDataBase(const QString&);
     void retryDBConnection();
-    void unknowError();
+    void internalError(const QString& );
 };
 
 #endif // ERRORHANDLER_H
