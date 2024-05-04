@@ -13,11 +13,32 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
+    function scrollToLastRow()
+    {
+        let contentHeight = userstable_tableview.contentHeight;
+        let height = userstable_tableview.height;
+        if(contentHeight> height)
+            userstable_tableview.contentY = contentHeight - height;
+    }
+
+    Timer {
+        id: scrollToLastTimer
+        interval: 100
+        onTriggered: scrollToLastRow();
+    }
+
+    function reloadTable()
+    {
+        userstable_tableview.model = "";
+        userstable_tableview.model = usersTable;
+    }
+
     function create_user()
     {
         if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
             const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
             QmlDto.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
+            scrollToLastTimer.running = true;
         }
     }
 
@@ -43,12 +64,6 @@ Window {
     function disableFilter(){
         QmlDto.disableFilter();
         resetTableView();
-    }
-
-    function reloadTable()
-    {
-        userstable_tableview.model = "";
-        userstable_tableview.model = usersTable;
     }
 
     Image{
@@ -313,7 +328,7 @@ Window {
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 anchors.left: parent.left
                                                 anchors.leftMargin: parent.width/25
-                                            }                                                                                        
+                                            }
                                         }
                                     }
                                 }
@@ -424,7 +439,7 @@ Window {
 
                 onVisibleChanged: reconnect_text_container_animation.running = true;
 
-                    Text {
+                Text {
                     id: reconnect_text
                     anchors.centerIn: parent
                     color: 'white'

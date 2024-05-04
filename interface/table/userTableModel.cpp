@@ -58,7 +58,7 @@ void UserTableModel::createUser(const User& user)
 {
     beginInsertRows(QModelIndex(), usersList.count(), usersList.count());
     usersList.append(user);
-    endInsertRows();
+    endInsertRows();    
 }
 
 void UserTableModel::enableFilter(const QString &filter)
