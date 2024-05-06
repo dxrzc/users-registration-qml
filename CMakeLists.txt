@@ -56,6 +56,7 @@ qt_add_qml_module(appusers-registration-qml
 
         interface/table/userTableModel.h
         interface/table/userTableModel.cpp
+        RESOURCES docker-compose.yml
 
 
 )

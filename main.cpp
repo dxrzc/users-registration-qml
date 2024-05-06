@@ -12,9 +12,9 @@ int main(int argc, char *argv[])
 
     ConnectionOptions options(
         "localhost",
-        "DiegoRodriguez", // user
-        "anexo123", // pass
-        "Users", // db
+        "myuser", // user
+        "12345", // pass
+        "users", // db
         5433);
 
     ErrorHandler* errorhandler = new ErrorHandler();
