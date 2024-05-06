@@ -73,7 +73,6 @@ CMakeLists.txt.user*
 *.exe
 
 /build
-/docker.compose.yml
 /postgres
 /.vscode
 /.cache
