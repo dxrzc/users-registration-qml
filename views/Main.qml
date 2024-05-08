@@ -283,7 +283,7 @@ Window {
                                         TextField{
                                             id: searchText
                                             width: parent.width
-                                            height:parent.height*0.9
+                                            height:parent.height*0.8
                                             anchors.verticalCenter: parent.verticalCenter
                                             placeholderText: 'Search by username'
                                             color:'black'
@@ -313,8 +313,69 @@ Window {
                             }
 
                             Rectangle{
+                                id: headerContainer
+                                width: userstable_container.width*0.98
+                                height: userstable_container.height*0.07                                
+                                anchors.horizontalCenter: searchUserContainer.horizontalCenter
+
+                                Row{
+                                    anchors.fill: parent
+                                    property color firstcolor : '#bfbfbf';
+                                    property color secondcolor: '#b3b3b3'
+
+                                    Rectangle{
+                                        width:parent.width/4
+                                        height: parent.height
+                                        color: parent.firstcolor
+
+                                        Text {
+                                            text: 'Username'
+                                            anchors.centerIn: parent
+                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
+                                        }
+                                    }
+
+                                    Rectangle{
+                                        width:parent.width/4
+                                        height: parent.height
+                                        color: parent.secondcolor
+
+                                        Text {
+                                            text: 'Email'
+                                            anchors.centerIn: parent
+                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
+                                        }
+                                    }
+
+                                    Rectangle{
+                                        width:parent.width/4
+                                        height: parent.height
+                                        color: parent.firstcolor
+
+                                        Text {
+                                            text: 'Phone number'
+                                            anchors.centerIn: parent
+                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
+                                        }
+                                    }
+
+                                    Rectangle{
+                                        width:parent.width/4
+                                        height: parent.height
+                                        color: parent.secondcolor
+
+                                        Text {
+                                            text: 'Birth date'
+                                            anchors.centerIn: parent
+                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
+                                        }
+                                    }
+                                }
+                            }
+
+                            Rectangle{
                                 width:userstable_container.width
-                                height:userstable_container.height*0.9
+                                height:userstable_container.height*0.83
                                 color:'transparent'
 
                                 Rectangle{
