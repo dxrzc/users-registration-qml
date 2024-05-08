@@ -381,7 +381,7 @@ Window {
                 height:error_view_container.height*0.65
 
                 Image{
-                    source: 'imgs/svg/criticalError.svg'
+                    source: 'imgs/error.png'
                     height:parent.height
                     fillMode:Image.PreserveAspectFit
                     anchors.centerIn: parent
