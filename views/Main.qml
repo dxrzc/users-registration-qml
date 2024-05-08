@@ -234,8 +234,8 @@ Window {
                                     width:parent.width
                                     height:parent.height*0.7
                                     textColor: 'white'
-                                    buttonColor:  allFieldsOk ? '#50a356': 'gray';
-                                    buttonHoveredColor: allFieldsOk ? '#008000' : 'gray'
+                                    buttonColor:  allFieldsOk ? '#009999': 'gray';
+                                    buttonHoveredColor: allFieldsOk ? '#008080' : 'gray'
                                     buttonText: 'Register'
                                     buttonTextSize: Math.min(parent.width,parent.height)/3
                                     onClickbutton: if(allFieldsOk) {
