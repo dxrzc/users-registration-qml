@@ -13,6 +13,10 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
+    signal reloadTable;
+    signal resetTableView;
+    signal scrollToLastTableViewRow;
+
     function setErrorView(message)
     {
         error_view_container.message = message;
@@ -33,57 +37,10 @@ Window {
         }
     }
 
-    function scrollToLastRow()
-    {
-        let contentHeight = userstable_tableview.contentHeight;
-        let height = userstable_tableview.height;
-        if(contentHeight> height)
-            userstable_tableview.contentY = contentHeight - height;
-    }
-
     Timer {
         id: scrollToLastTimer
         interval: 100
-        onTriggered: scrollToLastRow();
-    }
-
-    function reloadTable()
-    {
-        userstable_tableview.model = "";
-        userstable_tableview.model = usersTable;
-    }
-
-    function create_user()
-    {
-        if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
-            const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
-            QmlDto.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
-            scrollToLastTimer.running = true;
-        }
-    }
-
-    function resetTableView()
-    {
-        reloadTable();
-        userstable_tableview.positionViewAtRow(0,TableView.AlignTop);
-    }
-
-    function clear_fields()
-    {
-        input_phonenumber.clearField();
-        input_email.clearField();
-        input_username.clearField();
-        selection_birthdate.clearFields();
-    }
-
-    function enableFilter(text){
-        QmlDto.enableFilter(text);
-        resetTableView();
-    }
-
-    function disableFilter(){
-        QmlDto.disableFilter();
-        resetTableView();
+        onTriggered: scrollToLastTableViewRow();
     }
 
     Image{
@@ -144,275 +101,74 @@ Window {
                     id: inputs_and_table_row
                     anchors.fill: parent
 
-                    Rectangle{
-                        id: inputs_container
-                        color: "#00000000"
+                    UserInputSection{
+                        id: inputsSection
                         width:(parent.width)/2
                         height:parent.height
-
-                        Column{
-                            id: inputs_column
-                            width:parent.width
-                            height:parent.height
-                            spacing:height*0.01
-
-                            Rectangle{
-                                id: input_username_container
-                                color: "#00000000"
-                                anchors.left: parent.left
-                                anchors.leftMargin: (parent.width/2)-width/2
-                                width: inputs_container.width*0.75
-                                height: inputs_container.height*0.20
-
-                                InputComponent{
-                                    id: input_username
-                                    anchors.fill: parent
-                                    label: 'Username'
-                                    usernameInput: true
-                                }
-                            }
-                            Rectangle{
-                                id: selection_birthdate_container
-                                color: "#00000000"
-                                anchors.left: parent.left
-                                anchors.leftMargin: (parent.width/2)-width/2
-                                width: inputs_container.width*0.75
-                                height: inputs_container.height*0.20
-
-                                SelectBirthdate{
-                                    id: selection_birthdate
-                                    anchors.fill: parent
-                                }
-                            }
-
-                            Rectangle{
-                                id: input_email_container
-                                color: "#00000000"
-                                anchors.left: parent.left
-                                anchors.leftMargin: (parent.width/2)-width/2
-                                width: inputs_container.width*0.75
-                                height: inputs_container.height*0.20
-
-                                InputComponent{
-                                    id: input_email
-                                    anchors.fill: parent
-                                    label: 'Email'
-                                    placeholder: 'someone@gmail.com'
-                                    emailInput: true
-                                }
-                            }
-
-                            Rectangle{
-                                id: input_phonenumber_container
-                                color: "#00000000"
-                                anchors.left: parent.left
-                                anchors.leftMargin: (parent.width/2)-width/2
-                                width: inputs_container.width*0.75
-                                height: inputs_container.height*0.20
-
-                                InputComponent{
-                                    id: input_phonenumber
-                                    anchors.fill: parent
-                                    label: 'Phone number'
-                                    phonenumberInput: true
-                                    placeholder: '987654321'
-                                }
-                            }
-
-                            Rectangle{
-                                color: "#00000000"
-                                anchors.left: parent.left
-                                anchors.leftMargin: (parent.width/2)-width/2
-                                width: inputs_container.width*0.75
-                                height:parent.height*0.16
-
-                                MyButton{
-                                    id: login_button
-                                    property bool allFieldsOk : (input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data && input_username.good_data);
-                                    anchors.top: parent.top
-                                    anchors.topMargin: parent.height*0.3
-                                    width:parent.width
-                                    height:parent.height*0.7
-                                    textColor: 'white'
-                                    buttonColor:  allFieldsOk ? '#009999': 'gray';
-                                    buttonHoveredColor: allFieldsOk ? '#008080' : 'gray'
-                                    buttonText: 'Register'
-                                    buttonTextSize: Math.min(parent.width,parent.height)/3
-                                    onClickbutton: if(allFieldsOk) {
-                                                       create_user();
-                                                       clear_fields();
-                                                   }
-                                    pointingHandCursor: allFieldsOk;
-                                }
-                            }
-                        }
                     }
 
                     Rectangle{
                         id: userstable_container
-                        color: 'white'
                         width:(parent.width)/2
                         height:parent.height
+                        color:'transparent'
                         clip:true
-                        border.width: 1
-                        radius:7
 
-                        Column {
-                            Rectangle{
-                                id: searchUserContainer
-                                width:userstable_container.width
-                                height:userstable_container.height*0.1
-                                color:'transparent'
+                        Column{
+                            anchors.fill: parent
 
-                                Row{
-                                    ActionButton{
-                                        id: searchButton
-                                        width:searchUserContainer.width*0.1
-                                        height:searchUserContainer.height
-                                        color: 'transparent'
-                                        antialiasing: true
-                                        imagepath: "imgs/svg/search.svg"
-                                        onClickButton: enableFilter(searchText.text)
-                                    }
-
-                                    Rectangle{
-                                        width:searchUserContainer.width*0.8
-                                        height:searchUserContainer.height
-                                        color:'transparent'
-
-                                        TextField{
-                                            id: searchText
-                                            width: parent.width
-                                            height:parent.height*0.8
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            placeholderText: 'Search by username'
-                                            color:'black'
-
-                                            background: Rectangle{
-                                                color :'lightgray'
-                                                radius:5
-                                            }
-
-                                            onAccepted: enableFilter(text);
-                                        }
-                                    }
-
-                                    ActionButton{
-                                        id: reloadButton
-                                        width:searchUserContainer.width*0.1
-                                        height:searchUserContainer.height
-                                        color: 'transparent'
-                                        antialiasing: true
-                                        imagepath: "imgs/svg/reload.svg"
-                                        onClickButton: {
-                                            disableFilter();
-                                            searchText.text = "";
-                                        }
-                                    }
-                                }
+                            SearchUserSection{
+                                color: 'white'
+                                id: searchuserSection
+                                width: parent.width
+                                height: parent.height*0.1
+                                radius: 7
                             }
 
                             Rectangle{
-                                id: headerContainer
-                                width: userstable_container.width*0.98
-                                height: userstable_container.height*0.07                                
-                                anchors.horizontalCenter: searchUserContainer.horizontalCenter
-
-                                Row{
-                                    anchors.fill: parent
-                                    property color firstcolor : '#bfbfbf';
-                                    property color secondcolor: '#b3b3b3'
-
-                                    Rectangle{
-                                        width:parent.width/4
-                                        height: parent.height
-                                        color: parent.firstcolor
-
-                                        Text {
-                                            text: 'Username'
-                                            anchors.centerIn: parent
-                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
-                                        }
-                                    }
-
-                                    Rectangle{
-                                        width:parent.width/4
-                                        height: parent.height
-                                        color: parent.secondcolor
-
-                                        Text {
-                                            text: 'Email'
-                                            anchors.centerIn: parent
-                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
-                                        }
-                                    }
-
-                                    Rectangle{
-                                        width:parent.width/4
-                                        height: parent.height
-                                        color: parent.firstcolor
-
-                                        Text {
-                                            text: 'Phone number'
-                                            anchors.centerIn: parent
-                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
-                                        }
-                                    }
-
-                                    Rectangle{
-                                        width:parent.width/4
-                                        height: parent.height
-                                        color: parent.secondcolor
-
-                                        Text {
-                                            text: 'Birth date'
-                                            anchors.centerIn: parent
-                                            font.pixelSize: Math.min(parent.width,parent.height)*0.4
-                                        }
-                                    }
-                                }
+                                id: spacingrec
+                                color:'transparent'
+                                width: parent.width
+                                height: parent.height*0.05
                             }
 
                             Rectangle{
-                                width:userstable_container.width
-                                height:userstable_container.height*0.83
-                                color:'transparent'
+                                color: 'white'
+                                width:parent.width
+                                height: parent.height*0.85
+                                radius: 7
 
-                                Rectangle{
-                                    id: cellsContainer
-                                    width: parent.width*0.98
-                                    height:parent.height*0.98
-                                    anchors.centerIn: parent
-                                    color: 'white'
+                                Column{
+                                    anchors.fill:parent
 
-                                    TableView {
-                                        clip: true
-                                        id: userstable_tableview
-                                        visible:true
-                                        anchors.fill: parent
-                                        model: usersTable // C++
-                                        columnSpacing: Math.min(parent.width,parent.height)*0.003
-                                        rowSpacing: Math.min(parent.width,parent.height)*0.003
+                                    Item{
+                                        width:parent.width
+                                        height: parent.height*0.01
+                                    }
 
-                                        delegate: Rectangle {
-                                            clip:true
-                                            implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/4
-                                            implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/8
-                                            color: 'lightgray'
+                                    TableHeaderSection{
+                                        clip:true
+                                        id: tableHeaderSection
+                                        width: parent.width*0.98
+                                        height: parent.height*0.09
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                    }
 
-                                            TextEdit {
-                                                id: textFromSearching
-                                                readOnly: true
-                                                font.pixelSize: Math.min(parent.width,parent.height)/4
-                                                color: 'black'
-                                                text: display
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.left: parent.left
-                                                anchors.leftMargin: parent.width/25
-                                            }
+                                    TableSection{
+                                        id: tableSection
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        width: parent.width
+                                        height: parent.height*0.9
+
+                                        Connections {
+                                            target: main_window
+                                            function onReloadTable(){tableSection.reload();}
+                                            function onResetTableView(){tableSection.reset();}
+                                            function onScrollToLastTableViewRow(){tableSection.scrollToLastRow();}
                                         }
                                     }
                                 }
+
                             }
                         }
                     }
