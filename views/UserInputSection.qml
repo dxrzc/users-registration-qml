@@ -111,6 +111,7 @@ Item{
                 onClickbutton: if(allFieldsOk) {
                                    create_user();
                                    clear_fields();
+                                   reloadTable();
                                }
                 pointingHandCursor: allFieldsOk;
             }
