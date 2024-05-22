@@ -43,7 +43,7 @@ Rectangle{
             delegate: Rectangle {
                 clip:true
                 implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/4
-                implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/8
+                implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/7
                 color: 'lightgray'
 
                 TextEdit {
