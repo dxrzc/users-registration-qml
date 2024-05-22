@@ -82,7 +82,7 @@ Window {
                 Text{
                     id: title_text
                     color:'white'
-                    text: 'Register in database'
+                    text: 'Register users'
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: Math.min(parent.width,parent.height)/3
                     anchors.centerIn: parent
