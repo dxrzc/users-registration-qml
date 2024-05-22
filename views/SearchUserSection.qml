@@ -36,7 +36,7 @@ Rectangle{
                 width: parent.width
                 height:parent.height*0.8
                 anchors.verticalCenter: parent.verticalCenter
-                placeholderText: 'Search by username'
+                placeholderText: 'Search by username, email or phone number'
                 color:'black'
 
                 background: Rectangle{

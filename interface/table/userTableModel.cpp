@@ -67,7 +67,7 @@ void UserTableModel::enableFilter(const QString &filter)
     filterON = true;
 
     for(const User& user: usersList)
-        if(user.username().startsWith(filter))
+        if(user.username().startsWith(filter) || user.email().startsWith(filter) || user.phoneNumber().startsWith(filter))
             qmlList.push_back(std::ref(user));
 }
 
