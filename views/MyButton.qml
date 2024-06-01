@@ -1,6 +1,7 @@
 import QtQuick
 
 Rectangle{
+    property bool mouseAreaEnabled: true;
     property color buttonColor;
     property color buttonHoveredColor;
     property color textColor;
@@ -22,7 +23,7 @@ Rectangle{
     }
 
     MouseArea{
-        hoverEnabled: true
+        enabled: parent.mouseAreaEnabled
         id:mouseArea
         anchors.fill: parent
         cursorShape: pointingHandCursor ? Qt.PointingHandCursor : Qt.ArrowCursor

@@ -46,7 +46,7 @@ Window {
     Image{
         id: background_image
         anchors.fill: parent
-        source: "imgs/background.jpg" // TODO
+        source: "imgs/background.jpg"
     }
 
     MultiEffect{
@@ -58,7 +58,8 @@ Window {
         blur: 1.0
     }
 
-    MongoUrlMenu{
+    Logindb{
+        id: logindb
         anchors.centerIn: parent
         width:parent.width*0.3
         height: parent.height*0.6
@@ -292,13 +293,6 @@ Window {
                     font.pixelSize: Math.min(parent.width,parent.height)*0.3
                 }
             }
-        }
-    }
-
-    Component.onCompleted: {
-        if(!QmlDto.databaseIsOpen()){
-            error_view_container.visible = true;
-            componets_column.visible = false;
         }
     }
 }
