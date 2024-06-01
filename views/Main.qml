@@ -58,8 +58,15 @@ Window {
         blur: 1.0
     }
 
+    MongoUrlMenu{
+        anchors.centerIn: parent
+        width:parent.width*0.3
+        height: parent.height*0.6
+    }
+
     Rectangle{
         id: components_container
+        visible: false
         color: "#50000000"
         width: parent.width*0.85
         height:parent.height*0.90
