@@ -3,7 +3,7 @@
 UserTableModel::UserTableModel(qmlDto* dto_, QObject* parent): QAbstractTableModel(parent),dto(dto_)
 {
     filterON = false;
-    loadData();
+    QObject::connect(dto,&qmlDto::databaseConnected,this,&UserTableModel::loadData);
     QObject::connect(dto,&qmlDto::createUserSignal,this,&UserTableModel::createUser);
     QObject::connect(dto,&qmlDto::enableFilter,this,&UserTableModel::enableFilter);
     QObject::connect(dto,&qmlDto::disableFilter,this,&UserTableModel::disableFilter);

@@ -20,14 +20,14 @@ private:
 
 public:
     UserTableModel(): dto(nullptr), QAbstractTableModel(nullptr){}
-    UserTableModel(qmlDto* , QObject* parent = nullptr);
-    void loadData();
+    UserTableModel(qmlDto* , QObject* parent = nullptr);    
     Q_INVOKABLE int rowCount(const QModelIndex& parent) const override;
     Q_INVOKABLE int columnCount(const QModelIndex& parent) const override;
     Q_INVOKABLE QVariant data(const QModelIndex& index, int role) const override;    
     ~UserTableModel();
 
 public slots:
+    void loadData();
     void createUser(const User&);
     void enableFilter(const QString& filter);
     void disableFilter();

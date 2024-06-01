@@ -2,6 +2,7 @@
 #define DATASOURCE_H
 
 #include "../entities/user/user.h"
+#include "domain/entities/connectionOptions/connectionOptions.h"
 
 class DataSource
 {
@@ -13,6 +14,7 @@ public:
     virtual bool checkIfUsernameAlreadyExists(const QString&) const = 0;
     virtual bool checkIfEmailAlreadyExists(const QString&) const = 0;
     virtual bool checkIfPhoneNumberAlreadyExists(const QString&)const = 0;
+    virtual void connect(const ConnectionOptions&) = 0;
     virtual ~DataSource() {};
 };
 

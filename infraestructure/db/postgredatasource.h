@@ -3,22 +3,11 @@
 
 #include "../../domain/errors/errorhandler.h"
 #include "../../domain/datasource/Datasource.h"
+
 #include <QSqlQuery>
 #include <QSqlDatabase>
 #include <QObject>
 
-struct ConnectionOptions
-{
-    QString hostname;
-    QString user;
-    QString password;
-    QString database;
-    quint64 PORT;
-    ConnectionOptions() = delete;
-    ConnectionOptions(const QString& hostname, const QString& user, const QString& password
-                      , const QString& database, quint64 PORT) : hostname(hostname), user(user), password(password),
-        database(database), PORT(PORT) {}
-};
 
 class PostgreDataSource: public QObject,public DataSource
 {
@@ -36,12 +25,13 @@ private:
     bool checkIfPhoneNumberAlreadyExists(const QString& phoneNumber)const override;
     
 public:
-    PostgreDataSource(const ConnectionOptions&, ErrorHandler*, QObject* parent = nullptr);
+    PostgreDataSource(ErrorHandler*, QObject* parent = nullptr);
     ~PostgreDataSource();
     void saveUser(const User&) override;
     User getUserByName(const QString&) const override;    
     void getAllUsers(QList<User>&) const override;    
-    bool dbIsOpen() const override;
+    bool dbIsOpen() const override;    
+    void connect(const ConnectionOptions &) override;
 
 public slots:
     void retryConnection();

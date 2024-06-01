@@ -3,19 +3,10 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-PostgreDataSource::PostgreDataSource(const ConnectionOptions& options, ErrorHandler* errorHandler_, QObject* parent)
+PostgreDataSource::PostgreDataSource(ErrorHandler* errorHandler_, QObject* parent)
     : errorHandler(errorHandler_), QObject(parent)
 {
     QObject::connect(errorHandler,&ErrorHandler::retryDBConnection,this,&PostgreDataSource::retryConnection);
-
-    tableName = "myusers"; // MUST BE LOWERCASE
-    database = QSqlDatabase::addDatabase("QPSQL");
-    database.setHostName(options.hostname);
-    database.setPort(options.PORT);
-    database.setUserName(options.user);
-    database.setDatabaseName(options.database);
-    database.setPassword(options.password);
-    tryToConnect();
 }
 
 PostgreDataSource::~PostgreDataSource()
@@ -136,6 +127,18 @@ void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
 bool PostgreDataSource::dbIsOpen() const
 {
     return database.isOpen();
+}
+
+void PostgreDataSource::connect(const ConnectionOptions & options)
+{
+    tableName = "myusers"; // MUST BE LOWERCASE
+    database = QSqlDatabase::addDatabase("QPSQL");
+    database.setHostName(options.hostname);
+    database.setPort(options.PORT);
+    database.setUserName(options.user);
+    database.setDatabaseName(options.database);
+    database.setPassword(options.password);
+    tryToConnect();
 }
 
 void PostgreDataSource::retryConnection()

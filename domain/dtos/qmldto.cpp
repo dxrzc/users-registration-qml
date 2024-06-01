@@ -39,6 +39,13 @@ bool qmlDto::databaseIsOpen()
     return datasource->dbIsOpen();
 }
 
+void qmlDto::connectDB(const QString &hostname, quint64 port, const QString &user, const QString &password, const QString &database)
+{
+    ConnectionOptions options (hostname, user,password,database,port);
+    datasource->connect(options);
+    emit databaseConnected();
+}
+
 qmlDto::~qmlDto()
 {
     delete datasource;

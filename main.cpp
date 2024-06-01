@@ -10,17 +10,10 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    ConnectionOptions options(
-        "localhost",
-        "myuser", // user
-        "12345", // pass
-        "users", // db
-        5433);
-
     ErrorHandler* errorhandler = new ErrorHandler();
     engine.rootContext()->setContextProperty("errorhandler", errorhandler);
 
-    qmlDto* dto = new qmlDto(new PostgreDataSource(options,errorhandler));
+    qmlDto* dto = new qmlDto(new PostgreDataSource(errorhandler));
     engine.rootContext()->setContextProperty("QmlDto",dto);
 
     UserTableModel tb(dto);
