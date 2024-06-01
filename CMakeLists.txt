@@ -60,8 +60,7 @@ qt_add_qml_module(appusers-registration-qml
         infraestructure/db/postgredatasource.cpp
 
         interface/table/userTableModel.h
-        interface/table/userTableModel.cpp
-        RESOURCES docker-compose.yml
+        interface/table/userTableModel.cpp        
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
