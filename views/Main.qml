@@ -240,8 +240,7 @@ Window {
                     buttonHoveredColor: '#6c6c6c'
                     textColor: 'white'
                     buttonText: 'Retry connection'
-                    buttonTextSize: Math.min(parent.width,parent.height)*0.4
-                    pointingHandCursor: true
+                    buttonTextSize: Math.min(parent.width,parent.height)*0.4                    
                     onClickbutton: function(){
                         errorhandler.retryDBConnection();
                         if(QmlDto.databaseIsOpen()){

@@ -113,7 +113,7 @@ Item{
                                    clear_fields();
                                    reloadTable();
                                }
-                pointingHandCursor: allFieldsOk;
+                mouseAreaEnabled: allFieldsOk;
             }
         }
     }

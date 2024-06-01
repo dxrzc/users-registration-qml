@@ -10,21 +10,18 @@ Rectangle {
 
     function defaultButtonStyle(){
         connectButton.mouseAreaEnabled = false;
-        connectButton.pointingHandCursor = false;
         connectButton.buttonColor= 'gray';
         connectButton.buttonText = 'Connect';
     }
 
     function invalidUrlButtonStyle(){
         connectButton.mouseAreaEnabled= false;
-        connectButton.pointingHandCursor = false;
         connectButton.buttonText = 'Invalid URL';
         connectButton.buttonColor= '#EE4E4E';
     }
 
     function validUrlButtonStyle(){
         connectButton.mouseAreaEnabled = true;
-        connectButton.pointingHandCursor = true;
         connectButton.buttonHoveredColor= '#57CC99';
         connectButton.buttonColor= '#1FAB89';
         connectButton.buttonText = 'Connect';

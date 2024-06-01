@@ -9,7 +9,6 @@ Rectangle{
     property string buttonText;
     property real buttonTextSize;
     property string datafromInput;
-    property bool pointingHandCursor: false;
     signal clickbutton;
 
     color: mouseArea.containsMouse ? buttonHoveredColor : buttonColor
@@ -26,10 +25,8 @@ Rectangle{
         enabled: parent.mouseAreaEnabled
         id:mouseArea
         anchors.fill: parent
-        cursorShape: pointingHandCursor ? Qt.PointingHandCursor : Qt.ArrowCursor
-        onClicked: {
-            clickbutton();
-        }
+        cursorShape: mouseAreaEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+        onClicked: clickbutton();
     }
 }
 
