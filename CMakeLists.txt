@@ -21,7 +21,7 @@ qt_add_qml_module(appusers-registration-qml
         # QML
         views/Main.qml
         views/InputComponent.qml
-        views/MyButton.qml
+        views/CustomButton.qml
         views/SelectBirthdate.qml
         views/ActionButton.qml
         views/UserInputSection.qml

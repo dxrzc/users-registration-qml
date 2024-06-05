@@ -233,7 +233,7 @@ Window {
                 width:error_view_container.width
                 height:error_view_container.height*0.15
 
-                MyButton{
+                CustomButton{
                     id:retrybutton
                     anchors.fill: parent
                     buttonColor: 'gray'

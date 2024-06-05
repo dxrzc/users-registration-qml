@@ -96,7 +96,7 @@ Item{
             width: inputs_container.width*0.75
             height:parent.height*0.16
 
-            MyButton{
+            CustomButton{
                 id: login_button
                 property bool allFieldsOk : (input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data && input_username.good_data);
                 anchors.top: parent.top
