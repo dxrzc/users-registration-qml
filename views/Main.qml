@@ -58,7 +58,7 @@ Window {
         blur: 1.0
     }
 
-    Logindb{
+    InsertDbUrlView{
         id: logindb
         anchors.centerIn: parent
         width:parent.width*0.3

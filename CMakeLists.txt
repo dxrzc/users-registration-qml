@@ -28,7 +28,7 @@ qt_add_qml_module(appusers-registration-qml
         views/SearchUserSection.qml
         views/TableHeaderSection.qml
         views/TableSection.qml
-        views/Logindb.qml
+        views/InsertDbUrlView.qml
 
         # Javascript
         views/js/generate.js
