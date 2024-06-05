@@ -1,8 +1,16 @@
 import QtQuick
 
 Item{
-    id: error_view_container
+    id: base
     property string message;
+
+    function retryConnectionFailed(){
+        reconnect_text_container.opacity = 100
+        reconnect_text_container.visible = true;
+        timer_show_reconnect_message.running = true;
+    }
+
+    signal retryClicked;
 
     Column{
         id: error_view_column
@@ -12,8 +20,8 @@ Item{
             id: error_image_container
             antialiasing: true
             color: "#00000000"
-            width:error_view_container.width
-            height:error_view_container.height*0.65
+            width:base.width
+            height:base.height*0.65
 
             Image{
                 source: 'imgs/error.png'
@@ -26,22 +34,22 @@ Item{
         Rectangle{ // 20%
             id: error_text_container
             color: "#00000000"
-            width:error_view_container.width
-            height:error_view_container.height*0.2
+            width:base.width
+            height:base.height*0.2
 
             Text {
                 anchors.centerIn: parent
                 color:'white'
                 font.pixelSize: Math.min(parent.width,parent.height)*0.3
-                text: error_view_container.message
+                text: base.message
             }
         }
 
         Rectangle{ // 15%
             id: error_retrybutton_container
             color: "#00000000"
-            width:error_view_container.width
-            height:error_view_container.height*0.15
+            width:base.width
+            height:base.height*0.15
 
             CustomButton{
                 id:retrybutton
@@ -51,20 +59,7 @@ Item{
                 textColor: 'white'
                 buttonText: 'Retry connection'
                 buttonTextSize: Math.min(parent.width,parent.height)*0.4
-                onClickbutton: function(){
-                    errorhandler.retryDBConnection();
-                    if(QmlDto.databaseIsOpen()){
-                        error_view_container.visible = false;
-                        componets_column.visible = true;
-                        QmlDto.reloadTableData();
-                        reloadTable();
-                    } else
-                    {
-                        reconnect_text_container.opacity = 100
-                        reconnect_text_container.visible = true;
-                        timer_show_reconnect_message.running = true;
-                    }
-                }
+                onClickbutton: retryClicked();
             }
         }
 
@@ -79,7 +74,7 @@ Item{
 
         Rectangle{
             id: reconnect_text_container
-            width: error_view_container.width
+            width: base.width
             height: error_image_container.height*0.2
             visible: false
             color: "#00000000"

@@ -17,25 +17,67 @@ Window {
     signal resetTableView;
     signal scrollToLastTableViewRow;
 
-    function setErrorView(message)
-    {
-        error_view_container.message = message;
-        error_view_container.visible = true;
+    // If backend functions change, only make changes below
+
+    function backend_retryDbConnection(){
+        errorhandler.retryDBConnection();
+    }
+
+    function backend_databaseIsOpen(){
+        return QmlDto.databaseIsOpen();
+    }
+
+    function backend_reloadTableData(){
+        QmlDto.reloadTableData();
+    }
+
+    function backend_userAlreadyExists(name){
+        return QmlDto.userAlreadyExists(name);
+    }
+
+    function backend_emailAlreadyExists(email){
+        return QmlDto.emailAlreadyExists(email);
+    }
+
+    function backend_phoneNumberAlreadyExists(number){
+        return QmlDto.phoneNumberAlreadyExists(number);
+    }
+
+    // QML Functions
+
+    function setErrorView(message){
+        errorView.message = message;
+        errorView.visible = true;
         componets_column.visible = false;
+    }
+
+    // QML-CXX Functions
+
+    function retryDbConnection(){
+        backend_retryDbConnection();
+        if(backend_databaseIsOpen()){
+            errorView.visible = false;
+            componets_column.visible = true;
+            backend_reloadTableData();
+            reloadTable();
+        } else {
+            errorView.retryConnectionFailed();
+        }
     }
 
     Connections{
         target: errorhandler
-        function onErrorFromDataBase(message)
-        {
+
+        function onErrorFromDataBase(message){
             setErrorView(message);
         }
 
-        function onInternalError(message)
-        {
+        function onInternalError(message){
             setErrorView(message);
         }
     }
+
+    // ..
 
     Timer {
         id: scrollToLastTimer
@@ -176,7 +218,6 @@ Window {
                                         }
                                     }
                                 }
-
                             }
                         }
                     }
@@ -186,12 +227,13 @@ Window {
     }
 
     ErrorView{
-        id: error_view_container
+        id: errorView
         width:parent.width*0.25
         height:parent.height*0.5
         anchors.centerIn: parent
         message: "Failed to connect to database";
         visible: false
+        onRetryClicked: retryDbConnection();
     }
 
 }
