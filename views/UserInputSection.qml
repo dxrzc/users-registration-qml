@@ -34,7 +34,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            InputComponent{
+            CustomInput{
                 id: input_username
                 anchors.fill: parent
                 label: 'Username'
@@ -63,7 +63,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            InputComponent{
+            CustomInput{
                 id: input_email
                 anchors.fill: parent
                 label: 'Email'
@@ -80,7 +80,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            InputComponent{
+            CustomInput{
                 id: input_phonenumber
                 anchors.fill: parent
                 label: 'Phone number'

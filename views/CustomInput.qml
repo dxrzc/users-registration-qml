@@ -20,6 +20,48 @@ Item{
         good_data = false;
     }
 
+    function dataValid(){
+        control.icon_path = "imgs/svg/check.svg";
+        control.good_data = true;
+    }
+
+    function dataInvalid(){
+        control.good_data = false;
+        control.icon_path = "imgs/svg/wrong.svg";
+    }
+
+    function fieldEmpty(){
+        control.icon_path = "";
+    }
+
+    function validateData(){
+        const value = text_field.text;
+        const syntaxOk = InputValidator.validateData(value,phonenumberInput,usernameInput,emailInput)
+
+        if(syntaxOk){
+            switch(true){
+            case usernameInput:
+                return !backend_userAlreadyExists(value);
+            case phonenumberInput:
+                return !backend_phoneNumberAlreadyExists(value);
+            case emailInput:
+                return !backend_emailAlreadyExists(value);
+            }
+        }
+        return false;
+    }
+
+    function validateInput(){
+        if(text_field.text !== ""){
+            if(validateData())
+                dataValid();
+            else
+                dataInvalid();
+        } else{
+            fieldEmpty();
+        }
+    }
+
     Column{
         anchors.fill: parent
 
@@ -71,24 +113,7 @@ Item{
                         radius:5
                         color: "#00000000"
                     }
-
-                    onTextChanged: {
-
-                        if(text_field.text === ""){
-                            control.icon_path = "";
-                            return;
-                        }
-
-                        if(InputValidator.validateData(text_field.text,control.phonenumberInput,control.usernameInput,control.emailInput,QmlDto)){
-
-                            control.icon_path = "imgs/svg/check.svg";
-                            control.good_data = true;
-                        }
-                        else{
-                            control.good_data = false;
-                            control.icon_path = "imgs/svg/wrong.svg";
-                        }
-                    }
+                    onTextChanged: validateInput();
                 }
             }
 

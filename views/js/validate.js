@@ -1,55 +1,24 @@
 .pragma library
 
-function validateEmail(dto,email) {
-
-    let status = false;
-
-    if (email.includes('@') && email.includes('.') && email.length > 5)
-        status = true;
-
-    if(status)
-        status = !(dto.emailAlreadyExists(email));
-
-    return status;
+function validateEmail(email) {
+    return (email.includes('@') && email.includes('.') && email.length > 5);
 }
 
-function validateNumber(dto,number) {
-
-    let status = false;
-
-    if (number.length === 9)
-        status = true
-
-    if(status)
-        status = !(dto.phoneNumberAlreadyExists(number));
-
-    return status;
+function validateNumber(number) {
+    return (number.length === 9)
 }
 
-function validateUserName(dto,username) {
-
-    let status = false;
-
-    if(username.length > 3)
-        status = true;
-
-    if(status)
-        status = !(dto.userAlreadyExists(username));
-
-    return status;
+function validateUserName(username) {
+    return (username.length > 3)
 }
 
-function validateData(text,isPhoneNumber, isUsername, isEmail,dto) {
-
+function validateData(text,isPhoneNumber, isUsername, isEmail) {
     switch (true) {
-
     case isPhoneNumber:
-        return validateNumber(dto,text);
+        return validateNumber(text);
     case isEmail:
-        return validateEmail(dto,text);
+        return validateEmail(text);
     case isUsername:
-        return validateUserName(dto,text);
-    default:
-        throw new Error('INPUT DATA NOT DEFINED');
+        return validateUserName(text);
     }
 }
