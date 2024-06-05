@@ -33,6 +33,7 @@ qt_add_qml_module(appusers-registration-qml
         # Javascript
         views/js/generate.js
         views/js/validate.js
+        views/js/splitOptions.js
 
     RESOURCES
 
@@ -47,6 +48,7 @@ qt_add_qml_module(appusers-registration-qml
         views/imgs/error.png
 
     SOURCES
+        domain/entities/connectionOptions/connectionOptions.h
         domain/entities/birthdate/birthdate.h
         domain/entities/birthdate/birthdate.cpp
         domain/entities/user/user.h
@@ -54,15 +56,13 @@ qt_add_qml_module(appusers-registration-qml
         domain/datasource/Datasource.h
         domain/errors/errorhandler.h
         domain/dtos/qmldto.h
-        domain/dtos/qmldto.cpp
-        
+        domain/dtos/qmldto.cpp               
+
         infraestructure/db/postgredatasource.h
         infraestructure/db/postgredatasource.cpp
 
         interface/table/userTableModel.h
-        interface/table/userTableModel.cpp
-        SOURCES domain/entities/connectionOptions/connectionOptions.h
-        QML_FILES views/js/splitOptions.js
+        interface/table/userTableModel.cpp        
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
