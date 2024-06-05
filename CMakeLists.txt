@@ -23,7 +23,7 @@ qt_add_qml_module(appusers-registration-qml
         views/CustomInput.qml
         views/CustomButton.qml
         views/SelectBirthdate.qml
-        views/ActionButton.qml
+        views/CustomActionButton.qml
         views/UserInputSection.qml
         views/SearchUserSection.qml
         views/TableHeaderSection.qml

@@ -16,7 +16,7 @@ Rectangle{
     }
 
     Row{
-        ActionButton{
+        CustomActionButton{
             id: searchButton
             width:searchUserContainer.width*0.1
             height:searchUserContainer.height
@@ -48,7 +48,7 @@ Rectangle{
             }
         }
 
-        ActionButton{
+        CustomActionButton{
             id: reloadButton
             width:searchUserContainer.width*0.1
             height:searchUserContainer.height
