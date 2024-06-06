@@ -47,6 +47,14 @@ Window {
         QmlDto.connectDB(hostname,port,user,password,db);
     }
 
+    function backend_enableFilter(text){
+        QmlDto.enableFilter(text);
+    }
+
+    function backend_disableFilter(){
+        QmlDto.disableFilter();
+    }
+
     // QML Functions (Instead of acces Main.qml components from another qml-
     // file, create a function here and use it to modify them)
 
@@ -76,6 +84,16 @@ Window {
         components_container.visible = true;
         logindb.visible = false;
         main_window.reloadTable();
+    }
+
+    function enableTableFilter(text){
+        backend_enableFilter(text);
+        resetTableView();
+    }
+
+    function disableTableFilter(){
+        backend_disableFilter();
+        resetTableView();
     }
 
     Connections{

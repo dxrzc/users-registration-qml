@@ -2,18 +2,7 @@ import QtQuick
 import QtQuick.Controls
 
 Rectangle{
-    id: searchUserContainer
-    color:'transparent'
-
-    function enableFilter(text){
-        QmlDto.enableFilter(text);
-        resetTableView();
-    }
-
-    function disableFilter(){
-        QmlDto.disableFilter();
-        resetTableView();
-    }
+    id: searchUserContainer    
 
     Row{
         CustomActionButton{
@@ -23,7 +12,7 @@ Rectangle{
             color: 'transparent'
             antialiasing: true
             imagepath: "imgs/svg/search.svg"
-            onClickButton: enableFilter(searchText.text)
+            onClickButton: enableTableFilter(searchText.text)
         }
 
         Rectangle{
@@ -38,13 +27,11 @@ Rectangle{
                 anchors.verticalCenter: parent.verticalCenter
                 placeholderText: 'Search by username, email or phone number'
                 color:'black'
-
+                onAccepted: enableTableFilter(text);
                 background: Rectangle{
                     color :'lightgray'
                     radius:5
                 }
-
-                onAccepted: enableFilter(text);
             }
         }
 
@@ -56,7 +43,7 @@ Rectangle{
             antialiasing: true
             imagepath: "imgs/svg/reload.svg"
             onClickButton: {
-                disableFilter();
+                disableTableFilter();
                 searchText.text = "";
             }
         }
