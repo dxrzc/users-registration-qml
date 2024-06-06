@@ -55,6 +55,10 @@ Window {
         QmlDto.disableFilter();
     }
 
+    function backend_createUser(user,email,phone,birthdate){
+        QmlDto.createUser(user,email,phone,birthdate);
+    }
+
     // QML Functions (Instead of acces Main.qml components from another qml-
     // file, create a function here and use it to modify them)
 
@@ -62,6 +66,10 @@ Window {
         errorView.message = message;
         errorView.visible = true;
         componets_column.visible = false;
+    }
+
+    function enableScrollToLastTimer(){
+        scrollToLastTimer.running = true;
     }
 
     // QML-CXX Functions

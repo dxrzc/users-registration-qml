@@ -3,21 +3,27 @@ import QtQuick
 Item{
     id: inputs_container
 
-    function create_user()
-    {
+    function create_user(){
         if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
             const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
-            QmlDto.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
-            scrollToLastTimer.running = true;
+            backend_createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
+            enableScrollToLastTimer();
         }
     }
 
-    function clear_fields()
-    {
+    function clear_fields(){
         input_phonenumber.clearField();
         input_email.clearField();
         input_username.clearField();
         selection_birthdate.clearFields();
+    }
+
+    function whenRegistButtonIsClicked(){
+        if(register_button.allFieldsOk){
+            create_user();
+            clear_fields();
+            reloadTable();
+        }
     }
 
     Column{
@@ -97,7 +103,7 @@ Item{
             height:parent.height*0.16
 
             CustomButton{
-                id: login_button
+                id: register_button
                 property bool allFieldsOk : (input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data && input_username.good_data);
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.3
@@ -108,12 +114,8 @@ Item{
                 buttonHoveredColor: allFieldsOk ? '#008080' : 'gray'
                 buttonText: 'Register'
                 buttonTextSize: Math.min(parent.width,parent.height)/3
-                onClickbutton: if(allFieldsOk) {
-                                   create_user();
-                                   clear_fields();
-                                   reloadTable();
-                               }
                 mouseAreaEnabled: allFieldsOk;
+                onClickbutton: whenRegistButtonIsClicked();
             }
         }
     }
