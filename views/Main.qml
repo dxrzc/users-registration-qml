@@ -65,7 +65,7 @@ Window {
     function setErrorView(message){
         errorView.message = message;
         errorView.visible = true;
-        componets_column.visible = false;
+        components_container.visible = false;
     }
 
     function enableScrollToLastTimer(){
@@ -89,9 +89,11 @@ Window {
     // options: Array
     function connect(options){
         backend_connectDb(options[0],options[1],options[2],options[3],options[4]);
-        components_container.visible = true;
-        logindb.visible = false;
-        main_window.reloadTable();
+        insertUrlView.visible = false;
+        if(backend_databaseIsOpen()){
+            components_container.visible = true;
+            main_window.reloadTable();
+        }
     }
 
     function enableTableFilter(text){
@@ -140,7 +142,7 @@ Window {
     }
 
     InsertDbUrlView{
-        id: logindb
+        id: insertUrlView
         anchors.centerIn: parent
         width:parent.width*0.3
         height: parent.height*0.6
