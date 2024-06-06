@@ -78,7 +78,7 @@ Window {
         backend_retryDbConnection();
         if(backend_databaseIsOpen()){
             errorView.visible = false;
-            componets_column.visible = true;
+            components_container.visible = true;
             backend_reloadTableData();
             reloadTable();
         } else {
