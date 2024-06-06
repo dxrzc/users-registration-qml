@@ -27,6 +27,15 @@ Rectangle {
         connectButton.buttonText = 'Connect';
     }
 
+    function validateUrl(){
+        if(textField.text === '')
+            defaultButtonStyle();
+        else
+            if(GetOptions.validateUrl(textField.text))
+                validUrlButtonStyle()
+            else invalidUrlButtonStyle();
+    }
+
     Item{
         width:parent.width*0.9
         height:parent.height*0.35
@@ -68,12 +77,7 @@ Rectangle {
                         radius:5
                     }
 
-                    onTextChanged: {
-                        if(textField.text === '')
-                            defaultButtonStyle();
-                        else
-                            (GetOptions.validateUrl(textField.text)) ?  validUrlButtonStyle() : invalidUrlButtonStyle();
-                    }
+                    onTextChanged: validateUrl();
                 }
             }
 
@@ -88,16 +92,8 @@ Rectangle {
                     height:parent.height*0.7
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
                     textColor: 'black'
-
                     Component.onCompleted: defaultButtonStyle();
-
-                    onClickbutton: {
-                        const options = GetOptions.getOptions(textField.text);
-                        QmlDto.connectDB(options[0],options[1],options[2],options[3],options[4]);
-                        components_container.visible = true;
-                        logindb.visible = false;
-                        main_window.reloadTable();
-                    }
+                    onClickbutton: connect(GetOptions.getOptions(textField.text));
                 }
             }
         }

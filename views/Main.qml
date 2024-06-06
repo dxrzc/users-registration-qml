@@ -15,7 +15,7 @@ Window {
 
     signal reloadTable;
     signal resetTableView;
-    signal scrollToLastTableViewRow;
+    signal scrollToLastTableViewRow;    
 
     // If backend functions change, only make changes below
 
@@ -43,7 +43,12 @@ Window {
         return QmlDto.phoneNumberAlreadyExists(number);
     }
 
-    // QML Functions
+    function backend_connectDb(hostname, port, user,password,db){
+        QmlDto.connectDB(hostname,port,user,password,db);
+    }
+
+    // QML Functions (Instead of acces Main.qml components from another qml-
+    // file, create a function here and use it to modify them)
 
     function setErrorView(message){
         errorView.message = message;
@@ -63,6 +68,14 @@ Window {
         } else {
             errorView.retryConnectionFailed();
         }
+    }
+
+    // options: Array
+    function connect(options){
+        backend_connectDb(options[0],options[1],options[2],options[3],options[4]);
+        components_container.visible = true;
+        logindb.visible = false;
+        main_window.reloadTable();
     }
 
     Connections{
