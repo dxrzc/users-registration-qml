@@ -22,8 +22,8 @@ Rectangle {
 
     function validUrlButtonStyle(){
         connectButton.mouseAreaEnabled = true;
-        connectButton.buttonHoveredColor= '#57CC99';
-        connectButton.buttonColor= '#1FAB89';
+        connectButton.buttonHoveredColor= globalHoveredButtonColor;
+        connectButton.buttonColor= globalButtonColor;
         connectButton.buttonText = 'Connect';
     }
 

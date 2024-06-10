@@ -13,11 +13,14 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
+    readonly property color globalButtonColor: '#009999';
+    readonly property color globalHoveredButtonColor: '#008080';
+
     signal reloadTable;
     signal resetTableView;
     signal scrollToLastTableViewRow;    
 
-    // If backend functions change, only make changes below
+    // If backend functions change, only make changes to the following functions
 
     function backend_retryDbConnection(){
         errorhandler.retryDBConnection();
@@ -57,10 +60,14 @@ Window {
 
     function backend_createUser(user,email,phone,birthdate){
         QmlDto.createUser(user,email,phone,birthdate);
-    }
+    }        
 
-    // QML Functions (Instead of acces Main.qml components from another qml-
-    // file, create a function here and use it to modify them)
+    /*
+      If some Qml file needs to make changes to any component outside its file
+      create a function here and call it from wherever you need it
+    */
+
+    // QML Functions
 
     function setErrorView(message){
         errorView.message = message;
