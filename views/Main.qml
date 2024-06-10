@@ -75,6 +75,13 @@ Window {
         components_container.visible = false;
     }
 
+    function setInsertDbUrlView()
+    {
+        errorView.visible = false;
+        components_container.visible = false;
+        insertUrlView.visible = true;
+    }
+
     function enableScrollToLastTimer(){
         scrollToLastTimer.running = true;
     }

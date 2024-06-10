@@ -45,21 +45,43 @@ Item{
             }
         }
 
-        Rectangle{ // 15%
-            id: error_retrybutton_container
-            color: "#00000000"
+        Item{ // 15%
+            id: error_retrybutton_container            
             width:base.width
-            height:base.height*0.15
+            height:base.height*0.15                                    
 
-            CustomButton{
-                id:retrybutton
+            MouseArea{
+                id: testMouseArea
                 anchors.fill: parent
-                buttonColor: 'gray'
-                buttonHoveredColor: '#6c6c6c'
-                textColor: 'white'
-                buttonText: 'Retry connection'
-                buttonTextSize: Math.min(parent.width,parent.height)*0.4
-                onClickbutton: retryClicked();
+            }
+
+            Row{
+                anchors.fill: parent
+                spacing:width*0.02
+
+                CustomButton{
+                    id: retrybutton
+                    width:parent.width*0.49
+                    height: parent.height
+                    buttonColor: 'gray'
+                    buttonHoveredColor: '#6c6c6c'
+                    textColor: 'white'
+                    buttonText: 'Retry connection'
+                    buttonTextSize: Math.min(parent.width,parent.height)*0.3
+                    onClickbutton: retryClicked();
+                }
+
+                CustomButton{
+                    width:parent.width*0.49
+                    height: parent.height
+                    mouseAreaEnabled: true
+                    buttonColor: globalButtonColor
+                    buttonHoveredColor: globalHoveredButtonColor
+                    textColor: 'white'
+                    buttonText: 'Insert a new URL'
+                    buttonTextSize: Math.min(parent.width,parent.height)*0.3
+                    onClickbutton: setInsertDbUrlView();
+                }
             }
         }
 

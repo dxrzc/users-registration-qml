@@ -98,7 +98,7 @@ Rectangle {
                     width:parent.width*0.9
                     height:parent.height*0.7
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
-                    textColor: 'black'
+                    textColor: 'white'
                     Component.onCompleted: defaultButtonStyle();
                     onClickbutton: connect(GetOptions.getOptions(textField.text));
                 }
