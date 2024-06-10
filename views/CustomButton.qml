@@ -22,6 +22,7 @@ Rectangle{
     }
 
     MouseArea{
+        hoverEnabled: true
         enabled: parent.mouseAreaEnabled
         id:mouseArea
         anchors.fill: parent
