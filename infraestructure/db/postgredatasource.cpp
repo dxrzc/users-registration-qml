@@ -23,7 +23,7 @@ User PostgreDataSource::fromQueryToUser(const QSqlQuery& query) const
 
 void PostgreDataSource::createTable()
 {
-    QSqlQuery query(database);
+    QSqlQuery query(QSqlDatabase::database(connectionName));
     const QString command = "CREATE TABLE %1 (username TEXT NOT NULL, birthdate DATE, email TEXT NOT NULL, phone TEXT NOT NULL)";
     const bool tableCreated = query.exec(command.arg(tableName));
     if (tableCreated)
@@ -34,13 +34,13 @@ void PostgreDataSource::createTable()
 
 void PostgreDataSource::tryToConnect()
 {
-    if (!database.open())
+    if (!QSqlDatabase::database(connectionName).open())
     {
         emit errorHandler->errorFromDataBase("Failed to connect to postgres");
         return;
     }
 
-    if (!database.tables().contains(tableName))
+    if (!QSqlDatabase::database(connectionName).tables().contains(tableName))
         createTable();
 }
 
@@ -53,7 +53,7 @@ bool PostgreDataSource::checkIfValueExists(const QString& userproperty, const QS
         return false;
     }
 
-    QSqlQuery query(database);
+    QSqlQuery query(QSqlDatabase::database(connectionName));
     const QString command = "SELECT 1 FROM %1 WHERE %2 = '%3'";
 
     if (!query.exec(command.arg(tableName, userproperty, value)))
@@ -83,7 +83,7 @@ bool PostgreDataSource::checkIfPhoneNumberAlreadyExists(const QString& phoneNumb
 
 void PostgreDataSource::saveUser(const User& user)
 {
-    QSqlQuery query(database);
+    QSqlQuery query(QSqlDatabase::database(connectionName));
     const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES ('%2', '%3', '%4', '%5')";
     const bool userSaved = query.exec(command.arg(tableName, user.username(), user.birthdate().toQString(), user.email(), user.phoneNumber()));
     if (!userSaved)
@@ -93,7 +93,7 @@ void PostgreDataSource::saveUser(const User& user)
 // todo: is this function being used ¿?
 User PostgreDataSource::getUserByName(const QString& name) const
 {
-    QSqlQuery query(database);
+    QSqlQuery query(QSqlDatabase::database(connectionName));
     const QString command = "SELECT * FROM %1 WHERE username = '%2'";
 
     if (!query.exec(command.arg(tableName, name)))
@@ -109,7 +109,7 @@ void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
 {
     if(dbIsOpen())
     {
-        QSqlQuery query(database);
+        QSqlQuery query(QSqlDatabase::database(connectionName));
         const QString command = "SELECT * FROM %1";
         if (!query.exec(command.arg(tableName)))
         {
@@ -126,23 +126,27 @@ void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
 
 bool PostgreDataSource::dbIsOpen() const
 {
-    return database.isOpen();
+    return QSqlDatabase::database(connectionName).isOpen();
 }
 
 void PostgreDataSource::connect(const ConnectionOptions & options)
 {
+    if (QSqlDatabase::contains(connectionName))
+        QSqlDatabase::removeDatabase(connectionName);
+
     tableName = "myusers"; // MUST BE LOWERCASE
-    database = QSqlDatabase::addDatabase("QPSQL");
-    database.setHostName(options.hostname);
-    database.setPort(options.PORT);
-    database.setUserName(options.user);
-    database.setDatabaseName(options.database);
-    database.setPassword(options.password);
+    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName(options.hostname);
+    db.setPort(options.PORT);
+    db.setUserName(options.user);
+    db.setDatabaseName(options.database);
+    db.setPassword(options.password);
+    connectionName = db.connectionName();
     tryToConnect();
 }
 
 void PostgreDataSource::retryConnection()
 {
-    database.close();
+    QSqlDatabase::database(connectionName).close();
     tryToConnect();
 }

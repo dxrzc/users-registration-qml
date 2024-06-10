@@ -13,7 +13,7 @@ class PostgreDataSource: public QObject,public DataSource
 {
     Q_OBJECT
 private:
-    QSqlDatabase database;
+    QString connectionName;
     QString tableName;
     ErrorHandler* errorHandler;
     User fromQueryToUser(const QSqlQuery& query) const;
@@ -28,12 +28,14 @@ public:
     PostgreDataSource(ErrorHandler*, QObject* parent = nullptr);
     ~PostgreDataSource();
     void saveUser(const User&) override;
-    User getUserByName(const QString&) const override;    
-    void getAllUsers(QList<User>&) const override;    
-    bool dbIsOpen() const override;    
+    User getUserByName(const QString&) const override;
+    void getAllUsers(QList<User>&) const override;
+    bool dbIsOpen() const override;
+    // tries a new url
     void connect(const ConnectionOptions &) override;
 
 public slots:
+    // tries the same url
     void retryConnection();
 };
 
