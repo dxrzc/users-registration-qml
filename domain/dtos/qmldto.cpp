@@ -43,7 +43,8 @@ void qmlDto::connectDB(const QString &hostname, quint64 port, const QString &use
 {
     ConnectionOptions options (hostname, user,password,database,port);
     datasource->connect(options);
-    emit databaseConnected();
+    if(datasource->dbIsOpen())
+        emit databaseConnected();
 }
 
 qmlDto::~qmlDto()

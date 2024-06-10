@@ -34,7 +34,7 @@ void PostgreDataSource::createTable()
 
 void PostgreDataSource::tryToConnect()
 {
-    if (!QSqlDatabase::database(connectionName).open())
+    if (!QSqlDatabase::database(connectionName,false).open())
     {
         emit errorHandler->errorFromDataBase("Failed to connect to postgres");
         return;
@@ -126,7 +126,7 @@ void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
 
 bool PostgreDataSource::dbIsOpen() const
 {
-    return QSqlDatabase::database(connectionName).isOpen();
+    return QSqlDatabase::database(connectionName,false).isOpen();
 }
 
 void PostgreDataSource::connect(const ConnectionOptions & options)
@@ -147,6 +147,6 @@ void PostgreDataSource::connect(const ConnectionOptions & options)
 
 void PostgreDataSource::retryConnection()
 {
-    QSqlDatabase::database(connectionName).close();
+    QSqlDatabase::database(connectionName,false).close();
     tryToConnect();
 }
