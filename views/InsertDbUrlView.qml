@@ -36,6 +36,12 @@ Rectangle {
             else invalidUrlButtonStyle();
     }
 
+    function connectIfButtonIsAvailable()
+    {
+        if(connectButton.mouseAreaEnabled)
+            connect(GetOptions.getOptions(textField.text));
+    }
+
     Item{
         width:parent.width*0.9
         height:parent.height*0.35
@@ -78,6 +84,7 @@ Rectangle {
                     }
 
                     onTextChanged: validateUrl();
+                    onAccepted: connectIfButtonIsAvailable();
                 }
             }
 
