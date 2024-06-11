@@ -95,8 +95,6 @@ Window {
             components_container.visible = true;
             backend_reloadTableData();
             reloadTable();
-        } else {
-            errorView.retryConnectionFailed();
         }
     }
 

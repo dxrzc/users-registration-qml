@@ -36,7 +36,7 @@ void PostgreDataSource::tryToConnect()
 {
     if (!QSqlDatabase::database(connectionName,false).open())
     {
-        emit errorHandler->errorFromDataBase("Failed to connect to postgres");
+        emit errorHandler->errorFromDataBase("Failed to connect to database");
         return;
     }
 

@@ -3,14 +3,12 @@ import QtQuick
 Item{
     id: base
     property string message;
-
-    function retryConnectionFailed(){
-        reconnect_text_container.opacity = 100
-        reconnect_text_container.visible = true;
-        timer_show_reconnect_message.running = true;
-    }
-
     signal retryClicked;
+
+    function retryButtonClicked(){
+        errorImageSequentialAnimation.running = true;
+        retryClicked()
+    }
 
     Column{
         id: error_view_column
@@ -24,10 +22,16 @@ Item{
             height:base.height*0.65
 
             Image{
+                id: errorImage
                 source: 'imgs/error.png'
-                height:parent.height
+                height:parent.height*0.9
                 fillMode:Image.PreserveAspectFit
                 anchors.centerIn: parent
+                SequentialAnimation {
+                    id: errorImageSequentialAnimation
+                    NumberAnimation { target: errorImage; property: "height"; to: error_image_container.height; duration: 100 }
+                    NumberAnimation { target: errorImage; property: "height"; to: error_image_container.height*0.9; duration: 100}
+                }
             }
         }
 
@@ -40,15 +44,15 @@ Item{
             Text {
                 anchors.centerIn: parent
                 color:'white'
-                font.pixelSize: Math.min(parent.width,parent.height)*0.3
-                text: base.message
+                font.pixelSize: Math.min(parent.width,parent.height)*0.25
+                text: base.message.toUpperCase();
             }
         }
 
         Item{ // 15%
-            id: error_retrybutton_container            
+            id: error_retrybutton_container
             width:base.width
-            height:base.height*0.15                                    
+            height:base.height*0.15
 
             MouseArea{
                 id: testMouseArea
@@ -68,7 +72,8 @@ Item{
                     textColor: 'white'
                     buttonText: 'Retry connection'
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
-                    onClickbutton: retryClicked();
+                    onClickbutton: retryButtonClicked();
+
                 }
 
                 CustomButton{
@@ -82,41 +87,6 @@ Item{
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
                     onClickbutton: setInsertDbUrlView();
                 }
-            }
-        }
-
-        Timer{
-            id: timer_show_reconnect_message
-            interval: 500
-            running: false;
-            onTriggered: {
-                reconnect_text_container.visible= false;
-            }
-        }
-
-        Rectangle{
-            id: reconnect_text_container
-            width: base.width
-            height: error_image_container.height*0.2
-            visible: false
-            color: "#00000000"
-
-            PropertyAnimation {
-                id: reconnect_text_container_animation
-                duration: 300
-                target: reconnect_text_container;
-                property: "opacity";
-                to: 0
-            }
-
-            onVisibleChanged: reconnect_text_container_animation.running = true;
-
-            Text {
-                id: reconnect_text
-                anchors.centerIn: parent
-                color: 'white'
-                text: qsTr("Unable to connect")
-                font.pixelSize: Math.min(parent.width,parent.height)*0.3
             }
         }
     }
