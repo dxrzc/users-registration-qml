@@ -11,8 +11,15 @@ Rectangle{
     property string datafromInput;
     signal clickbutton;
 
-    color: mouseArea.containsMouse ? buttonHoveredColor : buttonColor
+    color: buttonColor;
     radius:10
+
+    ColorAnimation on color {
+        id: changeColorAnimation
+        running: false;
+        to: mouseArea.containsMouse ? buttonColor : buttonHoveredColor;
+        duration: 200
+    }
 
     Text{
         anchors.centerIn: parent
@@ -22,12 +29,13 @@ Rectangle{
     }
 
     MouseArea{
+        id:mouseArea
         hoverEnabled: true
         enabled: parent.mouseAreaEnabled
-        id:mouseArea
         anchors.fill: parent
         cursorShape: mouseAreaEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
         onClicked: clickbutton();
+        onContainsMouseChanged: changeColorAnimation.running = true;
     }
 }
 
