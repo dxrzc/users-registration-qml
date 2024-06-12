@@ -8,8 +8,7 @@ Rectangle{
         CustomActionButton{
             id: searchButton
             width:searchUserContainer.width*0.1
-            height:searchUserContainer.height
-            color: 'transparent'
+            height:searchUserContainer.height            
             antialiasing: true
             imagepath: "imgs/svg/search.svg"
             onClickButton: enableTableFilter(searchText.text)
@@ -38,8 +37,7 @@ Rectangle{
         CustomActionButton{
             id: reloadButton
             width:searchUserContainer.width*0.1
-            height:searchUserContainer.height
-            color: 'transparent'
+            height:searchUserContainer.height            
             antialiasing: true
             imagepath: "imgs/svg/reload.svg"
             onClickButton: {

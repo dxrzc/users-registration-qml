@@ -1,6 +1,6 @@
 import QtQuick
 
-Rectangle
+Item
 {
     property string imagepath;
     signal clickButton;
