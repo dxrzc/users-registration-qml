@@ -3,13 +3,15 @@ import QtQuick
 Rectangle{
     id: headerContainer
 
+    readonly property int headersCount: 5;
+
     Row{
         anchors.fill: parent
         property color firstcolor : '#bfbfbf';
         property color secondcolor: '#b3b3b3'
 
         Rectangle{
-            width:parent.width/4
+            width:parent.width/headersCount
             height: parent.height
             color: parent.firstcolor
 
@@ -21,7 +23,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/4
+            width:parent.width/headersCount
             height: parent.height
             color: parent.secondcolor
 
@@ -33,7 +35,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/4
+            width:parent.width/headersCount
             height: parent.height
             color: parent.firstcolor
 
@@ -45,7 +47,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/4
+            width:parent.width/headersCount
             height: parent.height
             color: parent.secondcolor
 
@@ -54,6 +56,12 @@ Rectangle{
                 anchors.centerIn: parent
                 font.pixelSize: Math.min(parent.width,parent.height)*0.4
             }
+        }
+
+        Rectangle{
+            width:parent.width/headersCount
+            height: parent.height
+            color: parent.firstcolor
         }
     }
 

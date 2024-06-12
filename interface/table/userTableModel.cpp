@@ -22,7 +22,7 @@ Q_INVOKABLE int UserTableModel::rowCount(const QModelIndex& parent) const
 
 Q_INVOKABLE int UserTableModel::columnCount(const QModelIndex& parent) const
 {
-    return 4;
+    return 5;
 }
 
 Q_INVOKABLE QVariant UserTableModel::data(const QModelIndex& index, int role) const
@@ -42,6 +42,7 @@ Q_INVOKABLE QVariant UserTableModel::data(const QModelIndex& index, int role) co
             case 1: return currentUser.email();
             case 2: return currentUser.phoneNumber();
             case 3: return currentUser.birthdate().toQString();
+            case 4: return "New Cell";
             }
         }
 

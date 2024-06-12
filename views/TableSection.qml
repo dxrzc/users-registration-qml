@@ -4,6 +4,8 @@ Rectangle{
 
     color:'transparent'
 
+    readonly property int columnCount: 5;
+
     function reload()
     {
         userstable_tableview.model = "";
@@ -42,7 +44,7 @@ Rectangle{
 
             delegate: Rectangle {
                 clip:true
-                implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/4
+                implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/columnCount
                 implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/7
                 color: 'lightgray'
 
