@@ -4,8 +4,6 @@ Rectangle{
 
     color:'transparent'
 
-    readonly property int columnCount: 5;
-
     function reload()
     {
         userstable_tableview.model = "";
@@ -43,20 +41,65 @@ Rectangle{
             rowSpacing: Math.min(parent.width,parent.height)*0.003
 
             delegate: Rectangle {
+
+                id: cellRectangle
+                property real totalWidthWithoutSpacing: (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)));
                 clip:true
-                implicitWidth : (cellsContainer.width - (userstable_tableview.columnSpacing*(userstable_tableview.columns-1)))/columnCount
+
+                implicitWidth : {
+                    switch(column){
+                    case 0: return totalWidthWithoutSpacing*usernameSizePercentage;
+                    case 1: return totalWidthWithoutSpacing*emailSizePercentage;
+                    case 2: return totalWidthWithoutSpacing*phoneNumberSizePercentage;
+                    case 3: return totalWidthWithoutSpacing*birthdateSizePercentage;
+                    case 4: return totalWidthWithoutSpacing*editUserSizePercentage;
+                    }
+                }
+
                 implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/7
-                color: 'lightgray'
+                color: (column === 4)? 'transparent' :'lightgray'
 
                 TextEdit {
                     id: textFromSearching
                     readOnly: true
                     font.pixelSize: Math.min(parent.width,parent.height)/4
                     color: 'black'
-                    text: display
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width/25
+                    text: (column === 4) ? '': display
+                    // text in center for phone-number and birthdate properties
+                    anchors.verticalCenter: (column !== 2 || column !== 3)? parent.verticalCenter: undefined
+                    anchors.left: (column !== 2 || column !== 3)? parent.left: undefined
+                    anchors.leftMargin:(column !== 2 || column !== 3)? parent.width/25: undefined
+                    anchors.centerIn: (column === 2 || column === 3)? parent : undefined
+                }
+
+                Loader{
+                    active: (column === 4)
+                    sourceComponent: iconsComponent
+                }
+
+                Component {
+                    id: iconsComponent
+
+                    Item{
+                        width: cellRectangle.width
+                        height: cellRectangle.height
+
+                        Column {
+                            anchors.fill: parent
+
+                            CustomActionButton {
+                                width:parent.width
+                                height: parent.height/2
+                                imagepath: 'imgs/svg/edit.svg'
+                            }
+
+                            CustomActionButton {
+                                width:parent.width
+                                height: parent.height/2
+                                imagepath: 'imgs/svg/delete.svg';
+                            }
+                        }
+                    }
                 }
             }
         }

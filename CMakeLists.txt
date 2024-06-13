@@ -43,6 +43,8 @@ qt_add_qml_module(appusers-registration-qml
         views/imgs/svg/wrong.svg
         views/imgs/svg/search.svg
         views/imgs/svg/reload.svg
+        views/imgs/svg/delete.svg
+        views/imgs/svg/edit.svg
 
         # IMAGES
         views/imgs/background.jpg

@@ -42,7 +42,6 @@ Q_INVOKABLE QVariant UserTableModel::data(const QModelIndex& index, int role) co
             case 1: return currentUser.email();
             case 2: return currentUser.phoneNumber();
             case 3: return currentUser.birthdate().toQString();
-            case 4: return "New Cell";
             }
         }
 

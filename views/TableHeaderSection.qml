@@ -3,15 +3,13 @@ import QtQuick
 Rectangle{
     id: headerContainer
 
-    readonly property int headersCount: 5;
-
     Row{
         anchors.fill: parent
         property color firstcolor : '#bfbfbf';
         property color secondcolor: '#b3b3b3'
 
         Rectangle{
-            width:parent.width/headersCount
+            width:parent.width*usernameSizePercentage
             height: parent.height
             color: parent.firstcolor
 
@@ -23,7 +21,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/headersCount
+            width:parent.width*emailSizePercentage
             height: parent.height
             color: parent.secondcolor
 
@@ -35,7 +33,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/headersCount
+            width:parent.width*phoneNumberSizePercentage
             height: parent.height
             color: parent.firstcolor
 
@@ -47,7 +45,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/headersCount
+            width:parent.width*birthdateSizePercentage
             height: parent.height
             color: parent.secondcolor
 
@@ -59,9 +57,15 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width/headersCount
+            width:parent.width*editUserSizePercentage
             height: parent.height
             color: parent.firstcolor
+
+            Text {
+                text: '..'
+                anchors.centerIn: parent
+                font.pixelSize: Math.min(parent.width,parent.height)*0.4
+            }
         }
     }
 
