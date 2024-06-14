@@ -88,12 +88,14 @@ Rectangle{
                             anchors.fill: parent
 
                             CustomActionButton {
+                                resizeable: true
                                 width:parent.width
                                 height: parent.height/2
                                 imagepath: 'imgs/svg/edit.svg'
                             }
 
                             CustomActionButton {
+                                resizeable: true
                                 width:parent.width
                                 height: parent.height/2
                                 imagepath: 'imgs/svg/delete.svg';
