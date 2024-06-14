@@ -29,6 +29,7 @@ public:
 public slots:
     void loadData();
     void createUser(const User&);
+    void deleteUser(const QString&);
     void enableFilter(const QString& filter);
     void disableFilter();
 };

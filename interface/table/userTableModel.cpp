@@ -5,6 +5,7 @@ UserTableModel::UserTableModel(qmlDto* dto_, QObject* parent): QAbstractTableMod
     filterON = false;
     QObject::connect(dto,&qmlDto::databaseConnected,this,&UserTableModel::loadData);
     QObject::connect(dto,&qmlDto::createUserSignal,this,&UserTableModel::createUser);
+    QObject::connect(dto,&qmlDto::deleteUserSignal,this,&UserTableModel::deleteUser);
     QObject::connect(dto,&qmlDto::enableFilter,this,&UserTableModel::enableFilter);
     QObject::connect(dto,&qmlDto::disableFilter,this,&UserTableModel::disableFilter);
     QObject::connect(dto,&qmlDto::reloadTableData,this,&UserTableModel::loadData);
@@ -59,6 +60,19 @@ void UserTableModel::createUser(const User& user)
     beginInsertRows(QModelIndex(), usersList.count(), usersList.count());
     usersList.append(user);
     endInsertRows();    
+}
+
+void UserTableModel::deleteUser(const QString& username)
+{
+    // IMPORTANT: Use remove on qmlList first, or you'll get an invalid reference.
+    if(filterON)
+        qmlList.removeIf([&](const std::reference_wrapper<const User>& userRef){
+            return userRef.get().username() == username;
+        });
+
+    usersList.removeIf([&](const User& user){
+        return user.username() == username;
+    });
 }
 
 void UserTableModel::enableFilter(const QString &filter)

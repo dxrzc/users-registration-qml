@@ -145,6 +145,15 @@ void PostgreDataSource::connect(const ConnectionOptions & options)
     tryToConnect();
 }
 
+void PostgreDataSource::deleteUser(const QString & username)
+{
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    const QString command = "DELETE FROM %1 WHERE username = '%2'";
+    const bool userDeleted = query.exec(command.arg(tableName, username));
+    if (!userDeleted)
+        emit errorHandler->errorFromDataBase("Failed to delete user");
+}
+
 void PostgreDataSource::retryConnection()
 {
     QSqlDatabase::database(connectionName,false).close();

@@ -70,6 +70,10 @@ Window {
         QmlDto.createUser(user,email,phone,birthdate);
     }        
 
+    function backend_deleteUser(username){
+        QmlDto.deleteUser(username);
+    }
+
     /*
       If some Qml file needs to make changes to any component outside its file
       create a function here and call it from wherever you need it

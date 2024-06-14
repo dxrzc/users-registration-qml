@@ -24,6 +24,13 @@ Rectangle{
             userstable_tableview.contentY = contentHeight - height;
     }
 
+    function deleteUser(row){
+        const index = userstable_tableview.model.index(row,0);
+        const username = (userstable_tableview.model.data(index,Qt.DisplayRole));
+        backend_deleteUser(username);
+        reloadTable();
+    }
+
     Rectangle{
         id: cellsContainer
         width: parent.width*0.98
@@ -60,7 +67,6 @@ Rectangle{
                 color: (column === 4)? 'transparent' :'lightgray'
 
                 TextEdit {
-                    id: textFromSearching
                     readOnly: true
                     font.pixelSize: Math.min(parent.width,parent.height)/4
                     color: 'black'
@@ -91,7 +97,7 @@ Rectangle{
                                 resizeable: true
                                 width:parent.width
                                 height: parent.height/2
-                                imagepath: 'imgs/svg/edit.svg'
+                                imagepath: 'imgs/svg/edit.svg'                                
                             }
 
                             CustomActionButton {
@@ -99,6 +105,7 @@ Rectangle{
                                 width:parent.width
                                 height: parent.height/2
                                 imagepath: 'imgs/svg/delete.svg';
+                                onClickButton: deleteUser(row);
                             }
                         }
                     }

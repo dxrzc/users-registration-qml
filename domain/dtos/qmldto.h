@@ -21,10 +21,12 @@ public:
     Q_INVOKABLE void createUser(const QString& username, const QString& email, const QString& phoneNumber, const QString& birthdate);
     Q_INVOKABLE bool databaseIsOpen();
     Q_INVOKABLE void connectDB(const QString& hostname, quint64 port, const QString& user, const QString& password, const QString& database);
+    Q_INVOKABLE void deleteUser(const QString&);
     ~qmlDto();
 
 signals:
     void createUserSignal(const User&);
+    void deleteUserSignal(const QString&);
     void enableFilter(const QString&);
     void disableFilter();
     void reloadTableData();

@@ -8,6 +8,7 @@ class DataSource
 {
 public:
     virtual void saveUser(const User&) = 0;
+    virtual void deleteUser(const QString&) = 0;
     virtual User getUserByName(const QString&) const = 0;
     virtual void getAllUsers(QList<User>&) const = 0;
     virtual bool dbIsOpen() const = 0;

@@ -47,6 +47,12 @@ void qmlDto::connectDB(const QString &hostname, quint64 port, const QString &use
         emit databaseConnected();
 }
 
+void qmlDto::deleteUser(const QString& username)
+{
+    datasource->deleteUser(username);
+    emit deleteUserSignal(username);
+}
+
 qmlDto::~qmlDto()
 {
     delete datasource;
