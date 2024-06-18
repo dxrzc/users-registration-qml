@@ -26,7 +26,14 @@ Window {
 
     signal reloadTable;
     signal resetTableView;
-    signal scrollToLastTableViewRow;    
+    signal scrollToLastTableViewRow;
+
+    Connections {
+        target: main_window
+        function onReloadTable(){userstable.reloadTableSection();}
+        function onResetTableView(){userstable.resetTableSection();}
+        function onScrollToLastTableViewRow(){userstable.scrollToLastRow();}
+    }
 
     // If backend functions change, only make changes to the following functions
 
@@ -68,7 +75,7 @@ Window {
 
     function backend_createUser(user,email,phone,birthdate){
         QmlDto.createUser(user,email,phone,birthdate);
-    }        
+    }
 
     function backend_deleteUser(username){
         QmlDto.deleteUser(username);
@@ -247,42 +254,12 @@ Window {
                                 height: parent.height*0.05
                             }
 
-                            Rectangle{
+                            UsersTable{
+                                id: userstable
                                 color: 'white'
                                 width:parent.width
                                 height: parent.height*0.85
                                 radius: 7
-
-                                Column{
-                                    anchors.fill:parent
-
-                                    Item{
-                                        width:parent.width
-                                        height: parent.height*0.01
-                                    }
-
-                                    TableHeaderSection{
-                                        clip:true
-                                        id: tableHeaderSection
-                                        width: parent.width*0.98
-                                        height: parent.height*0.09
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                    }
-
-                                    TableSection{
-                                        id: tableSection
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        width: parent.width
-                                        height: parent.height*0.9
-
-                                        Connections {
-                                            target: main_window
-                                            function onReloadTable(){tableSection.reload();}
-                                            function onResetTableView(){tableSection.reset();}
-                                            function onScrollToLastTableViewRow(){tableSection.scrollToLastRow();}
-                                        }
-                                    }
-                                }
                             }
                         }
                     }
@@ -300,5 +277,4 @@ Window {
         visible: false
         onRetryClicked: retryDbConnection();
     }
-
 }

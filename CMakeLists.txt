@@ -30,6 +30,7 @@ qt_add_qml_module(appusers-registration-qml
         views/TableSection.qml
         views/InsertDbUrlView.qml
         views/ErrorView.qml
+        views/UsersTable.qml
 
         # Javascript
         views/js/generate.js
@@ -65,7 +66,7 @@ qt_add_qml_module(appusers-registration-qml
         infraestructure/db/postgredatasource.cpp
 
         interface/table/userTableModel.h
-        interface/table/userTableModel.cpp
+        interface/table/userTableModel.cpp        
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
