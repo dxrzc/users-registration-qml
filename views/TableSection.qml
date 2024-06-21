@@ -2,6 +2,8 @@ import QtQuick
 
 Rectangle{
 
+    id: base
+
     color:'transparent'
 
     function reload()
@@ -24,12 +26,19 @@ Rectangle{
             userstable_tableview.contentY = contentHeight - height;
     }
 
-    function deleteUser(row){
+    function getUserNameFromRow(row){
         const index = userstable_tableview.model.index(row,0);
         const username = (userstable_tableview.model.data(index,Qt.DisplayRole));
+        return username;
+    }
+
+    function deleteUser(row){
+        const username = getUserNameFromRow(row);
         backend_deleteUser(username);
         reloadTable();
-    }
+    }    
+
+    signal showAreYouSureDialog(row:int);
 
     Rectangle{
         id: cellsContainer
@@ -97,7 +106,7 @@ Rectangle{
                                 resizeable: true
                                 width:parent.width
                                 height: parent.height/2
-                                imagepath: 'imgs/svg/edit.svg'                                
+                                imagepath: 'imgs/svg/edit.svg'
                             }
 
                             CustomActionButton {
@@ -105,7 +114,7 @@ Rectangle{
                                 width:parent.width
                                 height: parent.height/2
                                 imagepath: 'imgs/svg/delete.svg';
-                                onClickButton: deleteUser(row);
+                                onClickButton: showAreYouSureDialog(row);
                             }
                         }
                     }
