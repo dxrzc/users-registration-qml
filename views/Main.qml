@@ -81,6 +81,18 @@ Window {
         QmlDto.deleteUser(username);
     }
 
+    function backend_updateUsername(username, newUsername){
+        QmlDto.updateUsername(username,newUsername);
+    }
+
+    function backend_updateUserEmail(email,newEmail){
+        QmlDto.updateUserEmail(email,newEmail);
+    }
+
+    function backend_updateUserPhone(phonenumber,newPhone){
+        QmlDto.updateUserPhone(phonenumber,newPhone);
+    }
+
     /*
       If some Qml file needs to make changes to any component outside its file
       create a function here and call it from wherever you need it

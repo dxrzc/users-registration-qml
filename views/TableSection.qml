@@ -32,12 +32,40 @@ Rectangle{
         return username;
     }
 
+    function getUserEmailFromRow(row){
+        const index = userstable_tableview.model.index(row,1);
+        const email = (userstable_tableview.model.data(index,Qt.DisplayRole));
+        return email;
+    }
+
+    function getUserPhoneFromRow(row){
+        const index = userstable_tableview.model.index(row,2);
+        const phone = (userstable_tableview.model.data(index,Qt.DisplayRole));
+        return phone;
+    }
+
     function deleteUser(row){
         const username = getUserNameFromRow(row);
         backend_deleteUser(username);
         reloadTable();
-    }    
+    }
 
+    function updateUsername(username, newUsername){
+        backend_updateUsername(username,newUsername);
+        reloadTable();
+    }
+
+    function updateEmail(username,newEmail){
+        backend_updateUserEmail(username,newEmail);
+        reloadTable();
+    }
+
+    function updateUserPhone(username,newPhone){
+        backend_updateUserPhone(username,newPhone);
+        reloadTable();
+    }
+
+    signal showPopup(row: int);
     signal showAreYouSureDialog(row:int);
 
     Rectangle{
@@ -107,6 +135,7 @@ Rectangle{
                                 width:parent.width
                                 height: parent.height/2
                                 imagepath: 'imgs/svg/edit.svg'
+                                onClickButton: showPopup(row);
                             }
 
                             CustomActionButton {

@@ -126,7 +126,7 @@ Item{
                 Image {
                     source: control.icon_path
                     anchors.fill: parent
-                    fillMode: Image.PreserveAspectFit
+                    fillMode: Image.PreserveAspectFit                    
                 }
             }
         }
