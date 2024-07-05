@@ -53,6 +53,24 @@ void qmlDto::deleteUser(const QString& username)
     emit deleteUserSignal(username);
 }
 
+void qmlDto::updateUsername(const QString &target, const QString &newUsername)
+{
+    datasource->updateUsername(target,newUsername);
+    emit updateUsernameSignal(target,newUsername);
+}
+
+void qmlDto::updateUserEmail(const QString & email, const QString &newEmail)
+{
+    datasource->updateEmail(email,newEmail);
+    emit updateUserEmailSignal(email, newEmail);
+}
+
+void qmlDto::updateUserPhone(const QString &phonenumber, const QString &newPhoneNumber)
+{
+    datasource->updatePhoneNumber(phonenumber,newPhoneNumber);
+    emit updateUserPhoneSignal(phonenumber,newPhoneNumber);
+}
+
 qmlDto::~qmlDto()
 {
     delete datasource;

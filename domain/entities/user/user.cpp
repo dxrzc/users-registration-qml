@@ -28,3 +28,18 @@ const BirthDate& User::birthdate() const noexcept
 {
     return m_birthdate;
 }
+
+QString& User::username()
+{
+    return m_username;
+}
+
+QString& User::email()
+{
+    return m_email;
+}
+
+QString& User::phoneNumber()
+{
+    return m_phoneNumber;
+}

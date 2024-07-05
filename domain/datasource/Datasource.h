@@ -7,6 +7,9 @@
 class DataSource
 {
 public:
+    virtual void updateUsername(const QString&, const QString&) = 0;
+    virtual void updateEmail(const QString&, const QString&) = 0;
+    virtual void updatePhoneNumber(const QString&, const QString&) = 0;
     virtual void saveUser(const User&) = 0;
     virtual void deleteUser(const QString&) = 0;
     virtual User getUserByName(const QString&) const = 0;

@@ -31,6 +31,9 @@ public slots:
     void createUser(const User&);
     void deleteUser(const QString&);
     void enableFilter(const QString& filter);
+    void updateUsername(const QString&, const QString&);
+    void updateUserEmail(const QString&,const QString&);
+    void updateUserPhone(const QString&,const QString&);
     void disableFilter();
 };
 

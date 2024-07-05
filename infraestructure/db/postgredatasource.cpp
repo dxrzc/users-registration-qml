@@ -90,6 +90,33 @@ void PostgreDataSource::saveUser(const User& user)
         emit errorHandler->errorFromDataBase("Failed to save user");
 }
 
+void PostgreDataSource::updateUsername(const QString &username, const QString &newUsername)
+{
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    const QString command = "UPDATE %1 SET username = '%2' WHERE username= '%3'";
+    const bool userModified = query.exec(command.arg(tableName,newUsername,username));
+    if(!userModified)
+        emit errorHandler-> errorFromDataBase("Failed to update username");
+}
+
+void PostgreDataSource::updateEmail(const QString &email, const QString &newEmail)
+{
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    const QString command = "UPDATE %1 SET email = '%2' WHERE email= '%3'";
+    const bool userModified = query.exec(command.arg(tableName,newEmail,email));
+    if(!userModified)
+        emit errorHandler-> errorFromDataBase("Failed to update user email");
+}
+
+void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QString &newPhoneNumber)
+{
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    const QString command = "UPDATE %1 SET phone = '%2' WHERE phone= '%3'";
+    const bool userModified = query.exec(command.arg(tableName,newPhoneNumber,phonenumber));
+    if(!userModified)
+        emit errorHandler-> errorFromDataBase("Failed to edit user phone");
+}
+
 // todo: is this function being used ¿?
 User PostgreDataSource::getUserByName(const QString& name) const
 {

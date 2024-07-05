@@ -22,9 +22,15 @@ public:
     Q_INVOKABLE bool databaseIsOpen();
     Q_INVOKABLE void connectDB(const QString& hostname, quint64 port, const QString& user, const QString& password, const QString& database);
     Q_INVOKABLE void deleteUser(const QString&);
+    Q_INVOKABLE void updateUsername(const QString&, const QString&);
+    Q_INVOKABLE void updateUserEmail(const QString&,const QString&);
+    Q_INVOKABLE void updateUserPhone(const QString&,const QString&);
     ~qmlDto();
 
 signals:
+    void updateUserPhoneSignal(const QString&, const QString&);
+    void updateUserEmailSignal(const QString&, const QString&);
+    void updateUsernameSignal(const QString,const QString);
     void createUserSignal(const User&);
     void deleteUserSignal(const QString&);
     void enableFilter(const QString&);

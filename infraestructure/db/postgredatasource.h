@@ -34,10 +34,14 @@ public:
     // tries a new url
     void connect(const ConnectionOptions &) override;
     void deleteUser(const QString &) override;
+    void updateUsername(const QString&, const QString&) override;
+    void updateEmail(const QString &, const QString &) override;
+    void updatePhoneNumber(const QString &, const QString &) override;
 
 public slots:
     // tries the same url
-    void retryConnection();    
+    void retryConnection();
+
 };
 
 #endif // POSTGREDATASOURCE_H

@@ -6,9 +6,12 @@ UserTableModel::UserTableModel(qmlDto* dto_, QObject* parent): QAbstractTableMod
     QObject::connect(dto,&qmlDto::databaseConnected,this,&UserTableModel::loadData);
     QObject::connect(dto,&qmlDto::createUserSignal,this,&UserTableModel::createUser);
     QObject::connect(dto,&qmlDto::deleteUserSignal,this,&UserTableModel::deleteUser);
+    QObject::connect(dto,&qmlDto::updateUsernameSignal, this,&UserTableModel::updateUsername);
+    QObject::connect(dto,&qmlDto::updateUserEmailSignal, this,&UserTableModel::updateUserEmail);
+    QObject::connect(dto,&qmlDto::updateUserPhoneSignal, this,&UserTableModel::updateUserPhone);
     QObject::connect(dto,&qmlDto::enableFilter,this,&UserTableModel::enableFilter);
     QObject::connect(dto,&qmlDto::disableFilter,this,&UserTableModel::disableFilter);
-    QObject::connect(dto,&qmlDto::reloadTableData,this,&UserTableModel::loadData);
+    QObject::connect(dto,&qmlDto::reloadTableData,this,&UserTableModel::loadData);    
 }
 
 void UserTableModel::loadData()
@@ -83,6 +86,33 @@ void UserTableModel::enableFilter(const QString &filter)
     for(const User& user: usersList)
         if(user.username().startsWith(filter) || user.email().startsWith(filter) || user.phoneNumber().startsWith(filter))
             qmlList.push_back(std::ref(user));
+}
+
+void UserTableModel::updateUsername(const QString & username, const QString & newUsername)
+{
+    for(User& user:usersList)
+    {
+        if(user.username()== username)
+            user.username() = newUsername;
+    }
+}
+
+void UserTableModel::updateUserEmail(const QString & email, const QString &newEmail)
+{
+    for(User& user:usersList)
+    {
+        if(user.email()== email)
+            user.email() = newEmail;
+    }
+}
+
+void UserTableModel::updateUserPhone(const QString & phonenumber, const QString &newPhone)
+{
+    for(User& user:usersList)
+    {
+        if(user.phoneNumber()== phonenumber)
+            user.phoneNumber() = newPhone;
+    }
 }
 
 void UserTableModel::disableFilter()

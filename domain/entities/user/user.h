@@ -21,6 +21,9 @@ public:
     const QString& username() const noexcept;
     const QString& email() const noexcept;
     const QString& phoneNumber() const noexcept;
+    QString& username();
+    QString& email();
+    QString& phoneNumber();
     const BirthDate& birthdate() const noexcept;
 };
 
