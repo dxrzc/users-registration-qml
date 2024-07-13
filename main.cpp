@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.loadFromModule("users-registration-qml", "Main");
+    engine.loadFromModule("qmlModule", "Main");
 
     return app.exec();
 }

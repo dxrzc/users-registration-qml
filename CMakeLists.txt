@@ -14,7 +14,7 @@ qt_add_executable(appusers-registration-qml
 )
 
 qt_add_qml_module(appusers-registration-qml
-    URI users-registration-qml
+    URI qmlModule
     VERSION 1.0
     QML_FILES
 
