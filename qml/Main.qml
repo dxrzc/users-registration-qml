@@ -28,11 +28,6 @@ Window {
         function onScrollToLastTableViewRow(){userstable.scrollToLastRow();}
     }
 
-    /*
-      If some Qml file needs to make changes to any component outside its file
-      create a function here and call it from wherever you need it
-    */
-
     // QML Functions
 
     function setErrorView(message){
