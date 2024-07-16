@@ -1,4 +1,5 @@
 import QtQuick
+import "../components" as Components
 
 Item{
     id: base
@@ -23,7 +24,7 @@ Item{
 
             Image{
                 id: errorImage
-                source: 'imgs/error.png'
+                source: '../imgs/error.png'
                 height:parent.height*0.9
                 fillMode:Image.PreserveAspectFit
                 anchors.centerIn: parent
@@ -63,7 +64,7 @@ Item{
                 anchors.fill: parent
                 spacing:width*0.02
 
-                CustomButton{
+                Components.Button{
                     id: retrybutton
                     width:parent.width*0.49
                     height: parent.height
@@ -76,7 +77,7 @@ Item{
 
                 }
 
-                CustomButton{
+                Components.Button{
                     width:parent.width*0.49
                     height: parent.height
                     mouseAreaEnabled: true

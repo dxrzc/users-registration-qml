@@ -1,6 +1,10 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
+import "components" as Components
+import "sections" as Sections
+import "views" as Views
+import "js/backend.js" as Backend
 
 Window {
 
@@ -35,64 +39,6 @@ Window {
         function onScrollToLastTableViewRow(){userstable.scrollToLastRow();}
     }
 
-    // If backend functions change, only make changes to the following functions
-
-    function backend_retryDbConnection(){
-        errorhandler.retryDBConnection();
-    }
-
-    function backend_databaseIsOpen(){
-        return QmlDto.databaseIsOpen();
-    }
-
-    function backend_reloadTableData(){
-        QmlDto.reloadTableData();
-    }
-
-    function backend_userAlreadyExists(name){
-        return QmlDto.userAlreadyExists(name);
-    }
-
-    function backend_emailAlreadyExists(email){
-        return QmlDto.emailAlreadyExists(email);
-    }
-
-    function backend_phoneNumberAlreadyExists(number){
-        return QmlDto.phoneNumberAlreadyExists(number);
-    }
-
-    function backend_connectDb(hostname, port, user,password,db){
-        QmlDto.connectDB(hostname,port,user,password,db);
-    }
-
-    function backend_enableFilter(text){
-        QmlDto.enableFilter(text);
-    }
-
-    function backend_disableFilter(){
-        QmlDto.disableFilter();
-    }
-
-    function backend_createUser(user,email,phone,birthdate){
-        QmlDto.createUser(user,email,phone,birthdate);
-    }
-
-    function backend_deleteUser(username){
-        QmlDto.deleteUser(username);
-    }
-
-    function backend_updateUsername(username, newUsername){
-        QmlDto.updateUsername(username,newUsername);
-    }
-
-    function backend_updateUserEmail(email,newEmail){
-        QmlDto.updateUserEmail(email,newEmail);
-    }
-
-    function backend_updateUserPhone(phonenumber,newPhone){
-        QmlDto.updateUserPhone(phonenumber,newPhone);
-    }
-
     /*
       If some Qml file needs to make changes to any component outside its file
       create a function here and call it from wherever you need it
@@ -120,32 +66,32 @@ Window {
     // QML-CXX Functions
 
     function retryDbConnection(){
-        backend_retryDbConnection();
-        if(backend_databaseIsOpen()){
+        Backend.retryDbConnection();
+        if(Backend.databaseIsOpen()){
             errorView.visible = false;
             components_container.visible = true;
-            backend_reloadTableData();
+            Globals.Backend.reloadTableData();
             reloadTable();
         }
     }
 
     // options: Array
     function connect(options){
-        backend_connectDb(options[0],options[1],options[2],options[3],options[4]);
+        Backend.connectDb(options[0],options[1],options[2],options[3],options[4]);
         insertUrlView.visible = false;
-        if(backend_databaseIsOpen()){
+        if(Backend.databaseIsOpen()){
             components_container.visible = true;
             main_window.reloadTable();
         }
     }
 
     function enableTableFilter(text){
-        backend_enableFilter(text);
+        Backend.enableFilter(text);
         resetTableView();
     }
 
     function disableTableFilter(){
-        backend_disableFilter();
+        Backend.disableFilter();
         resetTableView();
     }
 
@@ -184,7 +130,7 @@ Window {
         blur: 1.0
     }
 
-    InsertDbUrlView{
+    Views.InsertUrlView{
         id: insertUrlView
         anchors.centerIn: parent
         width:parent.width*0.3
@@ -235,7 +181,7 @@ Window {
                     id: inputs_and_table_row
                     anchors.fill: parent
 
-                    UserInputSection{
+                    Sections.UserInputSection{
                         id: inputsSection
                         width:(parent.width)/2
                         height:parent.height
@@ -251,7 +197,7 @@ Window {
                         Column{
                             anchors.fill: parent
 
-                            SearchUserSection{
+                            Sections.SearchUserSection{
                                 color: 'white'
                                 id: searchuserSection
                                 width: parent.width
@@ -266,7 +212,7 @@ Window {
                                 height: parent.height*0.05
                             }
 
-                            UsersTable{
+                            Sections.TableSection{
                                 id: userstable
                                 color: 'white'
                                 width:parent.width
@@ -280,7 +226,7 @@ Window {
         }
     }
 
-    ErrorView{
+    Views.ErrorView{
         id: errorView
         width:parent.width*0.25
         height:parent.height*0.5

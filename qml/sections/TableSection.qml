@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
+import "../components" as Components
 
 Rectangle {
     id: base
@@ -35,7 +36,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        TableSection{
+        TableRenderingSection{
             id: tableSection
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width
@@ -178,7 +179,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height*parent.inputHeightPercentage
 
-                    CustomInput{
+                    Components.Input{
                         id: usernameInput
                         width: parent.width*0.9
                         height: parent.height*0.8
@@ -193,7 +194,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height*parent.inputHeightPercentage
 
-                    CustomInput{
+                     Components.Input{
                         id: emailInput
                         width: parent.width*0.9
                         height: parent.height*0.8
@@ -208,7 +209,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height*parent.inputHeightPercentage
 
-                    CustomInput{
+                     Components.Input{
                         id: phoneNumberInput
                         width: parent.width*0.9
                         height: parent.height*0.8
@@ -227,7 +228,7 @@ Rectangle {
                         width: parent.width/2
                         height: parent.height
 
-                        CustomButton {
+                        Components.Button{
                             anchors.centerIn: parent
                             width: parent.width*0.9
                             height: parent.height*0.6
@@ -254,7 +255,7 @@ Rectangle {
                         width: parent.width/2
                         height: parent.height
 
-                        CustomButton {
+                         Components.Button {
                             anchors.centerIn: parent
                             width: parent.width*0.9
                             height: parent.height*0.6

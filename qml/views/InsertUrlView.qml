@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 
-import 'js/splitOptions.js' as GetOptions;
+import '../js/splitOptions.js' as GetOptions;
+import "../components" as Components
 
 Rectangle {
     id: base
@@ -92,7 +93,7 @@ Rectangle {
                 width:parent.width
                 height:parent.height*0.4
 
-                CustomButton{
+                Components.Button{
                     id: connectButton
                     anchors.centerIn: parent
                     width:parent.width*0.9

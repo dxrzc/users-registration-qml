@@ -13,60 +13,77 @@ qt_add_executable(appusers-registration-qml
     main.cpp
 )
 
+set(plain_qml_files
+
+    qml/js/backend.js
+
+    qml/components/ActionIcon.qml
+    qml/components/BirthdateSelection.qml
+    qml/components/Button.qml
+    qml/components/Input.qml
+
+    qml/sections/SearchUserSection.qml
+    qml/sections/TableHeaderSection.qml
+    qml/sections/TableRenderingSection.qml
+    qml/sections/TableSection.qml
+    qml/sections/UserInputSection.qml
+
+    qml/views/ErrorView.qml
+    qml/views/InsertUrlView.qml
+
+    qml/Main.qml
+)
+
+set(javascript_files
+    qml/js/generate.js
+    qml/js/splitOptions.js
+    qml/js/validate.js
+)
+
+set(assets_files
+    # SVG
+    qml/imgs/svg/check.svg
+    qml/imgs/svg/wrong.svg
+    qml/imgs/svg/search.svg
+    qml/imgs/svg/reload.svg
+    qml/imgs/svg/delete.svg
+    qml/imgs/svg/edit.svg
+
+    qml/imgs/background.jpg
+    qml/imgs/error.png
+)
+
+set(cpp_files
+    domain/entities/connectionOptions/connectionOptions.h
+    domain/entities/birthdate/birthdate.h
+    domain/entities/birthdate/birthdate.cpp
+    domain/entities/user/user.h
+    domain/entities/user/user.cpp
+    domain/datasource/Datasource.h
+    domain/errors/errorhandler.h
+    domain/dtos/qmldto.h
+    domain/dtos/qmldto.cpp
+
+    infraestructure/db/postgredatasource.h
+    infraestructure/db/postgredatasource.cpp
+
+    interface/table/userTableModel.h
+    interface/table/userTableModel.cpp
+)
+
 qt_add_qml_module(appusers-registration-qml
     URI qmlModule
     VERSION 1.0
+
     QML_FILES
-
-        # QML
-        views/Main.qml
-        views/CustomInput.qml
-        views/CustomButton.qml
-        views/SelectBirthdate.qml
-        views/CustomActionButton.qml
-        views/UserInputSection.qml
-        views/SearchUserSection.qml
-        views/TableHeaderSection.qml
-        views/TableSection.qml
-        views/InsertDbUrlView.qml
-        views/ErrorView.qml
-        views/UsersTable.qml
-
-        # Javascript
-        views/js/generate.js
-        views/js/validate.js
-        views/js/splitOptions.js
+    ${plain_qml_files}    
+    ${javascript_files}
 
     RESOURCES
-
-        # SVG
-        views/imgs/svg/check.svg
-        views/imgs/svg/wrong.svg
-        views/imgs/svg/search.svg
-        views/imgs/svg/reload.svg
-        views/imgs/svg/delete.svg
-        views/imgs/svg/edit.svg
-
-        # IMAGES
-        views/imgs/background.jpg
-        views/imgs/error.png
+    ${assets_files}
 
     SOURCES
-        domain/entities/connectionOptions/connectionOptions.h
-        domain/entities/birthdate/birthdate.h
-        domain/entities/birthdate/birthdate.cpp
-        domain/entities/user/user.h
-        domain/entities/user/user.cpp
-        domain/datasource/Datasource.h
-        domain/errors/errorhandler.h
-        domain/dtos/qmldto.h
-        domain/dtos/qmldto.cpp               
-
-        infraestructure/db/postgredatasource.h
-        infraestructure/db/postgredatasource.cpp
-
-        interface/table/userTableModel.h
-        interface/table/userTableModel.cpp        
+    ${cpp_files}
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

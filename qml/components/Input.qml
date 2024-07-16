@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 
-import "js/validate.js" as InputValidator
+import "../js/validate.js" as InputValidator
+import "../js/backend.js" as Backend
 
 Item{
     id:control
@@ -21,13 +22,13 @@ Item{
     }
 
     function dataValid(){
-        control.icon_path = "imgs/svg/check.svg";
+        control.icon_path = "../imgs/svg/check.svg";
         control.good_data = true;
     }
 
     function dataInvalid(){
         control.good_data = false;
-        control.icon_path = "imgs/svg/wrong.svg";
+        control.icon_path = "../imgs/svg/wrong.svg";
     }
 
     function fieldEmpty(){
@@ -41,11 +42,11 @@ Item{
         if(syntaxOk){
             switch(true){
             case usernameInput:
-                return !backend_userAlreadyExists(value);
+                return !Backend.userAlreadyExists(value);
             case phonenumberInput:
-                return !backend_phoneNumberAlreadyExists(value);
+                return !Backend.phoneNumberAlreadyExists(value);
             case emailInput:
-                return !backend_emailAlreadyExists(value);
+                return !Backend.emailAlreadyExists(value);
             }
         }
         return false;

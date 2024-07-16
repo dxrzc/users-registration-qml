@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import 'js/generate.js' as ArrayGenerator
+import '../js/generate.js' as ArrayGenerator
 
 Item{
     anchors.fill: parent

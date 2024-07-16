@@ -1,4 +1,6 @@
 import QtQuick
+import "../components" as Components
+import "../js/backend.js" as Backend
 
 Item{
     id: inputs_container
@@ -6,7 +8,7 @@ Item{
     function create_user(){
         if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
             const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
-            backend_createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
+            Backend.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
             enableScrollToLastTimer();
         }
     }
@@ -40,7 +42,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            CustomInput{
+            Components.Input{
                 id: input_username
                 anchors.fill: parent
                 label: 'Username'
@@ -55,7 +57,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            SelectBirthdate{
+            Components.BirthdateSelection{
                 id: selection_birthdate
                 anchors.fill: parent
             }
@@ -69,7 +71,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            CustomInput{
+            Components.Input{
                 id: input_email
                 anchors.fill: parent
                 label: 'Email'
@@ -86,7 +88,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            CustomInput{
+            Components.Input{
                 id: input_phonenumber
                 anchors.fill: parent
                 label: 'Phone number'
@@ -102,7 +104,7 @@ Item{
             width: inputs_container.width*0.75
             height:parent.height*0.16
 
-            CustomButton{
+            Components.Button{
                 id: register_button
                 property bool allFieldsOk : (input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data && input_username.good_data);
                 anchors.top: parent.top

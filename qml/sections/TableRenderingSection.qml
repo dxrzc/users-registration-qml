@@ -1,9 +1,9 @@
 import QtQuick
+import "../components" as Components
+import "../js/backend.js" as Backend
 
 Rectangle{
-
     id: base
-
     color:'transparent'
 
     function reload()
@@ -46,22 +46,22 @@ Rectangle{
 
     function deleteUser(row){
         const username = getUserNameFromRow(row);
-        backend_deleteUser(username);
+        Backend.deleteUser(username);
         reloadTable();
     }
 
     function updateUsername(username, newUsername){
-        backend_updateUsername(username,newUsername);
+        Backend.updateUsername(username,newUsername);
         reloadTable();
     }
 
     function updateEmail(username,newEmail){
-        backend_updateUserEmail(username,newEmail);
+        Backend.updateUserEmail(username,newEmail);
         reloadTable();
     }
 
     function updateUserPhone(username,newPhone){
-        backend_updateUserPhone(username,newPhone);
+        Backend.updateUserPhone(username,newPhone);
         reloadTable();
     }
 
@@ -130,19 +130,19 @@ Rectangle{
                         Column {
                             anchors.fill: parent
 
-                            CustomActionButton {
+                            Components.ActionIcon {
                                 resizeable: true
                                 width:parent.width
                                 height: parent.height/2
-                                imagepath: 'imgs/svg/edit.svg'
+                                imagepath: '../imgs/svg/edit.svg'
                                 onClickButton: showPopup(row);
                             }
 
-                            CustomActionButton {
+                            Components.ActionIcon {
                                 resizeable: true
                                 width:parent.width
                                 height: parent.height/2
-                                imagepath: 'imgs/svg/delete.svg';
+                                imagepath: '../imgs/svg/delete.svg';
                                 onClickButton: showAreYouSureDialog(row);
                             }
                         }

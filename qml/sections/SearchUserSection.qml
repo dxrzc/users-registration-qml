@@ -1,16 +1,17 @@
 import QtQuick
 import QtQuick.Controls
+import "../components" as Components
 
 Rectangle{
     id: searchUserContainer    
 
     Row{
-        CustomActionButton{
+        Components.ActionIcon{
             id: searchButton
             width:searchUserContainer.width*0.1
             height:searchUserContainer.height            
             antialiasing: true
-            imagepath: "imgs/svg/search.svg"
+            imagepath: "../imgs/svg/search.svg"
             onClickButton: enableTableFilter(searchText.text)
         }
 
@@ -34,12 +35,12 @@ Rectangle{
             }
         }
 
-        CustomActionButton{
+        Components.ActionIcon{
             id: reloadButton
             width:searchUserContainer.width*0.1
             height:searchUserContainer.height            
             antialiasing: true
-            imagepath: "imgs/svg/reload.svg"
+            imagepath: "../imgs/svg/reload.svg"
             onClickButton: {
                 disableTableFilter();
                 searchText.text = "";
