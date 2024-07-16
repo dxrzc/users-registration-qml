@@ -1,6 +1,8 @@
 import QtQuick
+
 import "../components" as Components
 import "../js/backend.js" as Backend
+import "../js/globals.js" as Globals
 
 Rectangle{
     id: base
@@ -92,11 +94,11 @@ Rectangle{
 
                 implicitWidth : {
                     switch(column){
-                    case 0: return totalWidthWithoutSpacing*usernameSizePercentage;
-                    case 1: return totalWidthWithoutSpacing*emailSizePercentage;
-                    case 2: return totalWidthWithoutSpacing*phoneNumberSizePercentage;
-                    case 3: return totalWidthWithoutSpacing*birthdateSizePercentage;
-                    case 4: return totalWidthWithoutSpacing*editUserSizePercentage;
+                    case 0: return totalWidthWithoutSpacing*Globals.usernameSizePercentage;
+                    case 1: return totalWidthWithoutSpacing*Globals.emailSizePercentage;
+                    case 2: return totalWidthWithoutSpacing*Globals.phoneNumberSizePercentage;
+                    case 3: return totalWidthWithoutSpacing*Globals.birthdateSizePercentage;
+                    case 4: return totalWidthWithoutSpacing*Globals.editUserSizePercentage;
                     }
                 }
 

@@ -1,6 +1,8 @@
 import QtQuick
+
 import "../components" as Components
 import "../js/backend.js" as Backend
+import "../js/globals.js" as Globals
 
 Item{
     id: inputs_container
@@ -112,8 +114,8 @@ Item{
                 width:parent.width
                 height:parent.height*0.7
                 textColor: 'white'
-                buttonColor:  allFieldsOk ? globalButtonColor: 'gray';
-                buttonHoveredColor: allFieldsOk ? globalHoveredButtonColor : 'gray'
+                buttonColor:  allFieldsOk ? Globals.globalButtonColor: 'gray';
+                buttonHoveredColor: allFieldsOk ? Globals.globalHoveredButtonColor : 'gray'
                 buttonText: 'Register'
                 buttonTextSize: Math.min(parent.width,parent.height)/3
                 mouseAreaEnabled: allFieldsOk;

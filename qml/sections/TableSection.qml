@@ -1,7 +1,9 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
+
 import "../components" as Components
+import "../js/globals.js" as Globals
 
 Rectangle {
     id: base
@@ -233,8 +235,8 @@ Rectangle {
                             width: parent.width*0.9
                             height: parent.height*0.6
                             mouseAreaEnabled: popup.enableApplyButton();
-                            buttonColor: mouseAreaEnabled ? globalButtonColor : 'darkgray'
-                            buttonHoveredColor: globalHoveredButtonColor                            
+                            buttonColor: mouseAreaEnabled ? Globals.globalButtonColor : 'darkgray'
+                            buttonHoveredColor: Globals.globalHoveredButtonColor
                             buttonText: 'Apply'
                             buttonTextSize: Math.min(parent.width,parent.height)*0.2
                             onClickbutton: {

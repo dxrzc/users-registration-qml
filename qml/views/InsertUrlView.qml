@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
+import "../js/globals.js" as Globals
 import '../js/splitOptions.js' as GetOptions;
 import "../components" as Components
 
@@ -23,8 +24,8 @@ Rectangle {
 
     function validUrlButtonStyle(){
         connectButton.mouseAreaEnabled = true;
-        connectButton.buttonHoveredColor= globalHoveredButtonColor;
-        connectButton.buttonColor= globalButtonColor;
+        connectButton.buttonHoveredColor= Globals.globalHoveredButtonColor;
+        connectButton.buttonColor= Globals.globalButtonColor;
         connectButton.buttonText = 'Connect';
     }
 

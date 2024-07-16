@@ -38,6 +38,7 @@ set(javascript_files
     qml/js/generate.js
     qml/js/splitOptions.js
     qml/js/validate.js
+    qml/js/globals.js
 )
 
 set(assets_files

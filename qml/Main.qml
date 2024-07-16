@@ -17,17 +17,6 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
-    readonly property color globalButtonColor: '#009999';
-    readonly property color globalHoveredButtonColor: '#008080';
-
-    // TableView config
-    readonly property int tableColumns: 5;
-    readonly property real usernameSizePercentage: 0.25;
-    readonly property real emailSizePercentage: 0.3;
-    readonly property real phoneNumberSizePercentage: 0.2;
-    readonly property real birthdateSizePercentage: 0.2;
-    readonly property real editUserSizePercentage: 0.05;
-
     signal reloadTable;
     signal resetTableView;
     signal scrollToLastTableViewRow;

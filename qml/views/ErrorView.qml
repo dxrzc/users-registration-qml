@@ -1,5 +1,7 @@
 import QtQuick
+
 import "../components" as Components
+import "../js/globals.js" as Globals
 
 Item{
     id: base
@@ -81,8 +83,8 @@ Item{
                     width:parent.width*0.49
                     height: parent.height
                     mouseAreaEnabled: true
-                    buttonColor: globalButtonColor
-                    buttonHoveredColor: globalHoveredButtonColor
+                    buttonColor: Globals.globalButtonColor
+                    buttonHoveredColor: Globals.globalHoveredButtonColor
                     textColor: 'white'
                     buttonText: 'Insert a new URL'
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
