@@ -1,6 +1,5 @@
 import QtQuick
-
-import "../js/globals.js" as Globals
+import "../js/global/settings.js" as GlobalSettings
 
 Rectangle{
     id: headerContainer
@@ -11,7 +10,7 @@ Rectangle{
         property color secondcolor: '#b3b3b3'
 
         Rectangle{
-            width:parent.width*Globals.usernameSizePercentage
+            width:parent.width*GlobalSettings.usernameSizePercentage
             height: parent.height
             color: parent.firstcolor
 
@@ -23,7 +22,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width*Globals.emailSizePercentage
+            width:parent.width*GlobalSettings.emailSizePercentage
             height: parent.height
             color: parent.secondcolor
 
@@ -35,7 +34,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width*Globals.phoneNumberSizePercentage
+            width:parent.width*GlobalSettings.phoneNumberSizePercentage
             height: parent.height
             color: parent.firstcolor
 
@@ -47,7 +46,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width*Globals.birthdateSizePercentage
+            width:parent.width*GlobalSettings.birthdateSizePercentage
             height: parent.height
             color: parent.secondcolor
 
@@ -59,7 +58,7 @@ Rectangle{
         }
 
         Rectangle{
-            width:parent.width*Globals.editUserSizePercentage
+            width:parent.width*GlobalSettings.editUserSizePercentage
             height: parent.height
             color: parent.firstcolor
 

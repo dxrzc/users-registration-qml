@@ -1,13 +1,12 @@
 import QtQuick
 import QtQuick.Controls
-
-import "../components" as Components
+import "../components"
 
 Rectangle{
     id: searchUserContainer    
 
     Row{
-        Components.ActionIcon{
+        ActionIcon{
             id: searchButton
             width:searchUserContainer.width*0.1
             height:searchUserContainer.height            
@@ -36,7 +35,7 @@ Rectangle{
             }
         }
 
-        Components.ActionIcon{
+        ActionIcon{
             id: reloadButton
             width:searchUserContainer.width*0.1
             height:searchUserContainer.height            

@@ -13,9 +13,7 @@ qt_add_executable(appusers-registration-qml
     main.cpp
 )
 
-set(plain_qml_files
-
-    qml/js/backend.js
+set(plain_qml_files   
 
     qml/components/ActionIcon.qml
     qml/components/BirthdateSelection.qml
@@ -35,10 +33,13 @@ set(plain_qml_files
 )
 
 set(javascript_files
-    qml/js/generate.js
-    qml/js/splitOptions.js
-    qml/js/validate.js
-    qml/js/globals.js
+    qml/js/global/backend.js
+    qml/js/global/settings.js
+
+    qml/js/helpers/get-data-from-url.helper.js
+    qml/js/helpers/month.helper.js
+
+    qml/js/validation/new-user.validation.js
 )
 
 set(assets_files
@@ -73,7 +74,7 @@ set(cpp_files
 )
 
 qt_add_qml_module(appusers-registration-qml
-    URI qmlModule
+    URI appModule
     VERSION 1.0
 
     QML_FILES

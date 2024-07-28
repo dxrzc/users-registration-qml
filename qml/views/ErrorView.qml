@@ -1,7 +1,6 @@
 import QtQuick
-
-import "../components" as Components
-import "../js/globals.js" as Globals
+import "../js/global/settings.js" as GlobalSettings
+import "../components"
 
 Item{
     id: base
@@ -66,7 +65,7 @@ Item{
                 anchors.fill: parent
                 spacing:width*0.02
 
-                Components.Button{
+                Button{
                     id: retrybutton
                     width:parent.width*0.49
                     height: parent.height
@@ -79,12 +78,12 @@ Item{
 
                 }
 
-                Components.Button{
+                Button{
                     width:parent.width*0.49
                     height: parent.height
                     mouseAreaEnabled: true
-                    buttonColor: Globals.globalButtonColor
-                    buttonHoveredColor: Globals.globalHoveredButtonColor
+                    buttonColor: GlobalSettings.globalButtonColor
+                    buttonHoveredColor: GlobalSettings.globalHoveredButtonColor
                     textColor: 'white'
                     buttonText: 'Insert a new URL'
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3

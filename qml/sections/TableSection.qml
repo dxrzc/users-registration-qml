@@ -1,9 +1,8 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
-
-import "../components" as Components
-import "../js/globals.js" as Globals
+import "../js/global/settings.js" as GlobalSettings
+import "../components"
 
 Rectangle {
     id: base
@@ -181,7 +180,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height*parent.inputHeightPercentage
 
-                    Components.Input{
+                    Input{
                         id: usernameInput
                         width: parent.width*0.9
                         height: parent.height*0.8
@@ -196,7 +195,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height*parent.inputHeightPercentage
 
-                     Components.Input{
+                    Input{
                         id: emailInput
                         width: parent.width*0.9
                         height: parent.height*0.8
@@ -211,7 +210,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height*parent.inputHeightPercentage
 
-                     Components.Input{
+                    Input{
                         id: phoneNumberInput
                         width: parent.width*0.9
                         height: parent.height*0.8
@@ -230,13 +229,13 @@ Rectangle {
                         width: parent.width/2
                         height: parent.height
 
-                        Components.Button{
+                        Button{
                             anchors.centerIn: parent
                             width: parent.width*0.9
                             height: parent.height*0.6
                             mouseAreaEnabled: popup.enableApplyButton();
-                            buttonColor: mouseAreaEnabled ? Globals.globalButtonColor : 'darkgray'
-                            buttonHoveredColor: Globals.globalHoveredButtonColor
+                            buttonColor: mouseAreaEnabled ? GlobalSettings.globalButtonColor : 'darkgray'
+                            buttonHoveredColor: GlobalSettings.globalHoveredButtonColor
                             buttonText: 'Apply'
                             buttonTextSize: Math.min(parent.width,parent.height)*0.2
                             onClickbutton: {
@@ -257,7 +256,7 @@ Rectangle {
                         width: parent.width/2
                         height: parent.height
 
-                         Components.Button {
+                        Button {
                             anchors.centerIn: parent
                             width: parent.width*0.9
                             height: parent.height*0.6

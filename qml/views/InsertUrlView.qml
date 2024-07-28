@@ -1,9 +1,8 @@
 import QtQuick
 import QtQuick.Controls
-
-import "../js/globals.js" as Globals
-import '../js/splitOptions.js' as GetOptions;
-import "../components" as Components
+import "../js/global/settings.js" as GlobalSettings
+import "../js/helpers/get-data-from-url.helper.js" as UrlData
+import "../components"
 
 Rectangle {
     id: base
@@ -24,8 +23,8 @@ Rectangle {
 
     function validUrlButtonStyle(){
         connectButton.mouseAreaEnabled = true;
-        connectButton.buttonHoveredColor= Globals.globalHoveredButtonColor;
-        connectButton.buttonColor= Globals.globalButtonColor;
+        connectButton.buttonHoveredColor= GlobalSettings.globalHoveredButtonColor;
+        connectButton.buttonColor= GlobalSettings.globalButtonColor;
         connectButton.buttonText = 'Connect';
     }
 
@@ -33,7 +32,7 @@ Rectangle {
         if(textField.text === '')
             defaultButtonStyle();
         else
-            if(GetOptions.validateUrl(textField.text))
+            if(UrlData.validateUrl(textField.text))
                 validUrlButtonStyle()
             else invalidUrlButtonStyle();
     }
@@ -41,7 +40,7 @@ Rectangle {
     function connectIfButtonIsAvailable()
     {
         if(connectButton.mouseAreaEnabled)
-            connect(GetOptions.getOptions(textField.text));
+            connect(UrlData.getOptions(textField.text));
     }
 
     Item{
@@ -94,7 +93,7 @@ Rectangle {
                 width:parent.width
                 height:parent.height*0.4
 
-                Components.Button{
+                Button{
                     id: connectButton
                     anchors.centerIn: parent
                     width:parent.width*0.9
@@ -102,7 +101,7 @@ Rectangle {
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
                     textColor: 'white'
                     Component.onCompleted: defaultButtonStyle();
-                    onClickbutton: connect(GetOptions.getOptions(textField.text));
+                    onClickbutton: connect(UrlData.getOptions(textField.text));
                 }
             }
         }

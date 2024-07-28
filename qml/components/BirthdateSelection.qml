@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-
-import '../js/generate.js' as ArrayGenerator
+import "../js/helpers/month.helper.js" as MonthHelper
 
 Item{
     anchors.fill: parent
@@ -86,7 +85,7 @@ Item{
                     width : (selections_container.width-(2*spacing))/3
                     height:parent.height
                     displayText: 'Day'
-                    model: ArrayGenerator.selectMonth(month_field.currentText);
+                    model: MonthHelper.selectMonth(month_field.currentText);
 
                     onActivated: {
                         dayOk = true
@@ -97,10 +96,9 @@ Item{
                 ComboBox {
                     id: year_field
                     width : (selections_container.width-(2*spacing))/3
-                    height:parent.height
-                    model:(ArrayGenerator.generateArray(1960,2011)).reverse();
+                    height:parent.height                    
+                    model: (MonthHelper.generateArray(1960,2011)).reverse();
                     displayText: 'Year'
-
                     onActivated: {
                         yearOk = true
                         displayText = model[currentIndex].text

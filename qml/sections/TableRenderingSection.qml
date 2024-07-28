@@ -1,8 +1,7 @@
 import QtQuick
-
-import "../components" as Components
-import "../js/backend.js" as Backend
-import "../js/globals.js" as Globals
+import "../js/global/backend.js" as Backend
+import "../js/global/settings.js" as GlobalSettings
+import "../components"
 
 Rectangle{
     id: base
@@ -94,11 +93,11 @@ Rectangle{
 
                 implicitWidth : {
                     switch(column){
-                    case 0: return totalWidthWithoutSpacing*Globals.usernameSizePercentage;
-                    case 1: return totalWidthWithoutSpacing*Globals.emailSizePercentage;
-                    case 2: return totalWidthWithoutSpacing*Globals.phoneNumberSizePercentage;
-                    case 3: return totalWidthWithoutSpacing*Globals.birthdateSizePercentage;
-                    case 4: return totalWidthWithoutSpacing*Globals.editUserSizePercentage;
+                    case 0: return totalWidthWithoutSpacing*GlobalSettings.usernameSizePercentage;
+                    case 1: return totalWidthWithoutSpacing*GlobalSettings.emailSizePercentage;
+                    case 2: return totalWidthWithoutSpacing*GlobalSettings.phoneNumberSizePercentage;
+                    case 3: return totalWidthWithoutSpacing*GlobalSettings.birthdateSizePercentage;
+                    case 4: return totalWidthWithoutSpacing*GlobalSettings.editUserSizePercentage;
                     }
                 }
 
@@ -132,7 +131,7 @@ Rectangle{
                         Column {
                             anchors.fill: parent
 
-                            Components.ActionIcon {
+                            ActionIcon {
                                 resizeable: true
                                 width:parent.width
                                 height: parent.height/2
@@ -140,7 +139,7 @@ Rectangle{
                                 onClickButton: showPopup(row);
                             }
 
-                            Components.ActionIcon {
+                            ActionIcon {
                                 resizeable: true
                                 width:parent.width
                                 height: parent.height/2

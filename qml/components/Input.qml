@@ -1,8 +1,7 @@
 import QtQuick
 import QtQuick.Controls
-
-import "../js/validate.js" as InputValidator
-import "../js/backend.js" as Backend
+import "../js/global/backend.js" as Backend
+import "../js/validation/new-user.validation.js" as UserValidation
 
 Item{
     id:control
@@ -37,7 +36,7 @@ Item{
 
     function validateData(){
         const value = text_field.text;
-        const syntaxOk = InputValidator.validateData(value,phonenumberInput,usernameInput,emailInput)
+        const syntaxOk = UserValidation.validateData(value,phonenumberInput,usernameInput,emailInput)
 
         if(syntaxOk){
             switch(true){

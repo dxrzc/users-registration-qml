@@ -1,12 +1,13 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Controls
-import "components" as Components
-import "sections" as Sections
-import "views" as Views
-import "js/backend.js" as Backend
+import "js/global/settings.js" as GlobalSettings
+import "js/global/backend.js" as Backend
+import "views"
+import "components"
+import "sections"
 
-Window {
+Window {        
 
     id:main_window
     color: "#43bfbd"
@@ -54,13 +55,14 @@ Window {
         if(Backend.databaseIsOpen()){
             errorView.visible = false;
             components_container.visible = true;
-            Globals.Backend.reloadTableData();
+            GlobalSettings.Backend.reloadTableData();
             reloadTable();
         }
     }
 
     // options: Array
     function connect(options){
+
         Backend.connectDb(options[0],options[1],options[2],options[3],options[4]);
         insertUrlView.visible = false;
         if(Backend.databaseIsOpen()){
@@ -114,7 +116,7 @@ Window {
         blur: 1.0
     }
 
-    Views.InsertUrlView{
+    InsertUrlView{
         id: insertUrlView
         anchors.centerIn: parent
         width:parent.width*0.3
@@ -165,7 +167,7 @@ Window {
                     id: inputs_and_table_row
                     anchors.fill: parent
 
-                    Sections.UserInputSection{
+                    UserInputSection{
                         id: inputsSection
                         width:(parent.width)/2
                         height:parent.height
@@ -181,7 +183,7 @@ Window {
                         Column{
                             anchors.fill: parent
 
-                            Sections.SearchUserSection{
+                            SearchUserSection{
                                 color: 'white'
                                 id: searchuserSection
                                 width: parent.width
@@ -196,7 +198,7 @@ Window {
                                 height: parent.height*0.05
                             }
 
-                            Sections.TableSection{
+                            TableSection{
                                 id: userstable
                                 color: 'white'
                                 width:parent.width
@@ -210,7 +212,7 @@ Window {
         }
     }
 
-    Views.ErrorView{
+    ErrorView{
         id: errorView
         width:parent.width*0.25
         height:parent.height*0.5

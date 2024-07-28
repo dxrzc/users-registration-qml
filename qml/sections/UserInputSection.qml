@@ -1,8 +1,7 @@
 import QtQuick
-
-import "../components" as Components
-import "../js/backend.js" as Backend
-import "../js/globals.js" as Globals
+import "../js/global/settings.js" as GlobalSettings
+import "../js/global/backend.js" as Backend
+import "../components"
 
 Item{
     id: inputs_container
@@ -44,7 +43,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            Components.Input{
+            Input{
                 id: input_username
                 anchors.fill: parent
                 label: 'Username'
@@ -59,7 +58,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            Components.BirthdateSelection{
+            BirthdateSelection{
                 id: selection_birthdate
                 anchors.fill: parent
             }
@@ -73,7 +72,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            Components.Input{
+            Input{
                 id: input_email
                 anchors.fill: parent
                 label: 'Email'
@@ -90,7 +89,7 @@ Item{
             width: inputs_container.width*0.75
             height: inputs_container.height*0.20
 
-            Components.Input{
+            Input{
                 id: input_phonenumber
                 anchors.fill: parent
                 label: 'Phone number'
@@ -106,7 +105,7 @@ Item{
             width: inputs_container.width*0.75
             height:parent.height*0.16
 
-            Components.Button{
+            Button{
                 id: register_button
                 property bool allFieldsOk : (input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data && input_username.good_data);
                 anchors.top: parent.top
@@ -114,8 +113,8 @@ Item{
                 width:parent.width
                 height:parent.height*0.7
                 textColor: 'white'
-                buttonColor:  allFieldsOk ? Globals.globalButtonColor: 'gray';
-                buttonHoveredColor: allFieldsOk ? Globals.globalHoveredButtonColor : 'gray'
+                buttonColor:  allFieldsOk ? GlobalSettings.globalButtonColor: 'gray';
+                buttonHoveredColor: allFieldsOk ? GlobalSettings.globalHoveredButtonColor : 'gray'
                 buttonText: 'Register'
                 buttonTextSize: Math.min(parent.width,parent.height)/3
                 mouseAreaEnabled: allFieldsOk;
