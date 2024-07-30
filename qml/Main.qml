@@ -18,67 +18,20 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
-    signal reloadTable;
-    signal resetTableView;
-    signal scrollToLastTableViewRow;
-
-    Connections {
-        target: main_window
-        function onReloadTable(){userstable.reloadTableSection();}
-        function onResetTableView(){userstable.resetTableSection();}
-        function onScrollToLastTableViewRow(){userstable.scrollToLastRow();}
-    }
-
-    // QML Functions
-
-    function setErrorView(message){
-        errorView.message = message;
-        errorView.visible = true;
-        components_container.visible = false;
-    }
-
-    function setInsertDbUrlView()
-    {
-        errorView.visible = false;
-        components_container.visible = false;
-        insertUrlView.visible = true;
-    }
-
-    function enableScrollToLastTimer(){
-        scrollToLastTimer.running = true;
-    }
-
-    // QML-CXX Functions
-
     function retryDbConnection(){
         Backend.retryDbConnection();
         if(Backend.databaseIsOpen()){
             errorView.visible = false;
             components_container.visible = true;
             GlobalSettings.Backend.reloadTableData();
-            reloadTable();
+            userstable.reloadTableSection();
         }
     }
 
-    // options: Array
-    function connect(options){
-
-        Backend.connectDb(options[0],options[1],options[2],options[3],options[4]);
-        insertUrlView.visible = false;
-        if(Backend.databaseIsOpen()){
-            components_container.visible = true;
-            main_window.reloadTable();
-        }
-    }
-
-    function enableTableFilter(text){
-        Backend.enableFilter(text);
-        resetTableView();
-    }
-
-    function disableTableFilter(){
-        Backend.disableFilter();
-        resetTableView();
+    function setErrorView(message){
+        errorView.message = message;
+        errorView.visible = true;
+        components_container.visible = false;
     }
 
     Connections{
@@ -93,12 +46,10 @@ Window {
         }
     }
 
-    // ..
-
     Timer {
         id: scrollToLastTimer
         interval: 100
-        onTriggered: scrollToLastTableViewRow();
+        onTriggered: userstable.scrollToLastRow();
     }
 
     Image{
@@ -121,6 +72,14 @@ Window {
         anchors.centerIn: parent
         width:parent.width*0.3
         height: parent.height*0.6
+        onConnect: function(options){
+            Backend.connectDb(options[0],options[1],options[2],options[3],options[4]);
+            insertUrlView.visible = false;
+            if(Backend.databaseIsOpen()){
+                components_container.visible = true;
+                userstable.reloadTableSection()
+            }
+        }
     }
 
     Rectangle{
@@ -171,6 +130,12 @@ Window {
                         id: inputsSection
                         width:(parent.width)/2
                         height:parent.height
+                        onTimerScrollToLast: {
+                            scrollToLastTimer.running = true;
+                        }
+                        onReloadTable: {
+                            userstable.reloadTableSection();
+                        }
                     }
 
                     Rectangle{
@@ -189,6 +154,15 @@ Window {
                                 width: parent.width
                                 height: parent.height*0.1
                                 radius: 7
+                                onEnableTableFilter: function(text){
+                                    Backend.enableFilter(text);
+                                    userstable.resetTableSection();
+                                }
+
+                                onDisableTableFilter: {
+                                    Backend.disableFilter();
+                                    userstable.resetTableSection();
+                                }
                             }
 
                             Rectangle{
@@ -220,5 +194,10 @@ Window {
         message: "Failed to connect to database";
         visible: false
         onRetryClicked: retryDbConnection();
+        onSetInsertDbUrlView: {
+            errorView.visible = false;
+            components_container.visible = false;
+            insertUrlView.visible = true;
+        }
     }
 }

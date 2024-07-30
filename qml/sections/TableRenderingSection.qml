@@ -7,6 +7,9 @@ Rectangle{
     id: base
     color:'transparent'
 
+    signal showPopup(row: int);
+    signal showAreYouSureDialog(row:int);
+
     function reload()
     {
         userstable_tableview.model = "";
@@ -48,26 +51,23 @@ Rectangle{
     function deleteUser(row){
         const username = getUserNameFromRow(row);
         Backend.deleteUser(username);
-        reloadTable();
+        reload();
     }
 
     function updateUsername(username, newUsername){
         Backend.updateUsername(username,newUsername);
-        reloadTable();
+        reload();
     }
 
     function updateEmail(username,newEmail){
         Backend.updateUserEmail(username,newEmail);
-        reloadTable();
+        reload();
     }
 
     function updateUserPhone(username,newPhone){
         Backend.updateUserPhone(username,newPhone);
-        reloadTable();
-    }
-
-    signal showPopup(row: int);
-    signal showAreYouSureDialog(row:int);
+        reload();
+    }    
 
     Rectangle{
         id: cellsContainer

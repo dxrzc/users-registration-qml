@@ -9,6 +9,8 @@ Rectangle {
     color:'#40000000'
     radius:5
 
+    signal connect(options: var);
+
     function defaultButtonStyle(){
         connectButton.mouseAreaEnabled = false;
         connectButton.buttonColor= 'gray';

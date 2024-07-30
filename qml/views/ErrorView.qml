@@ -5,7 +5,9 @@ import "../components"
 Item{
     id: base
     property string message;
+
     signal retryClicked;
+    signal setInsertDbUrlView;
 
     function retryButtonClicked(){
         errorImageSequentialAnimation.running = true;

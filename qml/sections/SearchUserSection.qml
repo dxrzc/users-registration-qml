@@ -3,7 +3,10 @@ import QtQuick.Controls
 import "../components"
 
 Rectangle{
-    id: searchUserContainer    
+    id: searchUserContainer
+
+    signal enableTableFilter(text:string);
+    signal disableTableFilter;
 
     Row{
         ActionIcon{

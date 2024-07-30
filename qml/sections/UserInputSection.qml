@@ -5,12 +5,14 @@ import "../components"
 
 Item{
     id: inputs_container
+    signal timerScrollToLast;
+    signal reloadTable;
 
     function create_user(){
         if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
             const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
             Backend.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
-            enableScrollToLastTimer();
+            timerScrollToLast();
         }
     }
 
