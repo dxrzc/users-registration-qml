@@ -5,7 +5,7 @@ project(users-registration-qml VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Sql)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Sql QuickTest)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -102,7 +102,7 @@ set_target_properties(appusers-registration-qml PROPERTIES
 target_link_libraries(appusers-registration-qml
     PRIVATE 
     Qt6::Quick
-    Qt6::Sql
+    Qt6::Sql    
 )
 
 include_directories(
@@ -114,4 +114,22 @@ install(TARGETS appusers-registration-qml
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+enable_testing()
+
+project(qmlTesting LANGUAGES CXX)
+
+add_definitions(-DQUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/qml/testing")
+
+add_executable(qmlTesting
+    qml/testing/test.cpp
+)
+
+add_test(NAME qmlTesting COMMAND qmlTesting)
+
+target_link_libraries(qmlTesting
+    PRIVATE
+    Qt6::QuickTest
+    Qt6::Qml
 )
