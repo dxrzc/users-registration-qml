@@ -67,7 +67,7 @@ Item{
                 anchors.fill: parent
                 spacing:width*0.02
 
-                Button{
+                CustomButton{
                     id: retrybutton
                     width:parent.width*0.49
                     height: parent.height
@@ -80,7 +80,7 @@ Item{
 
                 }
 
-                Button{
+                CustomButton{
                     width:parent.width*0.49
                     height: parent.height
                     mouseAreaEnabled: true

@@ -17,7 +17,7 @@ set(plain_qml_files
 
     qml/components/ActionIcon.qml
     qml/components/BirthdateSelection.qml
-    qml/components/Button.qml
+    qml/components/CustomButton.qml
     qml/components/Input.qml
 
     qml/sections/SearchUserSection.qml

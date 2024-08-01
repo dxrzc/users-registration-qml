@@ -95,7 +95,7 @@ Rectangle {
                 width:parent.width
                 height:parent.height*0.4
 
-                Button{
+                CustomButton{
                     id: connectButton
                     anchors.centerIn: parent
                     width:parent.width*0.9

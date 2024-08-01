@@ -229,7 +229,7 @@ Rectangle {
                         width: parent.width/2
                         height: parent.height
 
-                        Button{
+                        CustomButton{
                             anchors.centerIn: parent
                             width: parent.width*0.9
                             height: parent.height*0.6
@@ -256,7 +256,7 @@ Rectangle {
                         width: parent.width/2
                         height: parent.height
 
-                        Button {
+                        CustomButton {
                             anchors.centerIn: parent
                             width: parent.width*0.9
                             height: parent.height*0.6
