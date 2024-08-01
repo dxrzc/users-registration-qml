@@ -85,7 +85,7 @@ qt_add_qml_module(appusers-registration-qml
     ${assets_files}
 
     SOURCES
-    ${cpp_files}
+    ${cpp_files}    
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
