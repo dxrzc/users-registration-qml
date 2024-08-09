@@ -126,7 +126,7 @@ include_directories(qmlTesting ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(qmlTesting
     qml/testing/test.cpp    
-    
+    qml/testing/helpers/insert-text.helper.js
     ${cpp_files}
     ${javascript_files}
 )
