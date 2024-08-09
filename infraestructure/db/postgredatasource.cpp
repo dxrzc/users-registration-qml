@@ -117,6 +117,11 @@ void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QStr
         emit errorHandler-> errorFromDataBase("Failed to edit user phone");
 }
 
+const QString &PostgreDataSource::getTableName() const noexcept
+{
+    return this->tableName;
+}
+
 // todo: is this function being used ¿?
 User PostgreDataSource::getUserByName(const QString& name) const
 {

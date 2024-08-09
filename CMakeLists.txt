@@ -85,7 +85,7 @@ qt_add_qml_module(appusers-registration-qml
     ${assets_files}
 
     SOURCES
-    ${cpp_files}    
+    ${cpp_files}
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -122,8 +122,13 @@ project(qmlTesting LANGUAGES CXX)
 
 add_definitions(-DQUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/qml/testing")
 
+include_directories(qmlTesting ${CMAKE_CURRENT_SOURCE_DIR})
+
 add_executable(qmlTesting
-    qml/testing/test.cpp
+    qml/testing/test.cpp    
+    
+    ${cpp_files}
+    ${javascript_files}
 )
 
 add_test(NAME qmlTesting COMMAND qmlTesting)
@@ -132,4 +137,5 @@ target_link_libraries(qmlTesting
     PRIVATE
     Qt6::QuickTest
     Qt6::Qml
+    Qt6::Sql
 )

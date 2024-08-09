@@ -37,6 +37,7 @@ public:
     void updateUsername(const QString&, const QString&) override;
     void updateEmail(const QString &, const QString &) override;
     void updatePhoneNumber(const QString &, const QString &) override;
+    const QString& getTableName() const noexcept;
 
 public slots:
     // tries the same url
