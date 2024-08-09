@@ -23,7 +23,7 @@ Window {
         if(Backend.databaseIsOpen()){
             errorView.visible = false;
             components_container.visible = true;
-            GlobalSettings.Backend.reloadTableData();
+            Backend.reloadTableData();
             userstable.reloadTableSection();
         }
     }
