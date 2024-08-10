@@ -18,31 +18,35 @@ Window {
     minimumWidth: 1200
     minimumHeight: 700
 
-    function retryDbConnection(){
-        Backend.retryDbConnection();
-        if(Backend.databaseIsOpen()){
-            errorView.visible = false;
-            components_container.visible = true;
-            Backend.reloadTableData();
-            userstable.reloadTableSection();
-        }
-    }
+    QtObject {
+        id: privateFunctions
 
-    function setErrorView(message){
-        errorView.message = message;
-        errorView.visible = true;
-        components_container.visible = false;
+        function retryDbConnection(){
+            Backend.retryDbConnection();
+            if(Backend.databaseIsOpen()){
+                errorView.visible = false;
+                components_container.visible = true;
+                Backend.reloadTableData();
+                userstable.reloadTableSection();
+            }
+        }
+
+        function setErrorView(message){
+            errorView.message = message;
+            errorView.visible = true;
+            components_container.visible = false;
+        }
     }
 
     Connections{
         target: errorhandler
 
         function onErrorFromDataBase(message){
-            setErrorView(message);
+            privateFunctions.setErrorView(message);
         }
 
         function onInternalError(message){
-            setErrorView(message);
+            privateFunctions.setErrorView(message);
         }
     }
 
@@ -193,7 +197,7 @@ Window {
         anchors.centerIn: parent
         message: "Failed to connect to database";
         visible: false
-        onRetryClicked: retryDbConnection();
+        onRetryClicked: privateFunctions.retryDbConnection();
         onSetInsertDbUrlView: {
             errorView.visible = false;
             components_container.visible = false;

@@ -20,18 +20,22 @@ Item{
         good_data = false;
     }
 
-    function dataValid(){
-        control.icon_path = "../imgs/svg/check.svg";
-        control.good_data = true;
-    }
+    QtObject{
+        id: privateFunctions
 
-    function dataInvalid(){
-        control.good_data = false;
-        control.icon_path = "../imgs/svg/wrong.svg";
-    }
+        function dataValid(){
+            control.icon_path = "../imgs/svg/check.svg";
+            control.good_data = true;
+        }
 
-    function fieldEmpty(){
-        control.icon_path = "";
+        function dataInvalid(){
+            control.good_data = false;
+            control.icon_path = "../imgs/svg/wrong.svg";
+        }
+
+        function fieldEmpty(){
+            control.icon_path = "";
+        }
     }
 
     function validateData(){
@@ -54,11 +58,11 @@ Item{
     function validateInput(){
         if(text_field.text !== ""){
             if(validateData())
-                dataValid();
+                privateFunctions.dataValid();
             else
-                dataInvalid();
+                privateFunctions.dataInvalid();
         } else{
-            fieldEmpty();
+            privateFunctions.fieldEmpty();
         }
     }
 

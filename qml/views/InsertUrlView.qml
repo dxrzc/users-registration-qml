@@ -11,32 +11,36 @@ Rectangle {
 
     signal connect(options: var);
 
-    function defaultButtonStyle(){
-        connectButton.mouseAreaEnabled = false;
-        connectButton.buttonColor= 'gray';
-        connectButton.buttonText = 'Connect';
-    }
+    QtObject {
+        id: privateFunctions
 
-    function invalidUrlButtonStyle(){
-        connectButton.mouseAreaEnabled= false;
-        connectButton.buttonText = 'Invalid URL';
-        connectButton.buttonColor= '#EE4E4E';
-    }
+        function defaultButtonStyle(){
+            connectButton.mouseAreaEnabled = false;
+            connectButton.buttonColor= 'gray';
+            connectButton.buttonText = 'Connect';
+        }
 
-    function validUrlButtonStyle(){
-        connectButton.mouseAreaEnabled = true;
-        connectButton.buttonHoveredColor= GlobalSettings.globalHoveredButtonColor;
-        connectButton.buttonColor= GlobalSettings.globalButtonColor;
-        connectButton.buttonText = 'Connect';
+        function invalidUrlButtonStyle(){
+            connectButton.mouseAreaEnabled= false;
+            connectButton.buttonText = 'Invalid URL';
+            connectButton.buttonColor= '#EE4E4E';
+        }
+
+        function validUrlButtonStyle(){
+            connectButton.mouseAreaEnabled = true;
+            connectButton.buttonHoveredColor= GlobalSettings.globalHoveredButtonColor;
+            connectButton.buttonColor= GlobalSettings.globalButtonColor;
+            connectButton.buttonText = 'Connect';
+        }
     }
 
     function validateUrl(){
         if(textField.text === '')
-            defaultButtonStyle();
+            privateFunctions.defaultButtonStyle();
         else
             if(UrlData.validateUrl(textField.text))
-                validUrlButtonStyle()
-            else invalidUrlButtonStyle();
+                privateFunctions.validUrlButtonStyle()
+            else privateFunctions.invalidUrlButtonStyle();
     }
 
     function connectIfButtonIsAvailable()
@@ -102,7 +106,7 @@ Rectangle {
                     height:parent.height*0.7
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
                     textColor: 'white'
-                    Component.onCompleted: defaultButtonStyle();
+                    Component.onCompleted: privateFunctions.defaultButtonStyle();
                     onClickbutton: connect(UrlData.getOptions(textField.text));
                 }
             }

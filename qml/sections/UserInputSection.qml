@@ -8,26 +8,30 @@ Item{
     signal timerScrollToLast;
     signal reloadTable;
 
-    function create_user(){
-        if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
-            const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
-            Backend.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
-            timerScrollToLast();
+    QtObject {
+        id: privateFunctions
+
+        function create_user(){
+            if (input_username.good_data && input_phonenumber.good_data && input_email.good_data && selection_birthdate.good_data) {
+                const birthdate = selection_birthdate.year +"-"+selection_birthdate.month+"-" +selection_birthdate.day;
+                Backend.createUser(input_username.text,input_email.text,input_phonenumber.text,birthdate);
+                timerScrollToLast();
+            }
         }
-    }
 
-    function clear_fields(){
-        input_phonenumber.clearField();
-        input_email.clearField();
-        input_username.clearField();
-        selection_birthdate.clearFields();
-    }
+        function clear_fields(){
+            input_phonenumber.clearField();
+            input_email.clearField();
+            input_username.clearField();
+            selection_birthdate.clearFields();
+        }
 
-    function whenRegistButtonIsClicked(){
-        if(register_button.allFieldsOk){
-            create_user();
-            clear_fields();
-            reloadTable();
+        function whenRegistButtonIsClicked(){
+            if(register_button.allFieldsOk){
+                create_user();
+                clear_fields();
+                reloadTable();
+            }
         }
     }
 
@@ -120,7 +124,7 @@ Item{
                 buttonText: 'Register'
                 buttonTextSize: Math.min(parent.width,parent.height)/3
                 mouseAreaEnabled: allFieldsOk;
-                onClickbutton: whenRegistButtonIsClicked();
+                onClickbutton: privateFunctions.whenRegistButtonIsClicked();
             }
         }
     }

@@ -9,9 +9,13 @@ Item{
     signal retryClicked;
     signal setInsertDbUrlView;
 
-    function retryButtonClicked(){
-        errorImageSequentialAnimation.running = true;
-        retryClicked()
+    QtObject{
+        id: privateFunctions
+
+        function retryButtonClicked(){
+            errorImageSequentialAnimation.running = true;
+            retryClicked()
+        }
     }
 
     Column{
@@ -76,7 +80,7 @@ Item{
                     textColor: 'white'
                     buttonText: 'Retry connection'
                     buttonTextSize: Math.min(parent.width,parent.height)*0.3
-                    onClickbutton: retryButtonClicked();
+                    onClickbutton: privateFunctions.retryButtonClicked();
 
                 }
 
