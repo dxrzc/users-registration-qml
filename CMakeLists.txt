@@ -14,7 +14,6 @@ qt_add_executable(appusers-registration-qml
 )
 
 set(plain_qml_files   
-
     qml/components/ActionIcon.qml
     qml/components/BirthdateSelection.qml
     qml/components/CustomButton.qml
@@ -55,7 +54,7 @@ set(assets_files
     qml/imgs/error.png
 )
 
-set(cpp_files
+set(cpp_domain_files
     domain/entities/connectionOptions/connectionOptions.h
     domain/entities/birthdate/birthdate.h
     domain/entities/birthdate/birthdate.cpp
@@ -65,12 +64,22 @@ set(cpp_files
     domain/errors/errorhandler.h
     domain/dtos/qmldto.h
     domain/dtos/qmldto.cpp
+)
 
+set(cpp_infraestructure_files
     infraestructure/db/postgredatasource.h
     infraestructure/db/postgredatasource.cpp
+)
 
+set(cpp_interface_files
     interface/table/userTableModel.h
     interface/table/userTableModel.cpp
+)
+
+set(cpp_files    
+    ${cpp_domain_files}
+    ${cpp_infraestructure_files}
+    ${cpp_interface_files}
 )
 
 qt_add_qml_module(appusers-registration-qml
