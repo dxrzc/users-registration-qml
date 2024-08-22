@@ -77,7 +77,7 @@ set(cpp_interface_files
 )
 
 set(global_config
-    global/config/qml-style.h
+    global/config/qml.h
 )
 
 set(cpp_files

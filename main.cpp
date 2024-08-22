@@ -4,11 +4,11 @@
 #include <QQuickStyle>
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
-#include "global/config/qml-style.h"
+#include "global/config/qml.h"
 
 int main(int argc, char *argv[])
 {
-    QQuickStyle::setStyle(ApplicationGlobals::QmlStyles::fusionStyle);
+    QQuickStyle::setStyle(GlobalApplicationConfig::Qml::controlsStyle);
 
     QGuiApplication app(argc, argv);
 

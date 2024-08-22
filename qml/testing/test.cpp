@@ -4,7 +4,7 @@
 #include <QQuickStyle>
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
-#include "global/config/qml-style.h"
+#include "global/config/qml.h"
 
 class Setup: public QObject
 {
@@ -40,7 +40,7 @@ public slots:
     // this is slower, but cleaner
     void applicationAvailable()
     {
-        QQuickStyle::setStyle(ApplicationGlobals::QmlStyles::fusionStyle);
+        QQuickStyle::setStyle(GlobalApplicationConfig::Qml::controlsStyle);
         errorHandlerPtr = new ErrorHandler();
         datasourcePtr = new PostgreDataSource(errorHandlerPtr);
         dtoPtr = new qmlDto(datasourcePtr);
