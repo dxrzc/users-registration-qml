@@ -170,4 +170,19 @@ target_link_libraries(birthdate_test
     Qt6::Test
 )
 
+add_executable(user_test
+    domain/entities/birthdate/birthdate.h
+    domain/entities/birthdate/birthdate.cpp
+    domain/entities/user/user.h
+    domain/entities/user/user.cpp
+    testing/domain/entities/user/test_user.cpp
+)
+
+target_link_libraries(user_test
+    PRIVATE
+    Qt6::Core
+    Qt6::Test
+)
+
 add_test(NAME BirthdateTest COMMAND birthdate_test)
+add_test(NAME UserTest COMMAND user_test)
