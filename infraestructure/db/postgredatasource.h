@@ -1,8 +1,8 @@
 #ifndef POSTGREDATASOURCE_H
 #define POSTGREDATASOURCE_H
 
-#include "../../domain/errors/errorhandler.h"
-#include "../../domain/datasource/Datasource.h"
+#include "domain/datasource/Datasource.h"
+#include "domain/errors/errorhandler.h"
 
 #include <QSqlQuery>
 #include <QSqlDatabase>

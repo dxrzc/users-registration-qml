@@ -124,6 +124,8 @@ include_directories(
    interface/table/ # userTableModel
 )
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 include(GNUInstallDirs)
 install(TARGETS appusers-registration-qml
     BUNDLE DESTINATION .
@@ -136,8 +138,6 @@ enable_testing()
 project(qmlTesting LANGUAGES CXX)
 
 add_definitions(-DQUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/qml/testing")
-
-include_directories(qmlTesting ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(qmlTesting
     qml/testing/test.cpp    

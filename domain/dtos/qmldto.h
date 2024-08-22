@@ -2,7 +2,7 @@
 #define QMLDTO_H
 
 #include <QObject>
-#include "../datasource/Datasource.h"
+#include "domain/datasource/Datasource.h"
 
 class qmlDto : public QObject
 {

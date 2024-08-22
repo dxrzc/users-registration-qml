@@ -1,7 +1,7 @@
 #ifndef DATASOURCE_H
 #define DATASOURCE_H
 
-#include "../entities/user/user.h"
+#include "domain/entities/user/user.h"
 #include "domain/entities/connectionOptions/connectionOptions.h"
 
 class DataSource

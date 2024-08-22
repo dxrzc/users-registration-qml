@@ -4,7 +4,7 @@
 #include <qqml.h>
 #include <QAbstractTableModel>
 #include <QList>
-#include "../../domain/dtos/qmldto.h"
+#include "domain/dtos/qmldto.h"
 
 class UserTableModel : public QAbstractTableModel
 {
