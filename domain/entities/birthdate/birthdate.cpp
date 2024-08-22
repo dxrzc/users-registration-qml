@@ -1,7 +1,6 @@
 #include "birthdate.h"
 #include <QChar>
 #include <QList>
-#include <stdexcept>
 
 BirthDate::BirthDate(unsigned year, unsigned month, unsigned day)
     : m_day(day), m_month(month), m_year(year) {}
