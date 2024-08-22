@@ -25,6 +25,7 @@ public:
     QString& email();
     QString& phoneNumber();
     const BirthDate& birthdate() const noexcept;
+    bool operator==(const User&) const noexcept;
 };
 
 #endif // USER_H

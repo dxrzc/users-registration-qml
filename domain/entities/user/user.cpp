@@ -43,3 +43,11 @@ QString& User::phoneNumber()
 {
     return m_phoneNumber;
 }
+
+bool User::operator==(const User & u) const noexcept
+{
+    if(m_username == u.m_username && m_email == u.m_email
+        && m_phoneNumber == u.m_phoneNumber && m_birthdate == u.m_birthdate)
+        return true;
+    return false;
+}
