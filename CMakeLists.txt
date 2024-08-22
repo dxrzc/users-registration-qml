@@ -184,5 +184,17 @@ target_link_libraries(user_test
     Qt6::Test
 )
 
+add_executable(connectionOptions_test
+    domain/entities/connectionOptions/connectionOptions.h
+    testing/domain/entities/connectionOptions/test_connectionOptions.cpp
+)
+
+target_link_libraries(connectionOptions_test
+    PRIVATE
+    Qt6::Core
+    Qt6::Test
+)
+
 add_test(NAME BirthdateTest COMMAND birthdate_test)
 add_test(NAME UserTest COMMAND user_test)
+add_test(NAME ConnectionOptions COMMAND connectionOptions_test_test)
