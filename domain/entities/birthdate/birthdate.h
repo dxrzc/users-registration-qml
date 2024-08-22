@@ -18,6 +18,7 @@ public:
     unsigned year() const noexcept;
     unsigned month() const noexcept;
     unsigned day() const noexcept;
+    bool operator==(const BirthDate&) const noexcept;
 };
 
 #endif // BIRTHDATE_H

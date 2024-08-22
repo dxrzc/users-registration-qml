@@ -34,3 +34,10 @@ BirthDate BirthDate::fromString(const QString &birthdateAsString)
     dateList[it] = aux.toInt();
     return BirthDate(dateList[0], dateList[1], dateList[2]);
 }
+
+bool BirthDate::operator==(const BirthDate& b) const noexcept
+{
+    if(m_year == b.m_year && m_month == b.m_month && m_day == b.m_day)
+        return true;
+    return false;
+}
