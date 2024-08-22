@@ -76,7 +76,12 @@ set(cpp_interface_files
     interface/table/userTableModel.cpp
 )
 
-set(cpp_files    
+set(global_config
+    global/config/qml-style.h
+)
+
+set(cpp_files
+    ${global_config}
     ${cpp_domain_files}
     ${cpp_infraestructure_files}
     ${cpp_interface_files}
@@ -93,7 +98,7 @@ qt_add_qml_module(appusers-registration-qml
     RESOURCES
     ${assets_files}
 
-    SOURCES
+    SOURCES    
     ${cpp_files}
 )
 
@@ -136,7 +141,7 @@ include_directories(qmlTesting ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(qmlTesting
     qml/testing/test.cpp    
-    qml/testing/helpers/insert-text.helper.js
+    qml/testing/helpers/insert-text.helper.js    
     ${cpp_files}
     ${javascript_files}
 )
