@@ -1,6 +1,7 @@
 #include <QtQuickTest>
 #include <QQmlEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
 
@@ -38,6 +39,7 @@ public slots:
     // this is slower, but cleaner
     void applicationAvailable()
     {
+        QQuickStyle::setStyle("Fusion");
         errorHandlerPtr = new ErrorHandler();
         datasourcePtr = new PostgreDataSource(errorHandlerPtr);
         dtoPtr = new qmlDto(datasourcePtr);

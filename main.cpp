@@ -1,11 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
 
 int main(int argc, char *argv[])
 {
+    QQuickStyle::setStyle("Fusion");
+
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
