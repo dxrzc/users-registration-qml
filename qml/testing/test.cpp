@@ -6,6 +6,7 @@
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
 #include "global/config/qml.h"
+#include "global/test/testdatabase-options.h"
 
 class Setup: public QObject
 {
@@ -39,7 +40,7 @@ public slots:
         dtoPtr = new qmlDto(datasourcePtr);
         userTableModelPtr = new UserTableModel(dtoPtr);
 
-        datasourcePtr->connect({"localhost", "myuser", "12345","users", 5433});
+        datasourcePtr->connect(TestingConfig::databaseOptions);
     }
 
     // Called once for each QML test file

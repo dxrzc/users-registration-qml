@@ -80,6 +80,10 @@ set(global_config
     global/config/qml.h
 )
 
+set(test_global_config
+    global/test/testdatabase-options.h
+)
+
 set(cpp_files
     ${global_config}
     ${cpp_domain_files}
@@ -141,7 +145,8 @@ add_definitions(-DQUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/qml/testing
 
 add_executable(qmlTesting
     qml/testing/test.cpp    
-    qml/testing/helpers/insert-text.helper.js    
+    qml/testing/helpers/insert-text.helper.js
+    ${test_global_config}
     ${cpp_files}
     ${javascript_files}
 )
