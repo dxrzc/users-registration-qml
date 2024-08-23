@@ -2,6 +2,7 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+#include <QCoreApplication>
 
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
@@ -41,6 +42,12 @@ public slots:
         userTableModelPtr = new UserTableModel(dtoPtr);
 
         datasourcePtr->connect(TestingConfig::databaseOptions);
+
+        if(!datasourcePtr->dbIsOpen())
+        {
+            qFatal()<< "Could not connect to database. Testing aborted";
+            QCoreApplication::exit(1);
+        }
     }
 
     // Called once for each QML test file
