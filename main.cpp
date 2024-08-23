@@ -5,6 +5,7 @@
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
 #include "global/config/qml.h"
+#include "global/config/database.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
     ErrorHandler *errorhandler = new ErrorHandler();
     engine.rootContext()->setContextProperty("errorhandler", errorhandler);
 
-    qmlDto *dto = new qmlDto(new PostgreDataSource(errorhandler));
+    qmlDto *dto = new qmlDto(new PostgreDataSource(errorhandler,GlobalApplicationConfig::Database::tableName));
     engine.rootContext()->setContextProperty("QmlDto", dto);
 
     UserTableModel tb(dto);

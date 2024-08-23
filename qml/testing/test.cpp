@@ -23,7 +23,7 @@ private:
     {
         QSqlQuery query(QSqlDatabase::database());
         const QString command = "DELETE FROM %1";
-        query.exec(command.arg(datasourcePtr->getTableName()));
+        query.exec(command.arg(datasourcePtr->tableName()));
     }
 
 public:
@@ -37,7 +37,7 @@ public slots:
         QQuickStyle::setStyle(GlobalApplicationConfig::Qml::controlsStyle);
 
         errorHandlerPtr = new ErrorHandler();
-        datasourcePtr = new PostgreDataSource(errorHandlerPtr);
+        datasourcePtr = new PostgreDataSource(errorHandlerPtr,"testing-users");
         dtoPtr = new qmlDto(datasourcePtr);
         userTableModelPtr = new UserTableModel(dtoPtr);
 

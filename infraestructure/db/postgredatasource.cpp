@@ -2,9 +2,10 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-PostgreDataSource::PostgreDataSource(ErrorHandler* m_errorHandler_, QObject* parent)
-    : m_errorHandler(m_errorHandler_), QObject(parent)
+PostgreDataSource::PostgreDataSource(ErrorHandler* m_errorHandler_, const QString& tableName, QObject* parent):
+    m_errorHandler(m_errorHandler_), QObject(parent)
 {
+    m_tableName = tableName;
     QObject::connect(m_errorHandler,&ErrorHandler::retryDBConnection,this,&PostgreDataSource::retryConnection);
 }
 
@@ -116,7 +117,7 @@ void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QStr
         emit m_errorHandler-> errorFromDataBase("Failed to edit user phone");
 }
 
-const QString &PostgreDataSource::getTableName() const noexcept
+const QString &PostgreDataSource::tableName() const noexcept
 {
     return m_tableName;
 }

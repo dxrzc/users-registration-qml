@@ -78,6 +78,7 @@ set(cpp_interface_files
 
 set(global_config
     global/config/qml.h
+    global/config/database.h
 )
 
 set(test_global_config
