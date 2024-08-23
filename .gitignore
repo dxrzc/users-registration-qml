@@ -76,3 +76,6 @@ CMakeLists.txt.user*
 /postgres
 /.vscode
 /.cache
+
+# test db
+/postgres-test
