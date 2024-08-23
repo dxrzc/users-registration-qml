@@ -197,4 +197,4 @@ target_link_libraries(connectionOptions_test
 
 add_test(NAME BirthdateTest COMMAND birthdate_test)
 add_test(NAME UserTest COMMAND user_test)
-add_test(NAME ConnectionOptions COMMAND connectionOptions_test_test)
+add_test(NAME ConnectionOptions COMMAND connectionOptions_test)
