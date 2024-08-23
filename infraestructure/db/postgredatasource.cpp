@@ -1,5 +1,4 @@
 #include "postgredatasource.h"
-#include <stdexcept>
 #include <QSqlError>
 #include <QSqlQuery>
 
@@ -120,21 +119,6 @@ void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QStr
 const QString &PostgreDataSource::getTableName() const noexcept
 {
     return this->tableName;
-}
-
-// todo: is this function being used ¿?
-User PostgreDataSource::getUserByName(const QString& name) const
-{
-    QSqlQuery query(QSqlDatabase::database(connectionName));
-    const QString command = "SELECT * FROM %1 WHERE username = '%2'";
-
-    if (!query.exec(command.arg(tableName, name)))
-        throw std::runtime_error(query.lastError().databaseText().toStdString());
-
-    if (query.next())
-        return fromQueryToUser(query);
-    else
-        throw std::runtime_error("User not found");
 }
 
 void PostgreDataSource::getAllUsers(QList<User>& usersVector) const

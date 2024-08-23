@@ -27,8 +27,7 @@ private:
 public:
     PostgreDataSource(ErrorHandler*, QObject* parent = nullptr);
     ~PostgreDataSource();
-    void saveUser(const User&) override;
-    User getUserByName(const QString&) const override;
+    void saveUser(const User&) override;    
     void getAllUsers(QList<User>&) const override;
     bool dbIsOpen() const override;
     // tries a new url
