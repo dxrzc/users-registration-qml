@@ -2,6 +2,7 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
 #include "global/config/qml.h"
@@ -23,45 +24,37 @@ private:
         query.exec(command.arg(datasourcePtr->getTableName()));
     }
 
-    void freeResources()
-    {
-        delete userTableModelPtr;
-        // table deletes dto
-        // dto deletes datasource
-        // datasource deletes errorhandler
-    }
-
 public:
     Setup(){}
-    ~Setup(){}
 
 public slots:
 
-    // this is slower, but cleaner
+    // Called once before everything start
     void applicationAvailable()
     {
         QQuickStyle::setStyle(GlobalApplicationConfig::Qml::controlsStyle);
+
         errorHandlerPtr = new ErrorHandler();
         datasourcePtr = new PostgreDataSource(errorHandlerPtr);
         dtoPtr = new qmlDto(datasourcePtr);
         userTableModelPtr = new UserTableModel(dtoPtr);
 
-        ConnectionOptions connectionOptions ("localhost", "myuser", "12345","users", 5433);
-        datasourcePtr->connect(connectionOptions);
+        datasourcePtr->connect({"localhost", "myuser", "12345","users", 5433});
     }
 
+    // Called once for each QML test file
     void qmlEngineAvailable(QQmlEngine *engine)
     {
-        engine->rootContext()->setContextProperty("myContextProperty", QVariant(true));
         engine->rootContext()->setContextProperty("errorhandler", errorHandlerPtr);
         engine->rootContext()->setContextProperty("QmlDto", dtoPtr);
         engine->rootContext()->setContextProperty("usersTable", userTableModelPtr);
     }
 
+    // Called once before everything finish
     void cleanupTestCase()
     {
+        delete userTableModelPtr;
         clearDatabase();
-        freeResources();
     }
 };
 
