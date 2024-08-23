@@ -8,14 +8,13 @@
 #include <QSqlDatabase>
 #include <QObject>
 
-
 class PostgreDataSource: public QObject,public DataSource
 {
     Q_OBJECT
 private:
-    QString connectionName;
-    QString tableName;
-    ErrorHandler* errorHandler;
+    QString m_connectionName;
+    QString m_tableName;
+    ErrorHandler* m_errorHandler;
     User fromQueryToUser(const QSqlQuery& query) const;
     void createTable();
     void tryToConnect();
@@ -37,6 +36,7 @@ public:
     void updateEmail(const QString &, const QString &) override;
     void updatePhoneNumber(const QString &, const QString &) override;
     const QString& getTableName() const noexcept;
+    const QString& connectionName() const noexcept;
 
 public slots:
     // tries the same url
