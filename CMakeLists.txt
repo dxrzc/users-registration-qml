@@ -164,6 +164,18 @@ target_link_libraries(qmlTesting
 
 # C++ Testing
 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+include(GoogleTest)
+
 add_executable(birthdate_test
     domain/entities/birthdate/birthdate.h
     domain/entities/birthdate/birthdate.cpp
@@ -201,6 +213,21 @@ target_link_libraries(connectionOptions_test
     Qt6::Test
 )
 
+add_executable(qmlDto_test
+    ${test_global_config}
+    ${cpp_domain_files}
+    testing/domain/dtos/test_qmldto.cpp
+)
+
+target_link_libraries(qmlDto_test
+    PRIVATE
+    Qt6::Core
+    Qt6::Test
+    GTest::gtest_main
+    GTest::gmock_main
+)
+
 add_test(NAME BirthdateTest COMMAND birthdate_test)
 add_test(NAME UserTest COMMAND user_test)
 add_test(NAME ConnectionOptions COMMAND connectionOptions_test)
+add_test(NAME QmlDtoTest COMMAND qmlDto_test)
