@@ -61,8 +61,8 @@ public slots:
     // Called once before everything finish
     void cleanupTestCase()
     {
-        delete userTableModelPtr;
         clearDatabase();
+        delete userTableModelPtr;
     }
 };
 
