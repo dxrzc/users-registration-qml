@@ -157,7 +157,7 @@ void PostgreDataSource::connect(const ConnectionOptions & options)
     if (QSqlDatabase::contains(m_connectionName))
         QSqlDatabase::removeDatabase(m_connectionName);
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL",m_connectionName);
     db.setHostName(options.hostname);
     db.setPort(options.PORT);
     db.setUserName(options.user);
