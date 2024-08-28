@@ -44,11 +44,8 @@ public slots:
 
         datasourcePtr->connect(TestingConfig::databaseOptions);
 
-        if(!datasourcePtr->dbIsOpen())
-        {
-            qFatal()<< "Could not connect to database. Testing aborted";
-            QCoreApplication::exit(1);
-        }
+        if(!datasourcePtr->dbIsOpen())        
+            qFatal()<< "Could not connect to database. Testing aborted";                    
     }
 
     // Called once for each QML test file
