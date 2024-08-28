@@ -18,13 +18,13 @@ private:
     void createTable();
     void tryToConnect();
     bool checkIfValueExists(const QString& userproperty,const QString& value) const ;
-    bool checkIfUsernameAlreadyExists(const QString& username) const override;
-    bool checkIfEmailAlreadyExists(const QString& email) const override;
-    bool checkIfPhoneNumberAlreadyExists(const QString& phoneNumber)const override;
 
 public:
     PostgreDataSource(ErrorHandler*, const QString& connectionName, const QString& tableName, QObject* parent = nullptr);
-    ~PostgreDataSource();
+    ~PostgreDataSource();    
+    bool checkIfUsernameAlreadyExists(const QString& username) const override;
+    bool checkIfEmailAlreadyExists(const QString& email) const override;
+    bool checkIfPhoneNumberAlreadyExists(const QString& phoneNumber)const override;
     void saveUser(const User& user) override;
     void connect(const ConnectionOptions& options) override;
     void deleteUser(const QString& username) override;
