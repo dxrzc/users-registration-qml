@@ -18,10 +18,11 @@ private:
     PostgreDataSource* datasourcePtr;
     qmlDto* dtoPtr;
     UserTableModel* userTableModelPtr;
+    const QString connectionName = "qml-testing-setup-connection";
 
     void clearDatabase()
     {
-        QSqlQuery query(QSqlDatabase::database());
+        QSqlQuery query(QSqlDatabase::database(connectionName));
         const QString command = "DELETE FROM %1";
         query.exec(command.arg(datasourcePtr->tableName()));
     }
@@ -37,7 +38,7 @@ public slots:
         QQuickStyle::setStyle(GlobalApplicationConfig::Qml::controlsStyle);
 
         errorHandlerPtr = new ErrorHandler();
-        datasourcePtr = new PostgreDataSource(errorHandlerPtr,"testing-users");
+        datasourcePtr = new PostgreDataSource(errorHandlerPtr,connectionName,"testing-users");
         dtoPtr = new qmlDto(datasourcePtr);
         userTableModelPtr = new UserTableModel(dtoPtr);
 

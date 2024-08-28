@@ -23,7 +23,7 @@ private:
     bool checkIfPhoneNumberAlreadyExists(const QString& phoneNumber)const override;
 
 public:
-    PostgreDataSource(ErrorHandler*, const QString& tableName, QObject* parent = nullptr);
+    PostgreDataSource(ErrorHandler*, const QString& connectionName, const QString& tableName, QObject* parent = nullptr);
     ~PostgreDataSource();
     void saveUser(const User& user) override;
     void connect(const ConnectionOptions& options) override;

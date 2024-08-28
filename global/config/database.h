@@ -6,6 +6,7 @@
 namespace GlobalApplicationConfig {
     namespace Database{
         inline const QString tableName = "myusers";
+        inline const QString connectionName = "users-registration-connection";
     }
 }
 

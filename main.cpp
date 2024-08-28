@@ -18,7 +18,12 @@ int main(int argc, char *argv[])
     ErrorHandler *errorhandler = new ErrorHandler();
     engine.rootContext()->setContextProperty("errorhandler", errorhandler);
 
-    qmlDto *dto = new qmlDto(new PostgreDataSource(errorhandler,GlobalApplicationConfig::Database::tableName));
+    qmlDto *dto = new qmlDto(new PostgreDataSource(
+        errorhandler,
+        GlobalApplicationConfig::Database::connectionName,
+        GlobalApplicationConfig::Database::tableName
+    ));
+
     engine.rootContext()->setContextProperty("QmlDto", dto);
 
     UserTableModel tb(dto);

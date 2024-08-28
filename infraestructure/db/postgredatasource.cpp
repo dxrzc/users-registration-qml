@@ -2,10 +2,11 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-PostgreDataSource::PostgreDataSource(ErrorHandler* m_errorHandler_, const QString& tableName, QObject* parent):
+PostgreDataSource::PostgreDataSource(ErrorHandler* m_errorHandler_, const QString& connectionName, const QString& tableName, QObject* parent):
     m_errorHandler(m_errorHandler_), QObject(parent)
-{
-    m_tableName = tableName;
+{    
+    m_connectionName = connectionName;
+    m_tableName = tableName;    
     QObject::connect(m_errorHandler,&ErrorHandler::retryDBConnection,this,&PostgreDataSource::retryConnection);
 }
 
@@ -163,7 +164,6 @@ void PostgreDataSource::connect(const ConnectionOptions & options)
     db.setUserName(options.user);
     db.setDatabaseName(options.database);
     db.setPassword(options.password);
-    m_connectionName = db.connectionName();
     tryToConnect();
 }
 
