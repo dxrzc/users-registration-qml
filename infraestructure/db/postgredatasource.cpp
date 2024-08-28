@@ -96,7 +96,7 @@ void PostgreDataSource::updateUsername(const QString &username, const QString &n
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "UPDATE %1 SET username = '%2' WHERE username= '%3'";
     const bool userModified = query.exec(command.arg(m_tableName,newUsername,username));
-    if(!userModified)
+    if(!userModified || query.numRowsAffected() == 0)
         emit m_errorHandler-> errorFromDataBase("Failed to update username");
 }
 
@@ -105,7 +105,7 @@ void PostgreDataSource::updateEmail(const QString &email, const QString &newEmai
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "UPDATE %1 SET email = '%2' WHERE email= '%3'";
     const bool userModified = query.exec(command.arg(m_tableName,newEmail,email));
-    if(!userModified)
+    if(!userModified || query.numRowsAffected() == 0)
         emit m_errorHandler-> errorFromDataBase("Failed to update user email");
 }
 
@@ -114,7 +114,7 @@ void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QStr
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "UPDATE %1 SET phone = '%2' WHERE phone= '%3'";
     const bool userModified = query.exec(command.arg(m_tableName,newPhoneNumber,phonenumber));
-    if(!userModified)
+    if(!userModified || query.numRowsAffected() == 0)
         emit m_errorHandler-> errorFromDataBase("Failed to edit user phone");
 }
 
@@ -171,7 +171,7 @@ void PostgreDataSource::deleteUser(const QString & username)
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "DELETE FROM %1 WHERE username = '%2'";
     const bool userDeleted = query.exec(command.arg(m_tableName, username));
-    if (!userDeleted)
+    if (!userDeleted || query.numRowsAffected() == 0)
         emit m_errorHandler->errorFromDataBase("Failed to delete user");
 }
 
