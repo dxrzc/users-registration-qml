@@ -24,7 +24,7 @@ User PostgreDataSource::fromQueryToUser(const QSqlQuery& query) const
 
 void PostgreDataSource::createTable()
 {
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "CREATE TABLE %1 (username TEXT NOT NULL, birthdate DATE, email TEXT NOT NULL, phone TEXT NOT NULL)";
     const bool tableCreated = query.exec(command.arg(m_tableName));
     if (tableCreated)
@@ -41,7 +41,7 @@ void PostgreDataSource::tryToConnect()
         return;
     }
 
-    if (!QSqlDatabase::database(m_connectionName).tables().contains(m_tableName))
+    if (!QSqlDatabase::database(m_connectionName,false).tables().contains(m_tableName))
         createTable();
 }
 
@@ -54,7 +54,7 @@ bool PostgreDataSource::checkIfValueExists(const QString& userproperty, const QS
         return false;
     }
 
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "SELECT 1 FROM %1 WHERE %2 = '%3'";
 
     if (!query.exec(command.arg(m_tableName, userproperty, value)))
@@ -84,7 +84,7 @@ bool PostgreDataSource::checkIfPhoneNumberAlreadyExists(const QString& phoneNumb
 
 void PostgreDataSource::saveUser(const User& user)
 {
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES ('%2', '%3', '%4', '%5')";
     const bool userSaved = query.exec(command.arg(m_tableName, user.username(), user.birthdate().toQString(), user.email(), user.phoneNumber()));
     if (!userSaved)
@@ -93,7 +93,7 @@ void PostgreDataSource::saveUser(const User& user)
 
 void PostgreDataSource::updateUsername(const QString &username, const QString &newUsername)
 {
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "UPDATE %1 SET username = '%2' WHERE username= '%3'";
     const bool userModified = query.exec(command.arg(m_tableName,newUsername,username));
     if(!userModified)
@@ -102,7 +102,7 @@ void PostgreDataSource::updateUsername(const QString &username, const QString &n
 
 void PostgreDataSource::updateEmail(const QString &email, const QString &newEmail)
 {
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "UPDATE %1 SET email = '%2' WHERE email= '%3'";
     const bool userModified = query.exec(command.arg(m_tableName,newEmail,email));
     if(!userModified)
@@ -111,7 +111,7 @@ void PostgreDataSource::updateEmail(const QString &email, const QString &newEmai
 
 void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QString &newPhoneNumber)
 {
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "UPDATE %1 SET phone = '%2' WHERE phone= '%3'";
     const bool userModified = query.exec(command.arg(m_tableName,newPhoneNumber,phonenumber));
     if(!userModified)
@@ -132,7 +132,7 @@ void PostgreDataSource::getAllUsers(QList<User>& usersVector) const
 {
     if(dbIsOpen())
     {
-        QSqlQuery query(QSqlDatabase::database(m_connectionName));
+        QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
         const QString command = "SELECT * FROM %1";
         if (!query.exec(command.arg(m_tableName)))
         {
@@ -168,7 +168,7 @@ void PostgreDataSource::connect(const ConnectionOptions & options)
 
 void PostgreDataSource::deleteUser(const QString & username)
 {
-    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+    QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "DELETE FROM %1 WHERE username = '%2'";
     const bool userDeleted = query.exec(command.arg(m_tableName, username));
     if (!userDeleted)
