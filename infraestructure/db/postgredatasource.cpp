@@ -27,9 +27,7 @@ void PostgreDataSource::createTable()
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
     const QString command = "CREATE TABLE %1 (username TEXT NOT NULL, birthdate DATE, email TEXT NOT NULL, phone TEXT NOT NULL)";
     const bool tableCreated = query.exec(command.arg(m_tableName));
-    if (tableCreated)
-        qDebug() << "Table created!!";
-    else
+    if (!tableCreated)
         emit m_errorHandler->errorFromDataBase("Failed to create table");
 }
 
@@ -59,7 +57,6 @@ bool PostgreDataSource::checkIfValueExists(const QString& userproperty, const QS
 
     if (!query.exec(command.arg(m_tableName, userproperty, value)))
     {
-        qDebug() << query.lastError().databaseText();
         emit m_errorHandler->errorFromDataBase("Failed to check user");
         return false;
     }
