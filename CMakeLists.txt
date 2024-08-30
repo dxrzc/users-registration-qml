@@ -227,7 +227,23 @@ target_link_libraries(qmlDto_test
     GTest::gmock_main
 )
 
+add_executable(postgredatasource_test
+    ${test_global_config}
+    ${cpp_domain_files}
+    ${cpp_infraestructure_files}
+    testing/infraestructure/db/test_postgredatasource.cpp
+    testing/infraestructure/db/helper_invalidConnection.h
+)
+
+target_link_libraries(postgredatasource_test
+    PRIVATE
+    Qt6::Core
+    Qt6::Test
+    Qt6::Sql
+)
+
 add_test(NAME BirthdateTest COMMAND birthdate_test)
 add_test(NAME UserTest COMMAND user_test)
 add_test(NAME ConnectionOptions COMMAND connectionOptions_test)
 add_test(NAME QmlDtoTest COMMAND qmlDto_test)
+add_test(NAME PostgreDataSourceTest COMMAND postgredatasource_test)
