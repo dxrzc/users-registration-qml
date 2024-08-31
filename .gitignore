@@ -79,3 +79,7 @@ CMakeLists.txt.user*
 
 # test db
 /postgres-test
+
+# seed
+/seed/node_modules
+/seed/dist
