@@ -22,7 +22,7 @@ Application to register users in Postgres SQL database using Qt Framework and C+
 ## Development
 
 ### Requirements
-- Qt6 installation with at least the follwing modules
+- Qt6 installation with at least the following modules
   - QtTest
   - QtSql
   - QtQuick
@@ -31,6 +31,16 @@ Application to register users in Postgres SQL database using Qt Framework and C+
 - PostgreSQL drivers: Required for QtSql 
 - Docker (optionally, your own database for development)
 - Node: Required for seed
+
+### Build
+Steps for building
+```
+git clone https://github.com/itsdrc/users-registration-qml.git
+cd users-registration-qml
+cmake -DCMAKE_PREFIX_PATH=<qtInstallation>/<version>/<arch> -S . -B build
+cd build
+cmake --build .
+```
 
 ### Seed
 To populate the database with initial user data, run the following commands:
