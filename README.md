@@ -42,9 +42,14 @@ cmake --build .
 
 ### Seed
 To populate the database with initial user data, run the following commands:
+(don't forget to run `npm install` in "seed" directory first)
 - Linux
 ```
 chmod +x run-seed.sh
+./run-seed.sh <yourPostgresUrl> <number of users>
+```
+- Windows (bash)
+```
 ./run-seed.sh <yourPostgresUrl> <number of users>
 ```
 
