@@ -40,6 +40,17 @@ cd build
 cmake --build .
 ```
 
+- In order to run, the application needs to access the Qt binaries
+located in `your_qt_installation/your_qt_version/your_architecture/bin`.
+- To access the database, the application also needs the PostgreSQL binaries,
+so you can install postgres an add the `bin` path to your envs.
+- The QtQSql module needs the `qsqlpsqld` (for debug) and `qsqlpsql`(for release) drivers,
+you can find these files in the following directory: `your_qt_installation\your_qt_version\your_architecture\plugins\sqldrivers`.  
+If you can't find them, you can build the drivers by yourself: 
+   - Unix: https://doc.qt.io/qt-6/sql-driver.html#how-to-build-the-qpsql-plugin-on-unix-and-macos
+   - Windows: https://doc.qt.io/qt-6/sql-driver.html#how-to-build-the-qpsql-plugin-on-windows
+
+
 ### Seed
 To populate the database with initial user data, run the following commands:
 (don't forget to run `npm install` in "seed" directory first)
