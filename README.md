@@ -54,6 +54,8 @@ chmod +x run-seed.sh
 ```
 
 ### Testing
+1. Navigate to your build directory
+2. run ``ctest``
 
 ## License
 [See here](https://github.com/itsdrc/users-registration-qml/blob/main/LICENSE)
