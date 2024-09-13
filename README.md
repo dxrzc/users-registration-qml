@@ -17,9 +17,7 @@ Application to register users in Postgres SQL database using Qt Framework and C+
 - Docker
 - Node Js, Typescript and Faker
 
-## Installation
-
-## Development
+## Building from Source
 
 ### Requirements
 - Qt6 installation with at least the following modules
