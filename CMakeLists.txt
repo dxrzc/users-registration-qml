@@ -138,112 +138,115 @@ install(TARGETS appusers-registration-qml
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-enable_testing()
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
-project(qmlTesting LANGUAGES CXX)
+    enable_testing()
 
-add_definitions(-DQUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/qml/testing")
+    project(qmlTesting LANGUAGES CXX)
 
-add_executable(qmlTesting
-    qml/testing/test.cpp    
-    qml/testing/helpers/insert-text.helper.js
-    ${test_global_config}
-    ${cpp_files}
-    ${javascript_files}
-)
+    add_definitions(-DQUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/qml/testing")
 
-add_test(NAME qmlTesting COMMAND qmlTesting)
+    add_executable(qmlTesting
+        qml/testing/test.cpp
+        qml/testing/helpers/insert-text.helper.js
+        ${test_global_config}
+        ${cpp_files}
+        ${javascript_files}
+    )
 
-target_link_libraries(qmlTesting
-    PRIVATE
-    Qt6::QuickTest
-    Qt6::QuickControls2
-    Qt6::Qml
-    Qt6::Sql
-)
+    add_test(NAME qmlTesting COMMAND qmlTesting)
 
-# C++ Testing
+    target_link_libraries(qmlTesting
+        PRIVATE
+        Qt6::QuickTest
+        Qt6::QuickControls2
+        Qt6::Qml
+        Qt6::Sql
+    )
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest  
-  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-  URL https://github.com/google/googletest/archive/refs/tags/v1.15.2.zip
-)
+    # C++ Testing
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+    include(FetchContent)
+    FetchContent_Declare(
+      googletest
+      DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+      URL https://github.com/google/googletest/archive/refs/tags/v1.15.2.zip
+    )
 
-include(GoogleTest)
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
 
-add_executable(birthdate_test
-    domain/entities/birthdate/birthdate.h
-    domain/entities/birthdate/birthdate.cpp
-    testing/domain/entities/birthdate/test_birthdate.cpp
-)
+    include(GoogleTest)
 
-target_link_libraries(birthdate_test
-    PRIVATE
-    Qt6::Core
-    Qt6::Test
-)
+    add_executable(birthdate_test
+        domain/entities/birthdate/birthdate.h
+        domain/entities/birthdate/birthdate.cpp
+        testing/domain/entities/birthdate/test_birthdate.cpp
+    )
 
-add_executable(user_test
-    domain/entities/birthdate/birthdate.h
-    domain/entities/birthdate/birthdate.cpp
-    domain/entities/user/user.h
-    domain/entities/user/user.cpp
-    testing/domain/entities/user/test_user.cpp
-)
+    target_link_libraries(birthdate_test
+        PRIVATE
+        Qt6::Core
+        Qt6::Test
+    )
 
-target_link_libraries(user_test
-    PRIVATE
-    Qt6::Core
-    Qt6::Test
-)
+    add_executable(user_test
+        domain/entities/birthdate/birthdate.h
+        domain/entities/birthdate/birthdate.cpp
+        domain/entities/user/user.h
+        domain/entities/user/user.cpp
+        testing/domain/entities/user/test_user.cpp
+    )
 
-add_executable(connectionOptions_test
-    domain/entities/connectionOptions/connectionOptions.h
-    testing/domain/entities/connectionOptions/test_connectionOptions.cpp
-)
+    target_link_libraries(user_test
+        PRIVATE
+        Qt6::Core
+        Qt6::Test
+    )
 
-target_link_libraries(connectionOptions_test
-    PRIVATE
-    Qt6::Core
-    Qt6::Test
-)
+    add_executable(connectionOptions_test
+        domain/entities/connectionOptions/connectionOptions.h
+        testing/domain/entities/connectionOptions/test_connectionOptions.cpp
+    )
 
-add_executable(qmlDto_test
-    ${test_global_config}
-    ${cpp_domain_files}
-    testing/domain/dtos/test_qmldto.cpp
-)
+    target_link_libraries(connectionOptions_test
+        PRIVATE
+        Qt6::Core
+        Qt6::Test
+    )
 
-target_link_libraries(qmlDto_test
-    PRIVATE
-    Qt6::Core
-    Qt6::Test
-    GTest::gtest_main
-    GTest::gmock_main
-)
+    add_executable(qmlDto_test
+        ${test_global_config}
+        ${cpp_domain_files}
+        testing/domain/dtos/test_qmldto.cpp
+    )
 
-add_executable(postgredatasource_test
-    ${test_global_config}
-    ${cpp_domain_files}
-    ${cpp_infraestructure_files}
-    testing/infraestructure/db/test_postgredatasource.cpp
-    testing/infraestructure/db/helper_invalidConnection.h
-)
+    target_link_libraries(qmlDto_test
+        PRIVATE
+        Qt6::Core
+        Qt6::Test
+        GTest::gtest_main
+        GTest::gmock_main
+    )
 
-target_link_libraries(postgredatasource_test
-    PRIVATE
-    Qt6::Core
-    Qt6::Test
-    Qt6::Sql
-)
+    add_executable(postgredatasource_test
+        ${test_global_config}
+        ${cpp_domain_files}
+        ${cpp_infraestructure_files}
+        testing/infraestructure/db/test_postgredatasource.cpp
+        testing/infraestructure/db/helper_invalidConnection.h
+    )
 
-add_test(NAME BirthdateTest COMMAND birthdate_test)
-add_test(NAME UserTest COMMAND user_test)
-add_test(NAME ConnectionOptions COMMAND connectionOptions_test)
-add_test(NAME QmlDtoTest COMMAND qmlDto_test)
-add_test(NAME PostgreDataSourceTest COMMAND postgredatasource_test)
+    target_link_libraries(postgredatasource_test
+        PRIVATE
+        Qt6::Core
+        Qt6::Test
+        Qt6::Sql
+    )
+
+    add_test(NAME BirthdateTest COMMAND birthdate_test)
+    add_test(NAME UserTest COMMAND user_test)
+    add_test(NAME ConnectionOptions COMMAND connectionOptions_test)
+    add_test(NAME QmlDtoTest COMMAND qmlDto_test)
+    add_test(NAME PostgreDataSourceTest COMMAND postgredatasource_test)
+endif()
