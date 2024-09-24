@@ -17,15 +17,15 @@ export class PostgresDataBase {
         }
     }
 
-    async seed(users: User[]) {        
+    async seed(tableName: string ,users: User[]) {        
 
         await this.client.query({
-            text: 'DELETE FROM myusers'
+            text: `DELETE FROM ${tableName}`
         });
 
         for (let i = 0; i < users.length; i++) {
             const query = {
-                text: 'INSERT INTO myusers(username,birthdate,email,phone) VALUES($1, $2, $3, $4)',
+                text: `INSERT INTO ${tableName}(username,birthdate,email,phone) VALUES($1, $2, $3, $4)`,
                 values: [users[i].username, users[i].birthdate, users[i].email, users[i].phone],
             }
 
