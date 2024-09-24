@@ -53,15 +53,17 @@ If you can't find them, you can build the drivers by yourself:
 
 ### Seed
 To populate the database with initial user data, run the following commands:
-(don't forget to run `npm install` in "seed" directory first)
+(don't forget to run `npm install` in "seed" directory first). 
+Make sure to run the app and connect to your database at least once in order 
+for the table to be created before populating it.
 - Linux
 ```
 chmod +x run-seed.sh
-./run-seed.sh <yourPostgresUrl> <number of users>
+./run-seed.sh <yourPostgresUrl> <tableName> <number of users>
 ```
 - Windows (bash)
 ```
-./run-seed.sh <yourPostgresUrl> <number of users>
+./run-seed.sh <yourPostgresUrl> <tableName> <number of users>
 ```
 
 ### Testing
