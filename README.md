@@ -74,3 +74,5 @@ chmod +x run-seed.sh
 [See here](https://github.com/itsdrc/users-registration-qml/blob/main/LICENSE)
 
 ## Images
+![image](https://github.com/user-attachments/assets/3719e89a-781c-4c1c-9d1a-0cec8a28329e)
+
