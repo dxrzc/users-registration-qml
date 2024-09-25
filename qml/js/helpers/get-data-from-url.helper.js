@@ -1,4 +1,4 @@
-const urlRegularExpresion = /^(postgresql):\/\/[a-zA-Z0-9]+:[a-zA-Z0-9]+@[a-zA-Z0-9.-]+:[0-9]+\/[a-zA-Z0-9]+$/;
+const urlRegularExpresion = /^(postgresql|postgres):\/\/(.*):(.*)@([^\/:]+):([0-9]+)\/(.*)$/;
 
 function validateUrl(url){
 
