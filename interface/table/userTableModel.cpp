@@ -16,6 +16,8 @@ UserTableModel::UserTableModel(qmlDto* dto_, QObject* parent): QAbstractTableMod
 
 void UserTableModel::loadData()
 {
+    // useful when the connection is recovered and the list already has data
+    usersList.clear();
     dto->getAllUsers(usersList);
 }
 
