@@ -53,9 +53,13 @@ bool PostgreDataSource::checkIfValueExists(const QString& userproperty, const QS
     }
 
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
-    const QString command = "SELECT 1 FROM %1 WHERE %2 = '%3'";
 
-    if (!query.exec(command.arg(m_tableName, userproperty, value)))
+    const QString command = "SELECT 1 FROM %1 WHERE %2=?";
+    query.prepare(command.arg(m_tableName,userproperty));
+    query.addBindValue(value);
+    const bool sucessfullQuery = query.exec();
+
+    if (!sucessfullQuery)
     {
         emit m_errorHandler->errorFromDataBase("Failed to check user");
         return false;
@@ -82,8 +86,15 @@ bool PostgreDataSource::checkIfPhoneNumberAlreadyExists(const QString& phoneNumb
 void PostgreDataSource::saveUser(const User& user)
 {
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
-    const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES ('%2', '%3', '%4', '%5')";
-    const bool userSaved = query.exec(command.arg(m_tableName, user.username(), user.birthdate().toQString(), user.email(), user.phoneNumber()));
+
+    const QString command = "INSERT INTO %1 (username,birthdate,email,phone) VALUES (?,?,?,?)";
+    query.prepare(command.arg(m_tableName));
+    query.addBindValue(user.username());
+    query.addBindValue(user.birthdate().toQString());
+    query.addBindValue(user.email());
+    query.addBindValue(user.phoneNumber());
+
+    const bool userSaved = query.exec();
     if (!userSaved)
         emit m_errorHandler->errorFromDataBase("Failed to save user");
 }
@@ -91,8 +102,13 @@ void PostgreDataSource::saveUser(const User& user)
 void PostgreDataSource::updateUsername(const QString &username, const QString &newUsername)
 {
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
-    const QString command = "UPDATE %1 SET username = '%2' WHERE username= '%3'";
-    const bool userModified = query.exec(command.arg(m_tableName,newUsername,username));
+
+    const QString command = "UPDATE %1 SET username=? WHERE username=?";
+    query.prepare(command.arg(m_tableName));
+    query.addBindValue(newUsername);
+    query.addBindValue(username);
+
+    const bool userModified = query.exec();
     if(!userModified || query.numRowsAffected() == 0)
         emit m_errorHandler-> errorFromDataBase("Failed to update username");
 }
@@ -100,8 +116,13 @@ void PostgreDataSource::updateUsername(const QString &username, const QString &n
 void PostgreDataSource::updateEmail(const QString &email, const QString &newEmail)
 {
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
-    const QString command = "UPDATE %1 SET email = '%2' WHERE email= '%3'";
-    const bool userModified = query.exec(command.arg(m_tableName,newEmail,email));
+
+    const QString command = "UPDATE %1 SET email=? WHERE email=?";
+    query.prepare(command.arg(m_tableName));
+    query.addBindValue(newEmail);
+    query.addBindValue(email);
+
+    const bool userModified = query.exec();
     if(!userModified || query.numRowsAffected() == 0)
         emit m_errorHandler-> errorFromDataBase("Failed to update user email");
 }
@@ -109,8 +130,13 @@ void PostgreDataSource::updateEmail(const QString &email, const QString &newEmai
 void PostgreDataSource::updatePhoneNumber(const QString &phonenumber, const QString &newPhoneNumber)
 {
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
-    const QString command = "UPDATE %1 SET phone = '%2' WHERE phone= '%3'";
-    const bool userModified = query.exec(command.arg(m_tableName,newPhoneNumber,phonenumber));
+
+    const QString command = "UPDATE %1 SET phone=? WHERE phone=?";
+    query.prepare(command.arg(m_tableName));
+    query.addBindValue(newPhoneNumber);
+    query.addBindValue(phonenumber);
+
+    const bool userModified = query.exec();
     if(!userModified || query.numRowsAffected() == 0)
         emit m_errorHandler-> errorFromDataBase("Failed to edit user phone");
 }
@@ -166,8 +192,12 @@ void PostgreDataSource::connect(const ConnectionOptions & options)
 void PostgreDataSource::deleteUser(const QString & username)
 {
     QSqlQuery query(QSqlDatabase::database(m_connectionName,false));
-    const QString command = "DELETE FROM %1 WHERE username = '%2'";
-    const bool userDeleted = query.exec(command.arg(m_tableName, username));
+
+    const QString command = "DELETE FROM %1 WHERE username=?";
+    query.prepare(command.arg(m_tableName));
+    query.addBindValue(username);
+
+    const bool userDeleted = query.exec();
     if (!userDeleted || query.numRowsAffected() == 0)
         emit m_errorHandler->errorFromDataBase("Failed to delete user");
 }
