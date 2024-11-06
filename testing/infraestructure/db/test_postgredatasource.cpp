@@ -38,7 +38,7 @@ private slots:
     {
         defaultMsgHandler = qInstallMessageHandler([](QtMsgType type, const QMessageLogContext &context, const QString &msg){
             // ignore this specific warning
-            if (msg.contains("QSqlQuery::exec: database not open"))
+            if (msg.contains("QSqlQuery::exec: database not open") || msg.contains("QSqlQuery::prepare: database not open"))
                 return;
             // other messages keep as usual
             qt_message_output(type, context, msg);

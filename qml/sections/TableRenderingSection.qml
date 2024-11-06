@@ -74,7 +74,7 @@ Rectangle{
         width: parent.width*0.98
         height:parent.height*0.98
         anchors.centerIn: parent
-        color: 'white'
+        color: 'white'        
 
         TableView {
             clip: true
@@ -84,6 +84,7 @@ Rectangle{
             model: usersTable // C++
             columnSpacing: Math.min(parent.width,parent.height)*0.003
             rowSpacing: Math.min(parent.width,parent.height)*0.003
+            property int rowsOnScreen: 7;
 
             delegate: Rectangle {
 
@@ -101,7 +102,9 @@ Rectangle{
                     }
                 }
 
-                implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rows-1))/7
+                // in order to find the height occupied by every row:
+                // (totalHeight - (heightOccupiedByTotalSpacing))/7
+                implicitHeight:(cellsContainer.height - userstable_tableview.rowSpacing*(userstable_tableview.rowsOnScreen-1))/userstable_tableview.rowsOnScreen
                 color: (column === 4)? 'transparent' :'lightgray'
 
                 TextEdit {
