@@ -6,11 +6,8 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/deployment")
 
 if(WIN32)    
     set(POSTGRESQL_LIB_DIR "C:/Program Files/PostgreSQL/17/bin")
-elseif(UNIX)    
-    set(POSTGRESQL_LIB_DIR "/usr/lib/postgresql/17/bin")
 endif()
 
-set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/users-registration.rc")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -20,8 +17,7 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 if(WIN32)
     qt_add_executable(appusers-registration-qml
-        main.cpp
-        ${app_icon_resource_windows}
+        main.cpp        
     )
 elseif(UNIX)
     qt_add_executable(appusers-registration-qml
