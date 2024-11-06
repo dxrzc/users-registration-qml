@@ -2,16 +2,33 @@ cmake_minimum_required(VERSION 3.16)
 
 project(users-registration-qml VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/deployment")
+
+if(WIN32)    
+    set(POSTGRESQL_LIB_DIR "C:/Program Files/PostgreSQL/17/bin")
+elseif(UNIX)    
+    set(POSTGRESQL_LIB_DIR "/usr/lib/postgresql/17/bin")
+endif()
+
+set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/users-registration.rc")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Sql QuickTest QuickControls2 Test)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Sql QuickTest QuickControls2 Test Qml)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
-qt_add_executable(appusers-registration-qml
-    main.cpp
-)
+if(WIN32)
+    qt_add_executable(appusers-registration-qml
+        main.cpp
+        ${app_icon_resource_windows}
+    )
+elseif(UNIX)
+    qt_add_executable(appusers-registration-qml
+        main.cpp
+        resources/app-icon.ico
+    )
+endif()
 
 set(plain_qml_files   
     qml/components/ActionIcon.qml
@@ -104,7 +121,13 @@ qt_add_qml_module(appusers-registration-qml
     ${assets_files}
 
     SOURCES    
-    ${cpp_files}
+    ${cpp_files}    
+)
+
+qt_generate_deploy_qml_app_script(
+    TARGET appusers-registration-qml
+    OUTPUT_SCRIPT deploy_script
+    NO_TRANSLATIONS
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -137,6 +160,20 @@ install(TARGETS appusers-registration-qml
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+install(SCRIPT ${deploy_script})
+
+if(WIN32)
+    install(FILES
+        ${POSTGRESQL_LIB_DIR}/libpq.dll
+        ${POSTGRESQL_LIB_DIR}/libcrypto-3-x64.dll
+        ${POSTGRESQL_LIB_DIR}/libiconv-2.dll
+        ${POSTGRESQL_LIB_DIR}/libintl-9.dll
+        ${POSTGRESQL_LIB_DIR}/libssl-3-x64.dll
+        ${POSTGRESQL_LIB_DIR}/libwinpthread-1.dll
+        DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 

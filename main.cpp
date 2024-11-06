@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+#include <QIcon>
 #include "infraestructure/db/postgredatasource.h"
 #include "interface/table/userTableModel.h"
 #include "global/config/qml.h"
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle(GlobalApplicationConfig::Qml::controlsStyle);
 
     QGuiApplication app(argc, argv);
+    app.setWindowIcon(QIcon("resources/app-icon.ico"));
 
     QQmlApplicationEngine engine;
 
