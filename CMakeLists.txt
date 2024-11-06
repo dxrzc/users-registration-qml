@@ -169,6 +169,10 @@ if(WIN32)
         ${POSTGRESQL_LIB_DIR}/libwinpthread-1.dll
         DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
+    install(FILES
+        resources/app-icon.ico
+        DESTINATION ${CMAKE_INSTALL_BINDIR}/resources
+    )
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
