@@ -33,7 +33,7 @@ Application to register users in Postgres SQL database using Qt Framework and C+
 ### Build
 Steps for building
 ```
-git clone https://github.com/itsdrc/users-registration-qml.git
+git clone https://github.com/dxrzc/users-registration-qml.git
 cd users-registration-qml
 cmake -DCMAKE_PREFIX_PATH=<qtInstallation>/<version>/<arch> -S . -B build
 cd build
